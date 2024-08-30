@@ -50,4 +50,14 @@ CREATE TABLE carrinho (
     constraint fk_carrinhoCliente foreign key (id_cliente) references cliente(cpf),
     constraint fk_carrinhoProdt foreign key (id_prodt) references produto(id_prodt)
 );
+
+CREATE TABLE pedido_itens (
+    id_item INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT NOT NULL,
+    id_prodt INT NOT NULL,
+    quantidade INT NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    constraint fk_itensPedido foreign key (id_pedido) references pedido(id_pedido),
+    constraint fk_itensProdt foreign key (id_prodt) references produto(id_prodt)
+);
  
