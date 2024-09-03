@@ -27,7 +27,7 @@ create table produto(
 
 create table pedido(
 	id_pedido INT AUTO_INCREMENT PRIMARY KEY,
-    id_prodt int not null,
+    id_carr int not null,
     endereco varchar(255) not null,
     bairro varchar(255) not null,
     data_entg date not null,
@@ -38,7 +38,7 @@ create table pedido(
     stts varchar(30),
     
     constraint fk_pedidoCliente foreign key (cpf_cliente) references cliente(cpf),
-	constraint fk_pedidoProdt foreign key (id_prodt) references produto(id_prodt),
+	constraint fk_pedidoCarr foreign key (id_carr) references carinho(id_carr),
     constraint fk_pedidoFunc foreign key (id_responsavel) references funcionario(id_func)
 );
 
