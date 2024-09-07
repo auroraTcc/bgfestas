@@ -12052,23 +12052,13 @@ h5, .h5 {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  padding: 0 1.25rem;
   text-align: center;
 }
-#hero h1, #hero .h1 {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 2rem;
-}
-#hero h1 span, #hero .h1 span {
-  color: #eb7100;
-}
-@media (min-width: 768px) {
-  #hero h1, #hero .h1 {
-    font-size: 2.5rem;
+@media (min-width: 992px) {
+  #hero {
+    padding: 0;
   }
-}
-#hero p {
-  font-size: 1.25rem;
 }
 @media (min-width: 992px) {
   #hero {
@@ -12103,6 +12093,27 @@ h5, .h5 {
 @media (min-width: 992px) {
   #hero > div:nth-child(1) {
     align-items: normal;
+  }
+}
+#hero h1, #hero .h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2rem;
+}
+#hero h1 span, #hero .h1 span {
+  color: #eb7100;
+}
+@media (min-width: 768px) {
+  #hero h1, #hero .h1 {
+    font-size: 2.5rem;
+  }
+}
+#hero p {
+  font-size: 1rem;
+}
+@media (min-width: 768px) {
+  #hero p {
+    font-size: 1.12rem;
   }
 }
 #hero #heroImgContainer {
