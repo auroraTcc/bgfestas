@@ -12027,13 +12027,8 @@ h5, .h5 {
 }
 
 .section-padding {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.section-padding-lg {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .btn {
@@ -12165,11 +12160,26 @@ h5, .h5 {
   }
 }
 
+#prices .card {
+  width: 100%;
+}
+#prices .card img {
+  height: 13rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#prices .card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
 #prices .card-title {
-  font-size: 1rem;
   margin-bottom: 0;
 }
 #prices .card-text {
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   font-size: 1.25rem;
   font-weight: bold;
 }
