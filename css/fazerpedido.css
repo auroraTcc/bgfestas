@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+    --primary: #eb7100;
+    --body-color: #160c04;
+    --secondary-color: #3b3837;
+    --tertiary-color: #7f7977;
+    --body-bg: #fbf7f4;
+    --secondary-bg: #ede8e1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    font-family: "Inter", sans-serif;
+}
+hr {
+    border-top: 1px solid var(--primary);
+}
+#jogos,
+#mesas,
+#cadeiras {
+    background-color: var(--primary);
+    color: var(--body-bg);
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    padding: 4px, 16px;
+    gap: 4px;
+    height: 25px;
+    width: 84px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.item,
+.total {
+    display: flex;
+    justify-content: space-between;
+}
+
+form label {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item label span {
+    display: flex;
+    justify-content: center;
+    width: 1.75rem;
+}
+
+.cart-item label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cart-item select {
+    text-align: right;
+}
+
+.valor {
+    text-align: right;
+}
+
+.btn-prosseguir {
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--body-bg);
+    padding: 0.5rem 2.5rem;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.geral {
+    display: flex;
+    min-height: 100vh;
+}
+.esquerda,
+.direita {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    flex-direction: column;
+}
+.card {
+    display: none;
+    width: 27.3rem;
+    padding: 24px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: var(--body-bg);
+
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card.active {
+    display: flex;
+}
+
+.card header {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 4rem;
+}
+
+.form-etapa {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-section {
+    display: flex;
+    gap: 2rem;
+}
+
+.form-section div {
+    width: 100%;
+}
+
+.form-section input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.numero-etapa,
+.numero-etapa-certa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.numero-etapa-certa div {
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 2.5rem;
+    text-align: center;
+    background-color: var(--primary);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    border: solid 0.2rem #fdf9f448;
+}
+.numero-etapa-certa h5 {
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+.numero-etapa h5 {
+    color: var(--tertiary-color);
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+.numero-etapa div {
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    background-color: var(--secondary-bg);
+    border-radius: 50%; /* Bordas arredondadas (círculo) */
+}
+.carrinho {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.form-contato {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.itens-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+form input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form label span {
+    display: flex;
+    align-items: center;
+    line-height: 0.5rem;
+}
+
+.form-carrinho,
+.form-contato > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.direita {
+    background-color: var(--secondary-color);
+}
+
+@media screen and (max-width: 992px) {
+    .direita {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .card {
+        height: 100%;
+        width: 100%;
+    }
+
+    .card header {
+        padding: 0;
+    }
+
+    .form-section {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 0;
+    }
+
+    .carrinho {
+        gap: 1rem;
+    }
+
+    .cart-item {
+        gap: 0.5rem;
+        flex-direction: column;
+    }
+
+    .cart-item > * {
+        justify-content: center;
+        width: 100% !important;
+    }
+}

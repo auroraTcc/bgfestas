@@ -92,7 +92,17 @@ h5 {
         padding: 0;
     }
 
+    @include media-breakpoint-up(sm) {
+        max-width: 540px;
+        margin: 0 auto;
+    }
+
+    @include media-breakpoint-up(md) {
+        max-width: 720px;
+    }
+
     @include media-breakpoint-up(lg) {
+        max-width: unset;
         gap: 8rem;
         text-align: left;
         flex-direction: row;
@@ -100,11 +110,11 @@ h5 {
     }
 
     @include media-breakpoint-up(xl) {
-        margin-left: calc((100% - 1140px) / 2);
+        margin-left: calc(((100% - 1140px) / 2) + 1.5rem * 0.5);
     }
 
     @include media-breakpoint-up(xxl) {
-        margin-left: calc((100% - 1320px) / 2);
+        margin-left: calc(((100% - 1320px) / 2) + 1.5rem * 0.5);
     }
 
     & > * {
@@ -148,13 +158,8 @@ h5 {
     }
 
     #heroImgContainer {
-        height: 60%;
+        height: 40%;
         width: 100%;
-        padding: 1rem;
-
-        @include media-breakpoint-up(md) {
-            padding: 0;
-        }
 
         @include media-breakpoint-up(lg) {
             height: 100%;
@@ -185,7 +190,7 @@ h5 {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 1.5rem;
 
         @include media-breakpoint-up(md) {
             flex-direction: row;

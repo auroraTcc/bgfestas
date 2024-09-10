@@ -12055,8 +12055,20 @@ h5, .h5 {
     padding: 0;
   }
 }
+@media (min-width: 576px) {
+  #hero {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 768px) {
+  #hero {
+    max-width: 720px;
+  }
+}
 @media (min-width: 992px) {
   #hero {
+    max-width: unset;
     gap: 8rem;
     text-align: left;
     flex-direction: row;
@@ -12065,12 +12077,12 @@ h5, .h5 {
 }
 @media (min-width: 1200px) {
   #hero {
-    margin-left: calc((100% - 1140px) / 2);
+    margin-left: calc((100% - 1140px) / 2 + 0.75rem);
   }
 }
 @media (min-width: 1400px) {
   #hero {
-    margin-left: calc((100% - 1320px) / 2);
+    margin-left: calc((100% - 1320px) / 2 + 0.75rem);
   }
 }
 @media (min-width: 992px) {
@@ -12112,14 +12124,8 @@ h5, .h5 {
   }
 }
 #hero #heroImgContainer {
-  height: 60%;
+  height: 40%;
   width: 100%;
-  padding: 1rem;
-}
-@media (min-width: 768px) {
-  #hero #heroImgContainer {
-    padding: 0;
-  }
 }
 @media (min-width: 992px) {
   #hero #heroImgContainer {
@@ -12150,7 +12156,7 @@ h5, .h5 {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 @media (min-width: 768px) {
   #prices > div,
@@ -12369,4 +12375,4 @@ footer {
     justify-content: space-between;
     text-align: left;
   }
-}/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=landingpage.css.map */
