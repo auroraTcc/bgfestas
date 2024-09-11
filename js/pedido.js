@@ -3,6 +3,8 @@ const precoMesas = 5;
 const precoCadeiras = 2;
 const pedidoMinimo = 50;
 
+let slideIndex = 0;
+
 let etapa = 1;
 const cards = $(".card");
 
@@ -15,17 +17,6 @@ let total = 0;
 $("#cep").mask("00000-000");
 $("#telefone").mask("(00) 00000-0000");
 $("#cpf").mask("000.000.000-00", { reverse: true });
-
-$(".btn-prosseguir").on("click", function (event) {
-    event.preventDefault();
-    if (etapa < cards.length) {
-        $(cards[etapa - 1]).removeClass("active");
-
-        $(cards[etapa]).addClass("active");
-
-        etapa++;
-    }
-});
 
 $("#cep").blur(function () {
     let cep = $(this).val().replace(/\D/g, "");
@@ -43,14 +34,11 @@ $("#cep").blur(function () {
                 "https://viacep.com.br/ws/" + cep + "/json/?callback=?",
                 function (dados) {
                     if (!("erro" in dados)) {
-                        //Atualiza os campos com os valores da consulta.
                         $("#endereco").val(dados.logradouro);
                         $("#bairro").val(dados.bairro);
                         $("#cidade").val(dados.localidade);
                         $("#estado").val(dados.estado);
-                    } //end if.
-                    else {
-                        //CEP pesquisado não foi encontrado.
+                    } else {
                         limpa_formulário_cep();
                         alert("CEP não encontrado.");
                     }
@@ -60,9 +48,19 @@ $("#cep").blur(function () {
             limpa_formulário_cep();
             alert("Formato de CEP inválido.");
         }
-    } else {
-        limpa_formulário_cep();
     }
+});
+
+$("form").on("submit", function (evt) {
+    evt.preventDefault();
+    $(".card.active").removeClass("active");
+    $(this).next(".card").addClass("active");
+
+    slideIndex++;
+    $("#slides-container").css(
+        "transform",
+        `translateX(-${27.3 * slideIndex}rem)`
+    );
 });
 
 function formatarMoeda(valor) {
