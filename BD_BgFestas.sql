@@ -1,13 +1,11 @@
 create database BG_festas;
 use BG_festas;
 
-create table cliente (
+create table cliente(
 	cpf char(11) not null primary key,
     nome varchar(255) not null,
-    endereco varchar(255) not null,
-    bairro varchar(255) not null,
-    email varchar(255) not null,
-    contato char(11) not null
+    contato char(11) not null,
+    email varchar(255)
 );
 
 create table funcionario(
@@ -20,35 +18,38 @@ create table funcionario(
 create table produto(
 	id_prodt INT AUTO_INCREMENT PRIMARY KEY,
     nome varchar(255) not null,
-    descricao varchar(255) not null,
-    preco decimal(10,2) not null,
-    imagem varchar(255)
+    qtd_disp int,
+    qtd_total int
 );
 
-create table pedido(
-	id_pedido INT AUTO_INCREMENT PRIMARY KEY,
-    id_carr int not null,
-    endereco varchar(255) not null,
-    bairro varchar(255) not null,
-    data_entg date not null,
-    horario time not null,
-    cpf_cliente varchar(255) not null,
-    contato char(11) not null,
-    id_responsavel varchar(255) not null,
-    stts varchar(30),
-    
-    constraint fk_pedidoCliente foreign key (cpf_cliente) references cliente(cpf),
-	constraint fk_pedidoCarr foreign key (id_carr) references carinho(id_carr),
-    constraint fk_pedidoFunc foreign key (id_responsavel) references funcionario(id_func)
-);
-
-CREATE TABLE carrinho (
+CREATE TABLE carrinho(
     id_carr INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente char(11) not null,
     id_prodt INT,
     quantidade INT,
     constraint fk_carrinhoCliente foreign key (id_cliente) references cliente(cpf),
     constraint fk_carrinhoProdt foreign key (id_prodt) references produto(id_prodt)
+);
+
+create table pedido(
+	id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    id_carr int not null,
+    endereco varchar(255) not null,
+    numero int not null,
+    complemento varchar(255),
+    bairro varchar(255) not null,
+    data_entg date not null,
+    hora_entreg time not null,
+    data_ret date not null,
+    hora_ret time not null,
+    cpf_cliente char(11) not null,
+    contato char(11) not null,
+    id_responsavel char(6) not null,
+    stts varchar(30),
+    
+    constraint fk_pedidoCliente foreign key (cpf_cliente) references cliente(cpf),
+	constraint fk_pedidoCarr foreign key (id_carr) references carrinho(id_carr),
+    constraint fk_pedidoFunc foreign key (id_responsavel) references funcionario(id_func)
 );
 
 CREATE TABLE pedido_itens (
@@ -60,4 +61,3 @@ CREATE TABLE pedido_itens (
     constraint fk_itensPedido foreign key (id_pedido) references pedido(id_pedido),
     constraint fk_itensProdt foreign key (id_prodt) references produto(id_prodt)
 );
- 
