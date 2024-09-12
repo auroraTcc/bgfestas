@@ -31,7 +31,7 @@
             $this->contato = $contato;
         }
 
-        public function inserirCliente() {
+        public function inserirCliente($cpfCliente, $nome, $telefone) {
             // $query_check = "SELECT cpf FROM cliente WHERE cpf = ? AND WHERE bairro = ?";
             // $stmt_check = $this->conn->prepare($query_check);
             // $stmt_check->bindParam('s', $this->cpf);
@@ -46,7 +46,7 @@
 
             $query = "INSERT INTO cliente (cpf, nome, contato) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bind_param('sss', $this->cpf, $this->nome, $this->contato);
+            $stmt->bind_param('sss', $cpfCliente, $nome, $telefone);
 
             if ($stmt->execute()) {
                 header("Location: /bgfestas/fazerpedido/sucesso"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
@@ -59,5 +59,3 @@
         }
     }
 
-
-?>

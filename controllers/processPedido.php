@@ -30,4 +30,3 @@
         $pedido = new Pedido($conn);
     }
     
-?>

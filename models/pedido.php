@@ -1,6 +1,9 @@
 <?php
     require "../config/conexao.php";
     class Pedido {
+        function __construct($conn) {
+            $this->conn = $conn;
+        }            
         private $cep;
         private $endereco;
         private $numero;
@@ -64,7 +67,7 @@
         }
 
         public function getHoraEntrega(){
-            return $this->hora_entrega;
+            return $this->horario_entrega;
         }
         public function setHoraEntrega($hora_entrega){
             $this->hora_entrega = $hora_entrega;
@@ -78,7 +81,7 @@
         }
 
         public function getHoraRetirada(){
-            return $this->hora_retirada;
+            return $this->horario_retirada;
         }
         public function setHoraRetirada($hora_retirada){
             $this->hora_retirada = $hora_retirada;
@@ -99,4 +102,3 @@
         }
 
     }
-?>
