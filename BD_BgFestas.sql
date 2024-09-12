@@ -4,8 +4,7 @@ use BG_festas;
 create table cliente(
 	cpf char(11) not null primary key,
     nome varchar(255) not null,
-    contato char(11) not null,
-    email varchar(255)
+    contato char(11) not null
 );
 
 create table funcionario(
@@ -21,6 +20,10 @@ create table produto(
     qtd_disp int,
     qtd_total int
 );
+insert into produto(nome, qtd_disp, qtd_total) values ("Jogo completo", 170, 170);
+insert into produto(nome, qtd_disp, qtd_total) values ("Cadeira avulsa", 680, 680);
+insert into produto(nome, qtd_disp, qtd_total) values ("Mesa avulsa", 170, 170);
+
 
 CREATE TABLE carrinho(
     id_carr INT AUTO_INCREMENT PRIMARY KEY,
@@ -34,6 +37,7 @@ CREATE TABLE carrinho(
 create table pedido(
 	id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_carr int not null,
+    cep varchar(9) not null,
     endereco varchar(255) not null,
     numero int not null,
     complemento varchar(255),

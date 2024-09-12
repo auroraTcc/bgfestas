@@ -1,14 +1,28 @@
 <?php
+    require "../config/conexao.php"
     class Cliente {
-        private $conn;
         private $nome;
         private $cpf;
         private $telefone;
 
-        public function __construct($conn, $nome, $cpf, $telefone) {
-            $this->conn = $conn;
+        public function getNome(){
+            return $this->nome;
+        }
+        public function setNome($nome){
             $this->nome = $nome;
+        }
+
+        public function getCPF(){
+            return $this->cpf;
+        }
+        public function setCPF($cpf){
             $this->cpf = $cpf;
+        }
+
+        public function getTelefone(){
+            return $this->telefone;
+        }
+        public function setTelefone($telefone){
             $this->telefone = $telefone;
         }
 

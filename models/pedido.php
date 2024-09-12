@@ -1,23 +1,21 @@
 <?php
+    require "../config/conexao.php";
     class Pedido {
-        private $conn;
-        private $cpf_cliente;
         private $cep;
         private $endereco;
         private $numero;
         private $complemento;
         private $bairro;
-        private $cidade;
-        private $estado;
         private $data_entrega;
         private $horario_entrega;
         private $data_retirada;
         private $horario_retirada;
-        private $quantidade;
+        private $cpf_cliente;
+        private $contato;
 
-        public function __construct($conn, $cpf_cliente, $cep, $endereco, $numero, $complemento, $bairro, $cidade, $estado, $data_entrega, $horario_entrega, $data_retirada, $horario_retirada, $quantidade) {
+
+        public function __construct($conn, $cep, $endereco, $numero, $complemento, $bairro, $data_entrega, $horario_entrega, $data_retirada, $horario_retirada, $cpf_cliente, $contato) {
             $this->conn = $conn;
-            $this->cpf_cliente = $cpf_cliente;
             $this->cep = $cep;
             $this->endereco = $endereco;
             $this->numero = $numero;
@@ -29,29 +27,86 @@
             $this->horario_entrega = $horario_entrega;
             $this->data_retirada = $data_retirada;
             $this->horario_retirada = $horario_retirada;
-            $this->quantidade = $quantidade;
+            $this->cpf_cliente = $cpf_cliente;
+            $this->contato = $contato;
         }
 
-        public function inserirPedido() {
-            $query = "INSERT INTO pedido (cpf_cliente, cep, endereco, numero, complemento, bairro, cidade, estado, data_entrega, horario_entrega, data_retirada, horario_retirada, quantidade) 
-                    VALUES (:cpf_cliente, :cep, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :data_entrega, :horario_entrega, :data_retirada, :horario_retirada, :quantidade)";
-            $stmt = $this->conn->prepare($query);
-
-            $stmt->bindParam(':cpf_cliente', $this->cpf_cliente);
-            $stmt->bindParam(':cep', $this->cep);
-            $stmt->bindParam(':endereco', $this->endereco);
-            $stmt->bindParam(':numero', $this->numero);
-            $stmt->bindParam(':complemento', $this->complemento);
-            $stmt->bindParam(':bairro', $this->bairro);
-            $stmt->bindParam(':cidade', $this->cidade);
-            $stmt->bindParam(':estado', $this->estado);
-            $stmt->bindParam(':data_entrega', $this->data_entrega);
-            $stmt->bindParam(':horario_entrega', $this->horario_entrega);
-            $stmt->bindParam(':data_retirada', $this->data_retirada);
-            $stmt->bindParam(':horario_retirada', $this->horario_retirada);
-            $stmt->bindParam(':quantidade', $this->quantidade);
-
-            return $stmt->execute();
+        public function getCep(){
+            return $this->cep;
         }
+        public function setCep($cep){
+            $this->cep = $cep;
+        }
+
+        public function getEndereço(){
+            return $this->endereco;
+        }
+        public function setEndereco($endereco){
+            $this->endereco = $endereco;
+        }
+
+        public function getNumero(){
+            return $this->numero;
+        }
+        public function setNumero($numero){
+            $this->numero = $numero;
+        }
+
+        public function getComplemento(){
+            return $this->complemento;
+        }
+        public function setComplemento($complemento){
+            $this->complemento = $complemento;
+        }
+
+        public function getBairro(){
+            return $this->complemento;
+        }
+        public function setBairro($bairro){
+            $this->bairro = $bairro
+        }
+
+        public function getDataEntrega(){
+            return $this->data_entrega;
+        }
+        public function setDataEntrega($data_entrega){
+            $this->data_entrega = $data_entrega
+        }
+
+        public function getHoraEntrega(){
+            return $this->hora_entrega;
+        }
+        public function setHoraEntrega($hora_entrega){
+            $this->hora_entrega = $hora_entrega
+        }
+
+        public function getDataRetirada(){
+            return $this->data_retirada;
+        }
+        public function setDataRetirada($data_retirada){
+            $this->data_retirada = $data_retirada
+        }
+
+        public function getHoraRetirada(){
+            return $this->hora_retirada;
+        }
+        public function setHoraRetirada($hora_retirada){
+            $this->hora_retirada = $hora_retirada
+        }
+
+        public function getCpfCliente(){
+            return $this->cpf_cliente;
+        }
+        public function setCpfCliente($cpf_cliente){
+            $this->cpf_cliente = $cpf_cliente
+        }
+
+        public function getContato(){
+            return $this->contato;
+        }
+        public function setContato($contato){
+            $this->contato = $contato
+        }
+
     }
 ?>
