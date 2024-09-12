@@ -42,6 +42,7 @@ create table pedido(
     numero int not null,
     complemento varchar(255),
     bairro varchar(255) not null,
+    cidade varchar(255) not null,
     data_entg date not null,
     hora_entreg time not null,
     data_ret date not null,

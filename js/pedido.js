@@ -5,7 +5,6 @@ const pedidoMinimo = 50;
 
 let slideIndex = 0;
 
-let etapa = 1;
 const cards = $(".card");
 
 let valorTotalDeJogos = 0;
@@ -51,17 +50,20 @@ $("#cep").blur(function () {
     }
 });
 
-$("form").on("submit", function (evt) {
-    evt.preventDefault();
-    $(".card.active").removeClass("active");
-    $(this).next(".card").addClass("active");
-
-    slideIndex++;
-    $("#slides-container").css(
-        "transform",
-        `translateX(-${27.3 * slideIndex}rem)`
-    );
-});
+// $(".btn-prosseguir").each(function () {
+//     $(this).on("click", function () {
+        
+//         if(slideIndex < 2) {
+//             slideIndex++;
+//             $("#slides-container").css(
+//                 "transform",
+//                 `translateX(-${27.3 * slideIndex}rem)`
+//             );
+//         } else {
+//             console.log("ultimatepa")
+//         }
+//     }
+// )});
 
 function formatarMoeda(valor) {
     return `R$ ${valor.toFixed(2).replace(".", ",")}`;

@@ -1,16 +1,14 @@
 <?php
-    require "../config/conexao.php"
+    require "../config/conexao.php";
     class Cliente {
+        function __construct($conn) {
+            $this->conn = $conn;
+        }            
+
+        private $conn;
         private $nome;
         private $cpf;
-        private $telefone;
-
-        public function getNome(){
-            return $this->nome;
-        }
-        public function setNome($nome){
-            $this->nome = $nome;
-        }
+        private $contato;
 
         public function getCPF(){
             return $this->cpf;
@@ -19,34 +17,47 @@
             $this->cpf = $cpf;
         }
 
-        public function getTelefone(){
-            return $this->telefone;
+        public function getNome(){
+            return $this->nome;
         }
-        public function setTelefone($telefone){
-            $this->telefone = $telefone;
+        public function setNome($nome){
+            $this->nome = $nome;
+        }
+
+        public function getContato(){
+            return $this->contato;
+        }
+        public function setContato($contato){
+            $this->contato = $contato;
         }
 
         public function inserirCliente() {
-            // Verifica se o cliente já existe no banco de dados
-            $query_check = "SELECT cpf FROM cliente WHERE cpf = :cpf";
-            $stmt_check = $this->conn->prepare($query_check);
-            $stmt_check->bindParam(':cpf', $this->cpf);
-            $stmt_check->execute();
+            // $query_check = "SELECT cpf FROM cliente WHERE cpf = ? AND WHERE bairro = ?";
+            // $stmt_check = $this->conn->prepare($query_check);
+            // $stmt_check->bindParam('s', $this->cpf);
+            // $stmt_check->execute();
+            // if ($stmt_check->rowCount() == 0) {
+            //     // Se o cliente não existe, faz a inserção
+                
+            // } else {
+            //     // Se o cliente já existe, não faz inserção e retorna verdadeiro
+            //     return true;
+            // }
 
-            if ($stmt_check->rowCount() == 0) {
-                // Se o cliente não existe, faz a inserção
-                $query = "INSERT INTO cliente (cpf, nome, telefone) VALUES (:cpf, :nome, :telefone)";
-                $stmt = $this->conn->prepare($query);
+            $query = "INSERT INTO cliente (cpf, nome, contato) VALUES (?, ?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param('sss', $this->cpf, $this->nome, $this->contato);
 
-                $stmt->bindParam(':cpf', $this->cpf);
-                $stmt->bindParam(':nome', $this->nome);
-                $stmt->bindParam(':telefone', $this->telefone);
-
-                return $stmt->execute();
+            if ($stmt->execute()) {
+                header("Location: /bgfestas/fazerpedido/sucesso"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
+                exit(); 
             } else {
-                // Se o cliente já existe, não faz inserção e retorna verdadeiro
-                return true;
+                header("Location: /bgfestas/fazerpedido/erro"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
             }
+
+            $stmt->close();
         }
     }
+
+
 ?>
