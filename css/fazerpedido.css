@@ -99,16 +99,16 @@ form label {
     flex-direction: column;
 }
 
-/* #carrossel {
+#carrossel {
     overflow: hidden;
     max-width: 27.3rem;
     position: relative;
-} */
-/* 
+}
+
 #slides-container {
     display: flex;
     transition: transform 0.4s ease-in-out;
-} */
+}
 
 .card {
     display: flex;

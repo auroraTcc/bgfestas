@@ -50,20 +50,34 @@ $("#cep").blur(function () {
     }
 });
 
-// $(".btn-prosseguir").each(function () {
-//     $(this).on("click", function () {
-        
-//         if(slideIndex < 2) {
-//             slideIndex++;
-//             $("#slides-container").css(
-//                 "transform",
-//                 `translateX(-${27.3 * slideIndex}rem)`
-//             );
-//         } else {
-//             console.log("ultimatepa")
-//         }
-//     }
-// )});
+$(".btn-prosseguir").each(function () {
+    $(this).on("click", function (event) {
+        if (slideIndex < 2) {
+            event.preventDefault();
+            let valid = true;
+            $(this)
+                .closest(".card")
+                .find("input[required]")
+                .each(function () {
+                    if (!this.checkValidity()) {
+                        valid = false;
+                        this.reportValidity();
+                        return false;
+                    }
+                });
+
+            if (valid) {
+                slideIndex++;
+                $("#slides-container").css(
+                    "transform",
+                    `translateX(-${27.3 * slideIndex}rem)`
+                );
+            }
+        } else {
+            $("form").submit();
+        }
+    });
+});
 
 function formatarMoeda(valor) {
     return `R$ ${valor.toFixed(2).replace(".", ",")}`;
