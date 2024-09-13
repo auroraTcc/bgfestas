@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="../css/fazerpedido.css" />
         <title>Fazer Pedido</title>
 
+        <link
+            rel="stylesheet"
+            href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        />
         <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
@@ -28,9 +32,11 @@
                     <form
                         id="slides-container"
                         method="POST"
+                        class="needs-validation"
+                        novalidate
                         action="../controllers/processPedido.php"
                     >
-                        <div class="card active">
+                        <div class="formCard active">
                             <header>
                                 <div class="numero-etapa-certa">
                                     <div>1</div>
@@ -54,7 +60,11 @@
                                         name="cep"
                                         placeholder="Ex.: 00000-000"
                                         required
+                                        class="form-control"
                                     />
+                                    <div class="invalid-feedback">
+                                        Insira um CEP válido.
+                                    </div>
                                 </div>
                                 <div>
                                     <label for="endereco">Endereço</label>
@@ -64,6 +74,7 @@
                                         name="endereco"
                                         placeholder=""
                                         required
+                                        class="form-control"
                                     />
                                 </div>
                                 <div>
@@ -74,6 +85,7 @@
                                         id="numero"
                                         placeholder="número ou s/n"
                                         required
+                                        class="form-control"
                                     />
                                 </div>
                                 <div>
@@ -82,6 +94,7 @@
                                         type="text"
                                         id="complemento"
                                         name="complemento"
+                                        class="form-control"
                                         placeholder="Apartamento, sala, conjunto, edifício, andar, etc."
                                     />
                                 </div>
@@ -93,6 +106,7 @@
                                         id="bairro"
                                         placeholder=""
                                         required
+                                        class="form-control"
                                     />
                                 </div>
                                 <div>
@@ -101,6 +115,7 @@
                                         type="text"
                                         id="cidade"
                                         name="cidade"
+                                        class="form-control"
                                         placeholder="Insira o CEP acima para preencher a cidade"
                                         required
                                     />
@@ -109,7 +124,7 @@
                             <button class="btn-prosseguir">Prosseguir</button>
                         </div>
 
-                        <div class="card">
+                        <div class="formCard">
                             <header>
                                 <div class="numero-etapa">
                                     <div>1</div>
@@ -126,54 +141,17 @@
                             </header>
                             <div class="form-section">
                                 <div>
-                                    <label for="dataDeEntrega"
-                                        ><span>*</span> Data da entrega</label
+                                    <label for="datetimes"
+                                        >Data e hora do seu evento:</label
                                     >
                                     <input
-                                        name="dataDeEntrega"
-                                        id="dataDeEntrega"
-                                        type="date"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label for="dataDeEntrega"
-                                        ><span>*</span> Horário de
-                                        entrega</label
-                                    >
-                                    <input
-                                        type="time"
-                                        name="horarioDaEntrega"
-                                        id="horarioDaEntrega"
-                                        required
+                                        class="form-control form-control-solid"
+                                        placeholder="Pick date rage"
+                                        id="kt_daterangepicker_2"
                                     />
                                 </div>
                             </div>
-                            <div class="form-section">
-                                <div>
-                                    <label for="dataDeRetirada"
-                                        ><span>*</span> Data de Retirada</label
-                                    >
-                                    <input
-                                        type="date"
-                                        name="dataDeRetirada"
-                                        id="dataDeRetirada"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label for="horarioDaRetirada"
-                                        ><span>*</span>Horário de
-                                        Retirada</label
-                                    >
-                                    <input
-                                        type="time"
-                                        name="horarioDaRetirada"
-                                        id="horarioDaRetirada"
-                                        required
-                                    />
-                                </div>
-                            </div>
+
                             <div class="form-carrinho">
                                 <h3>Carrinho de compras</h3>
                                 <div class="carrinho">
@@ -279,7 +257,7 @@
                             <button class="btn-prosseguir">Prosseguir</button>
                         </div>
 
-                        <div class="card">
+                        <div class="formCard">
                             <div class="form-contato">
                                 <header>
                                     <div class="numero-etapa">
@@ -305,8 +283,12 @@
                                             id="cpf"
                                             name="cpf"
                                             required
+                                            class="form-control"
                                             placeholder="Ex.: 000.0000.000-00"
                                         />
+                                        <div class="invalid-feedback">
+                                            Insira um CPF válido.
+                                        </div>
                                     </div>
                                     <div>
                                         <label for="nome"
@@ -317,6 +299,7 @@
                                             id="nome"
                                             name="nome"
                                             required
+                                            class="form-control"
                                             placeholder="Insira seu nome"
                                         />
                                     </div>
@@ -330,6 +313,7 @@
                                             id="telefone"
                                             name="telefone"
                                             required
+                                            class="form-control"
                                             placeholder="Ex.: (11) 90000-0000"
                                         />
                                     </div>

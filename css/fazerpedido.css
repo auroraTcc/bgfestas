@@ -20,7 +20,10 @@ body {
     font-family: "Inter", sans-serif;
 }
 hr {
-    border-top: 1px solid var(--primary);
+    margin: 0 !important;
+    color: unset !important;
+    opacity: 1 !important ;
+    border-top: 1px solid var(--primary) !important;
 }
 #jogos,
 #mesas,
@@ -110,7 +113,7 @@ form label {
     transition: transform 0.4s ease-in-out;
 }
 
-.card {
+.formCard {
     display: flex;
     min-width: 27.3rem;
     padding: 24px;
@@ -121,7 +124,7 @@ form label {
     gap: 1.5rem;
 }
 
-.card header {
+.formCard header {
     display: flex;
     justify-content: space-around;
     padding: 0 4rem;
@@ -249,7 +252,7 @@ form label span {
 }
 
 @media screen and (max-width: 576px) {
-    .card {
+    .formCard {
         height: 100%;
         width: 100%;
         min-width: 100vw;

@@ -5,8 +5,6 @@ const pedidoMinimo = 50;
 
 let slideIndex = 0;
 
-const cards = $(".card");
-
 let valorTotalDeJogos = 0;
 let valorTotalDeMesas = 0;
 let valorTotalDeCadeiras = 0;
@@ -56,7 +54,7 @@ $(".btn-prosseguir").each(function () {
             event.preventDefault();
             let valid = true;
             $(this)
-                .closest(".card")
+                .closest(".formCard")
                 .find("input[required]")
                 .each(function () {
                     if (!this.checkValidity()) {
