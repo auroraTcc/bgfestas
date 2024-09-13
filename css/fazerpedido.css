@@ -234,8 +234,12 @@ form label span {
     gap: 0.5rem;
 }
 
-.direita {
-    background-color: var(--secondary-color);
+.direita span {
+    height: 100%;
+    width: 100%;
+    background-image: url(../imgs/formimg.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 992px) {
