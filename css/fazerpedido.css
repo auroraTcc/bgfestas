@@ -101,7 +101,7 @@ form label {
 
 #carrossel {
     overflow: hidden;
-    width: 100%;
+    max-width: 27.3rem;
     position: relative;
 }
 

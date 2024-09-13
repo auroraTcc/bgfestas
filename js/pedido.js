@@ -70,7 +70,7 @@ $(".btn-prosseguir").each(function () {
                 slideIndex++;
                 $("#slides-container").css(
                     "transform",
-                    `translateX(-${27.3 * slideIndex}rem)`
+                    `translateX(-${100 * slideIndex}%)`
                 );
             }
         }
