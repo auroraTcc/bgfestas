@@ -44,16 +44,18 @@
             //     return true;
             // }
 
-            $query = "INSERT INTO cliente (cpf, nome, contato) VALUES (?, ?, ?)";
+            $query = "INSERT INTO cliente (cpf, nome, telefone) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param('sss', $cpfCliente, $nome, $telefone);
 
-            if ($stmt->execute()) {
+            $stmt->execute();
+
+            /* if ($stmt->execute()) {
                 header("Location: /bgfestas/fazerpedido/sucesso"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
                 exit(); 
             } else {
                 header("Location: /bgfestas/fazerpedido/erro"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
-            }
+            } */
 
             $stmt->close();
         }

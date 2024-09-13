@@ -10,12 +10,12 @@
         private $complemento;
         private $bairro;
         private $cidade;
-        private $data_entrega;
-        private $horario_entrega;
-        private $data_retirada;
-        private $horario_retirada;
-        private $cpf_cliente;
-        private $contato;
+        private $dataEntg;
+        private $horaEntg;
+        private $dataRet;
+        private $horaRet;
+        private $cpfCliente;
+        private $telefone;
 
         public function getCep(){
             return $this->cep;
@@ -60,45 +60,61 @@
         }
 
         public function getDataEntrega(){
-            return $this->data_entrega;
+            return $this->dataEntg;
         }
-        public function setDataEntrega($data_entrega){
-            $this->data_entrega = $data_entrega;
+        public function setDataEntrega($dataEntg){
+            $this->dataEntg = $dataEntg;
         }
 
         public function getHoraEntrega(){
-            return $this->horario_entrega;
+            return $this->horaEntg;
         }
-        public function setHoraEntrega($hora_entrega){
-            $this->hora_entrega = $hora_entrega;
+        public function setHoraEntrega($horaEntg){
+            $this->horaEntg = $horaEntg;
         }
 
-        public function getDataRetirada(){
-            return $this->data_retirada;
+        public function getDataRet(){
+            return $this->dataRet;
         }
-        public function setDataRetirada($data_retirada){
-            $this->data_retirada = $data_retirada;
+        public function setDataRetirada($dataRet){
+            $this->dataRet = $dataRet;
         }
 
         public function getHoraRetirada(){
-            return $this->horario_retirada;
+            return $this->horaRet;
         }
-        public function setHoraRetirada($hora_retirada){
-            $this->hora_retirada = $hora_retirada;
+        public function setHoraRetirada($horaRet){
+            $this->horaRet = $horaRet;
         }
 
         public function getCpfCliente(){
-            return $this->cpf_cliente;
+            return $this->cpfCliente;
         }
-        public function setCpfCliente($cpf_cliente){
-            $this->cpf_cliente = $cpf_cliente;
-        }
-
-        public function getContato(){
-            return $this->contato;
-        }
-        public function setContato($contato){
-            $this->contato = $contato;
+        public function setCpfCliente($cpfCliente){
+            $this->cpfCliente = $cpfCliente;
         }
 
+        public function getTelefone(){
+            return $this->telefone;
+        }
+        public function setTelefone($telefone){
+            $this->contato = $telefone;
+        }
+
+
+        public function inserirPedido() {
+            $query = "INSERT INTO pedido(cep, endereco, numero, complemento, bairro, cidade, dataEntg, horaEntg, dataRet, horaRet, cpfCliente, telefone) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param('ssisssssssss', $cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataEntg, $horaEntg, $dataRet, $horaRet, $cpfCliente, $telefone);
+
+            if ($stmt->execute()) {
+                header("Location: /bgfestas/fazerpedido/sucesso"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
+                exit(); 
+            } else {
+                header("Location: /bgfestas/fazerpedido/erro"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
+            }
+
+            $stmt->close();
+        }
     }
