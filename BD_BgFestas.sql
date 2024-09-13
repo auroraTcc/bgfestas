@@ -4,7 +4,7 @@ use BG_festas;
 create table cliente(
 	cpf char(11) not null primary key,
     nome varchar(255) not null,
-    contato char(11) not null
+    telefone char(11) not null
 );
 
 create table funcionario(
@@ -48,7 +48,7 @@ create table pedido(
     data_ret date not null,
     hora_ret time not null,
     cpf_cliente char(11) not null,
-    contato char(11) not null,
+    telefone char(11) not null,
     id_responsavel char(6) not null,
     stts varchar(30),
     
