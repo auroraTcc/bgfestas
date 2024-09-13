@@ -73,8 +73,6 @@ $(".btn-prosseguir").each(function () {
                     `translateX(-${27.3 * slideIndex}rem)`
                 );
             }
-        } else {
-            $("form").submit();
         }
     });
 });
