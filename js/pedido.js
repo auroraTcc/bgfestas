@@ -50,19 +50,32 @@ $("#cep").blur(function () {
 
 $(".btn-prosseguir").each(function () {
     $(this).on("click", function (event) {
+        let valid = true;
+
+        $(this)
+            .closest(".formCard")
+            .find("input[required], select[required], textarea[required]")
+            .each(function () {
+                if (!this.checkValidity()) {
+                    valid = false;
+                    $(this).addClass("is-invalid");
+                    $(this).removeClass("is-valid");
+                    this.reportValidity();
+                } else {
+                    if (this.value === "...") {
+                        valid = false;
+                        $(this).addClass("is-invalid");
+                        $(this).removeClass("is-valid");
+                        this.reportValidity();
+                    } else {
+                        $(this).addClass("is-valid");
+                        $(this).removeClass("is-invalid");
+                    }
+                }
+            });
+
         if (slideIndex < 2) {
             event.preventDefault();
-            let valid = true;
-            $(this)
-                .closest(".formCard")
-                .find("input[required]")
-                .each(function () {
-                    if (!this.checkValidity()) {
-                        valid = false;
-                        this.reportValidity();
-                        return false;
-                    }
-                });
 
             if (valid) {
                 slideIndex++;
