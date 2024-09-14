@@ -26,9 +26,8 @@
 
         $cliente->inserirCliente($cpfCliente, $nome, $telefone);
 
-        //NÃO ESTÁ RECONHECENDO OS SETS
-        print_r(setBairro()); 
-        /* $pedido = new Pedido($conn);
+ 
+        $pedido = new Pedido($conn);
         $pedido->setCep($cep);
         $pedido->setEndereco($endereco);
         $pedido->setNumero($numero);
@@ -42,6 +41,6 @@
         $pedido->setCpfCliente($cpfCliente);
         $pedido->setTelefone($telefone);
 
-        $pedido->inserirPedido($cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataDeEntrega, $horarioDaEntrega, $dataDeRetirada, $horarioDaRetirada, $cpfCliente, $telefone); */
+        $pedido->inserirPedido($cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataDeEntrega, $horarioDaEntrega, $dataDeRetirada, $horarioDaRetirada, $cpfCliente, $telefone);
     }
     

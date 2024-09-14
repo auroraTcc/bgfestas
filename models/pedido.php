@@ -98,11 +98,11 @@
             return $this->telefone;
         }
         public function setTelefone($telefone){
-            $this->contato = $telefone;
+            $this->telefone = $telefone;
         }
 
 
-        public function inserirPedido() {
+        public function inserirPedido($cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataEntg, $horaEntg, $dataRet, $horaRet, $cpfCliente, $telefone) {
             $query = "INSERT INTO pedido(cep, endereco, numero, complemento, bairro, cidade, dataEntg, horaEntg, dataRet, horaRet, cpfCliente, telefone) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
