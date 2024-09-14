@@ -216,12 +216,14 @@
                                             Jogos (1 mesa + 4 cadeiras)
                                         </label>
                                         <select id="jogos" name="jogos">
-                                            <option value="0">Qtd: 0</option>
-                                            <option value="1">Qtd: 1</option>
-                                            <option value="2">Qtd: 2</option>
-                                            <option value="3">Qtd: 3</option>
-                                            <option value="4">Qtd: 4</option>
-                                            <option value="5">Qtd: 5</option>
+                                            <?php
+                                                for ($i=0; $i <= 5; $i++) {
+                                                ?>
+                                                    <option value="<?=$i?>">Qtd: <?=$i?></option>
+                                                <?php
+                                                }
+                                            ?>
+                                            <option value="">Qtd: 6+</option>
                                         </select>
                                     </div>
                                     <div class="cart-item">
@@ -235,12 +237,14 @@
                                             Mesas avulsas</label
                                         >
                                         <select id="mesas" name="mesas">
-                                            <option value="0">Qtd: 0</option>
-                                            <option value="1">Qtd: 1</option>
-                                            <option value="2">Qtd: 2</option>
-                                            <option value="3">Qtd: 3</option>
-                                            <option value="4">Qtd: 4</option>
-                                            <option value="5">Qtd: 5</option>
+                                            <?php
+                                                for ($i=0; $i <= 5; $i++) {
+                                                ?>
+                                                    <option value="<?=$i?>">Qtd: <?=$i?></option>
+                                                <?php
+                                                }
+                                            ?>
+                                            <option value="">Qtd: 6+</option>
                                         </select>
                                     </div>
                                     <div class="cart-item">
@@ -254,12 +258,14 @@
                                             Cadeiras avulsas
                                         </label>
                                         <select id="cadeiras" name="cadeiras">
-                                            <option value="0">Qtd: 0</option>
-                                            <option value="1">Qtd: 1</option>
-                                            <option value="2">Qtd: 2</option>
-                                            <option value="3">Qtd: 3</option>
-                                            <option value="4">Qtd: 4</option>
-                                            <option value="5">Qtd: 5</option>
+                                            <?php
+                                                for ($i=0; $i <= 5; $i++) {
+                                                ?>
+                                                    <option value="<?=$i?>">Qtd: <?=$i?></option>
+                                                <?php
+                                                }
+                                            ?>
+                                            <option value="">Qtd: 6+</option>
                                         </select>
                                     </div>
                                 </div>

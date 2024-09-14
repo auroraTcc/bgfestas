@@ -157,6 +157,7 @@ form label {
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 0.75rem;
 }
 
 .numero-etapa,
