@@ -13,7 +13,7 @@ let total = 0;
 
 $("#cep").mask("00000-000");
 $("#telefone").mask("(00) 00000-0000");
-$("#cpf").mask("000.000.000-00", { reverse: true });
+$("#cpf").mask("000.000.000-00");
 
 $("#cep").blur(function () {
     let cep = $(this).val().replace(/\D/g, "");
@@ -76,7 +76,6 @@ $(".btn-prosseguir").each(function () {
 
         if (slideIndex < 2) {
             event.preventDefault();
-
             if (valid) {
                 slideIndex++;
                 $("#slides-container").css(
