@@ -12,4 +12,3 @@ if (!$conn){
     //die("conexão falhou".mysqli_connect_error());
     echo "não foi possível conectar ao banco de dados";
 };
-?>

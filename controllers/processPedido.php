@@ -1,5 +1,5 @@
 <?php
-    require "../config/conexao.php";
+    require_once "../config/conexao.php";
     require "../models/pedido.php";
     require "../models/cliente.php";
 
