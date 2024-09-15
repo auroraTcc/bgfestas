@@ -1,5 +1,5 @@
 <?php
-    require "../config/conexao.php";
+    require_once "../config/conexao.php";
     class Pedido {
         function __construct($conn) {
             $this->conn = $conn;
