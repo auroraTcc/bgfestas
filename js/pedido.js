@@ -15,7 +15,7 @@ $("#cep").mask("00000-000");
 $("#telefone").mask("(00) 00000-0000");
 $("#cpf").mask("000.000.000-00");
 
-$("#cep").blur(function () {
+$("#cep").on("blur", function () {
     let cep = $(this).val().replace(/\D/g, "");
 
     if (cep != "") {
@@ -46,6 +46,20 @@ $("#cep").blur(function () {
             alert("Formato de CEP inválido.");
         }
     }
+});
+
+$(".etapa").each(function (i = i - 1) {
+    $(this).on("click", function () {
+        console.log(`INDEX DO ICONE: ${i}`);
+        console.log(`INDEX DO SLIDE: ${slideIndex}`);
+        if (i <= slideIndex) {
+            slideIndex = i;
+            $("#slides-container").css(
+                "transform",
+                `translateX(-${100 * slideIndex}%)`
+            );
+        }
+    });
 });
 
 $(".btn-prosseguir").each(function () {

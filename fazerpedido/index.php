@@ -10,7 +10,7 @@
             rel="stylesheet"
             href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
         />
-        <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
             crossorigin="anonymous"
@@ -38,15 +38,15 @@
                     >
                         <div class="formCard active">
                             <header>
-                                <div class="numero-etapa-certa">
+                                <div class="etapa numero-etapa-certa">
                                     <div>1</div>
                                     <h5>Entrega</h5>
                                 </div>
-                                <div class="numero-etapa">
+                                <div class="etapa numero-etapa">
                                     <div>2</div>
                                     <h5>Pedido</h5>
                                 </div>
-                                <div class="numero-etapa">
+                                <div class="etapa numero-etapa">
                                     <div>3</div>
                                     <h5>Contato</h5>
                                 </div>
@@ -161,6 +161,7 @@
                                         id="dataDeEntrega"
                                         type="date"
                                         required
+                                        data-date-split-input="true"
                                     />
                                 </div>
                                 <div>
