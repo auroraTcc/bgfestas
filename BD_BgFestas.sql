@@ -1,5 +1,5 @@
-create database BG_festas;
-use BG_festas;
+create database bgfestas;
+use bgfestas;
 
 create table cliente(
 	cpf char(14) not null primary key,
