@@ -109,10 +109,10 @@
             $stmt->bind_param('ssisssssssss', $cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataEntg, $horaEntg, $dataRet, $horaRet, $cpfCliente, $telefone);
 
             if ($stmt->execute()) {
-                header("Location: /bgfestas/fazerpedido/sucesso"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
+                header("Location: /fazerpedido/sucesso"); 
                 exit(); 
             } else {
-                header("Location: /bgfestas/fazerpedido/erro"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
+                header("Location: /fazerpedido/erro");
             }
 
             $stmt->close();
