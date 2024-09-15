@@ -1,4 +1,4 @@
-create database BG_festas;
+create database bgfestas;
 use BG_festas;
 
 create table cliente(
