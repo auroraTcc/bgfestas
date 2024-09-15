@@ -46,7 +46,7 @@
 
             $query = "INSERT INTO cliente (cpf, nome, telefone) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bind_param('sss', $cpfCliente, $nome, $telefone);
+            $stmt->bindParam('sss', $cpfCliente, $nome, $telefone);
 
             $stmt->execute();
 
