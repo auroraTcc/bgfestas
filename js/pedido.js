@@ -11,6 +11,29 @@ let valorTotalDeCadeiras = 0;
 let frete = 0;
 let total = 0;
 
+function validarCPF(value) {
+    let cpf = value.replace(/[^\d]+/g, "");
+
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+
+    const calcularDigito = (base) => {
+        let soma = 0;
+        for (let i = 0; i < base; i++) {
+            soma += parseInt(cpf.charAt(i)) * (base + 1 - i);
+        }
+        let resto = soma % 11;
+        return resto < 2 ? 0 : 11 - resto;
+    };
+
+    let digito1 = calcularDigito(9);
+    let digito2 = calcularDigito(10);
+
+    return (
+        digito1 === parseInt(cpf.charAt(9)) &&
+        digito2 === parseInt(cpf.charAt(10))
+    );
+}
+
 $("#cep").mask("00000-000");
 $("#telefone").mask("(00) 00000-0000");
 $("#cpf").mask("000.000.000-00");
@@ -50,8 +73,6 @@ $("#cep").on("blur", function () {
 
 $(".etapa").each(function (i = i - 1) {
     $(this).on("click", function () {
-        console.log(`INDEX DO ICONE: ${i}`);
-        console.log(`INDEX DO SLIDE: ${slideIndex}`);
         if (i <= slideIndex) {
             slideIndex = i;
             $("#slides-container").css(
@@ -70,21 +91,15 @@ $(".btn-prosseguir").each(function () {
             .closest(".formCard")
             .find("input[required], select[required], textarea[required]")
             .each(function () {
-                if (!this.checkValidity()) {
+                if (!this.checkValidity() || this.value === "...") {
                     valid = false;
-                    $(this).addClass("is-invalid");
-                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid").removeClass("is-valid");
                     this.reportValidity();
+                } else if (this.name === "cpf" && !validarCPF(this.value)) {
+                    valid = false;
+                    $(this).addClass("is-invalid").removeClass("is-valid");
                 } else {
-                    if (this.value === "...") {
-                        valid = false;
-                        $(this).addClass("is-invalid");
-                        $(this).removeClass("is-valid");
-                        this.reportValidity();
-                    } else {
-                        $(this).addClass("is-valid");
-                        $(this).removeClass("is-invalid");
-                    }
+                    $(this).addClass("is-valid").removeClass("is-invalid");
                 }
             });
 
@@ -97,6 +112,8 @@ $(".btn-prosseguir").each(function () {
                     `translateX(-${100 * slideIndex}%)`
                 );
             }
+        } else if (!valid) {
+            event.preventDefault();
         }
     });
 });
