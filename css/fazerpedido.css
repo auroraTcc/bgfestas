@@ -54,8 +54,10 @@ hr {
 form label {
     font-size: 1rem !important;
     font-weight: 600;
-    display: flex;
-    align-items: center;
+}
+
+form label span {
+    color: var(--primary);
 }
 
 .cart-item {
@@ -229,12 +231,6 @@ form input {
     padding: 0.6rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-form label span {
-    display: flex;
-    align-items: center;
-    line-height: 0.5rem;
 }
 
 .form-carrinho,

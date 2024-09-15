@@ -53,7 +53,7 @@
                             </header>
                             <div class="form-etapa">
                                 <div>
-                                    <label for="cep">CEP</label>
+                                    <label for="cep"><span>*</span>CEP</label>
                                     <input
                                         type="text"
                                         id="cep"
@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="endereco">Endereço</label>
+                                    <label for="endereco"><span>*</span>Endereço</label>
                                     <input
                                         type="text"
                                         id="endereco"
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="numero">Número</label>
+                                    <label for="numero"><span>*</span>Número</label>
                                     <input
                                         type="text"
                                         name="numero"
@@ -105,7 +105,7 @@
                                     />
                                 </div>
                                 <div>
-                                    <label for="bairro">Bairro</label>
+                                    <label for="bairro"><span>*</span>Bairro</label>
                                     <input
                                         type="text"
                                         name="bairro"
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="cidade">Cidade</label>
+                                    <label for="cidade"><span>*</span>Cidade</label>
                                     <input
                                         type="text"
                                         id="cidade"
