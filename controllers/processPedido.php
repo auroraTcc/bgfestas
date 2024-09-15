@@ -1,4 +1,8 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     require "../config/conexao.php";
     require "../models/pedido.php";
     require "../models/cliente.php";
