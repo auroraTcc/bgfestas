@@ -21,6 +21,7 @@
         <script src="../../../node_modules/jquery/dist/jquery.min.js"></script>
         <script src="../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         <script src="../../../public/assets/js/pedido.js" defer></script>
+        <script src="../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <link
             rel="shortcut icon"
             href="../imgs/favicon.ico"
@@ -228,11 +229,13 @@
                                                 <img
                                                     src="../../../public/assets/imgs/jogo.svg"
                                                     alt=""
+                                                    onload="SVGInject(this)"
                                                 />
                                             </span>
                                             Jogos (1 mesa + 4 cadeiras)
                                         </label>
                                         <select id="jogos" name="jogos">
+                                            <option value="1">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
                                             <option value="2">Qtd: 2</option>
                                             <option value="3">Qtd: 3</option>
@@ -249,11 +252,13 @@
                                                 <img
                                                     src="../../../public/assets/imgs/mesa.svg"
                                                     alt=""
+                                                    onload="SVGInject(this)"
                                                 />
                                             </span>
                                             Mesas avulsas</label
                                         >
                                         <select id="mesas" name="mesas">
+                                            <option value="1">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
                                             <option value="2">Qtd: 2</option>
                                             <option value="3">Qtd: 3</option>
@@ -270,11 +275,13 @@
                                                 <img
                                                     src="../../../public/assets/imgs/cadeira.svg"
                                                     alt=""
+                                                    onload="SVGInject(this)"
                                                 />
                                             </span>
                                             Cadeiras avulsas
                                         </label>
                                         <select id="cadeiras" name="cadeiras">
+                                            <option value="1">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
                                             <option value="2">Qtd: 2</option>
                                             <option value="3">Qtd: 3</option>
