@@ -29,7 +29,7 @@ function getMysqlConnParamenters( $serverType ){
 
 }
 
-$mysql_parameter = getMysqlConnParamenters( "local" );
+$mysql_parameter = getMysqlConnParamenters( "deploy" );
 
 $conn = new mysqli(
     $mysql_parameter["host"],
