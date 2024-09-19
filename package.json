@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@iconfu/svg-inject": "^1.2.3",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
     "jquery-mask-plugin": "^1.14.16"
