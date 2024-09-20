@@ -1,7 +1,7 @@
 <?php
     require "../config/conexao.php";
 
-    function getIdPedidoByCpfAndDate($conn, $cpfCliente, $dataEntg){
+    function getIdPedidoByCpfAndDate($conn, $cpfCliente, $dataDeEntrega){
         $query = "SELECT idPedido from pedido WHERE cpfCliente = ? AND dataEntg = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('ss', $cpfCliente, $dataDeEntrega);
@@ -25,5 +25,11 @@
         if ($rows) {
             print_r ($rows);
         }
+    }
+
+    function atualizarCarrinho($conn, $cpfCliente, $dataDeEntrega){
+        $idPedido = getIdPedidoByCpfAndDate( $conn, $cpfCliente, $dataDeEntrega);
+        $itens = getItensByIdpedido($conn, $idPedido);
+        //VOLTAR AQUI
     }
 ?>

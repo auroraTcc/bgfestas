@@ -7,6 +7,7 @@ class Carrinho{
     {
         $this->conn = $conn;
     }
+    private $conn;
     private $idPedido;
     private $idProdt;
     private $quantidade;

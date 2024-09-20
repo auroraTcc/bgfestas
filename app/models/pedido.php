@@ -3,7 +3,8 @@
     class Pedido {
         function __construct($conn) {
             $this->conn = $conn;
-        }            
+        }
+        private $conn;            
         private $cep;
         private $endereco;
         private $numero;
@@ -119,7 +120,4 @@
             $stmt->close();
         }
 
-        public function atualizarCarrinho($cpfCliente, $dataDeEntrega){
-            $idPedido = getIdPedidoByCpfAndDate($cpfCliente, $dataDeEntrega);
-        }
     }
