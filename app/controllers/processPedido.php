@@ -1,7 +1,12 @@
 <?php
-    require_once "../config/conexao.php";
+    require "../config/conexao.php";
     require "../models/pedido.php";
     require "../models/cliente.php";
+    require "../models/carrinho.php";
+
+    if (!$conn) {
+        die("Erro ao conectar com o banco de dados: " . mysqli_connect_error());
+    }
 
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $cep = $_POST["cep"];
@@ -14,7 +19,11 @@
         $horarioDaEntrega = $_POST["horarioDaEntrega"];
         $dataDeRetirada = $_POST["dataDeRetirada"];
         $horarioDaRetirada = $_POST["horarioDaRetirada"];
-        //carrinho c/ produtos
+        
+        $qtdJogos = $_POST["jogos"];
+        $qtdMesas = $_POST["mesas"];
+        $qtdCadeiras = $_POST["cadeiras"];
+
         $cpfCliente = $_POST["cpf"];
         $nome = $_POST["nome"];
         $telefone = $_POST["telefone"];
@@ -25,7 +34,6 @@
         $cliente->setContato($telefone);
 
         $cliente->inserirCliente($cpfCliente, $nome, $telefone);
-
  
         $pedido = new Pedido($conn);
         $pedido->setCep($cep);
@@ -42,5 +50,10 @@
         $pedido->setTelefone($telefone);
 
         $pedido->inserirPedido($cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataDeEntrega, $horarioDaEntrega, $dataDeRetirada, $horarioDaRetirada, $cpfCliente, $telefone);
+    
+        $carrinho = new Carrinho($conn);
+        $carrinho->inserirCarrinho("Jogo completo", $qtdJogos, $cpfCliente, $dataDeEntrega);
+        $carrinho->inserirCarrinho("Mesa avulsa", $qtdMesas, $cpfCliente, $dataDeEntrega);
+        $carrinho->inserirCarrinho("Cadeira avulsa", $qtdCadeiras, $cpfCliente, $dataDeEntrega);
     }
     

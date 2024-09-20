@@ -15,28 +15,17 @@ create table funcionario(
 );
 
 create table produto(
-	idProdt INT AUTO_INCREMENT PRIMARY KEY,
+	idProdt INT PRIMARY KEY,
     nome varchar(255) not null,
     qtdDisp int,
     qtdTotal int
 );
-insert into produto(nome, qtdDisp, qtdTotal) values ("Jogo completo", 170, 170);
-insert into produto(nome, qtdDisp, qtdTotal) values ("Cadeira avulsa", 680, 680);
-insert into produto(nome, qtdDisp, qtdTotal) values ("Mesa avulsa", 170, 170);
-
-
-CREATE TABLE carrinho(
-    idCarr INT AUTO_INCREMENT PRIMARY KEY,
-    idCliente char(11) not null,
-    idProdt INT,
-    quantidade INT,
-    constraint fk_carrinhoCliente foreign key (idCliente) references cliente(cpf),
-    constraint fk_carrinhoProdt foreign key (idProdt) references produto(idProdt)
-);
+insert into produto(idProdt, nome, qtdDisp, qtdTotal) values (151,"Jogo completo", 170, 170);
+insert into produto(idProdt, nome, qtdDisp, qtdTotal) values (152,"Cadeira avulsa", 680, 680);
+insert into produto(idProdt, nome, qtdDisp, qtdTotal) values (153,"Mesa avulsa", 170, 170);
 
 create table pedido(
 	idPedido INT AUTO_INCREMENT PRIMARY KEY,
-    #idCarr int not null,
     cep varchar(9) not null,
     endereco varchar(255) not null,
     numero int not null,
@@ -53,16 +42,19 @@ create table pedido(
     #stts varchar(30),
     
     constraint fk_pedidoCliente foreign key (cpfCliente) references cliente(cpf)
-	#constraint fk_pedidoCarr foreign key (idCarr) references carrinho(idCarr),
     #constraint fk_pedidoFunc foreign key (idResponsavel) references funcionario(idFunc)
 );
 
-CREATE TABLE pedido_itens (
+CREATE TABLE carrinho (
     idItem INT AUTO_INCREMENT PRIMARY KEY,
     idPedido INT NOT NULL,
     idProdt INT NOT NULL,
     quantidade INT NOT NULL,
-    preco DECIMAL(10, 2) NOT NULL,
     constraint fk_itensPedido foreign key (idPedido) references pedido(idPedido),
     constraint fk_itensProdt foreign key (idProdt) references produto(idProdt)
 );
+
+select * from cliente;
+select * from pedido;
+select * from carrinho;
+
