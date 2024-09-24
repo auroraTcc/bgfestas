@@ -52,8 +52,16 @@
         $pedido->inserirPedido($cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataDeEntrega, $horarioDaEntrega, $dataDeRetirada, $horarioDaRetirada, $cpfCliente, $telefone);
     
         $carrinho = new Carrinho($conn);
-        $carrinho->inserirCarrinho("Jogo completo", $qtdJogos, $cpfCliente, $dataDeEntrega);
-        $carrinho->inserirCarrinho("Mesa avulsa", $qtdMesas, $cpfCliente, $dataDeEntrega);
-        $carrinho->inserirCarrinho("Cadeira avulsa", $qtdCadeiras, $cpfCliente, $dataDeEntrega);
+
+        if($qtdJogos > 0) {
+            $carrinho->inserirCarrinho("Jogo completo", $qtdJogos, $cpfCliente, $dataDeEntrega);
+        }
+
+        if($qtdMesas > 0) {
+            $carrinho->inserirCarrinho("Mesa avulsa", $qtdMesas, $cpfCliente, $dataDeEntrega);
+        }
+        if($qtdCadeiras > 0) {
+            $carrinho->inserirCarrinho("Cadeira avulsa", $qtdCadeiras, $cpfCliente, $dataDeEntrega);
+        }
     }
     
