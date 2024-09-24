@@ -6,7 +6,7 @@ $tertiary-color: #7f7977;
 $body-bg: #fbf7f4;
 $secondary-bg: #ede8e1;
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
 
 $types: (
     "entrega": $primary,
@@ -30,9 +30,51 @@ header {
     }
 }
 
+nav {
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h6 {
+        // font-weight: normal;
+        color: $secondary-color;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            a {
+                display: flex;
+                gap: 0.5rem;
+                font-size: 1.1rem;
+                align-items: center;
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.btn-primary {
+    color: $body-bg;
+
+    &:hover {
+        color: $body-bg;
+    }
+}
+
 .logo {
     text-transform: uppercase;
     font-weight: 600;
+}
+
+.title-container {
+    @include media-breakpoint-up(md) {
+        max-width: 80%;
+    }
 }
 
 main {

@@ -4,22 +4,19 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Admin</title>
-        <link
-            rel="stylesheet"
-            href="../../../public/assets/css/dashboard.css"
-        />
-        <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="/public/assets/css/dashboard.css" />
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
             crossorigin="anonymous"
         ></script>
-        <script src="../../../node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link
             rel="shortcut icon"
-            href="../../../public/assets/imgs/favicon.ico"
+            href="/public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
-        <script src="../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+        <script src="/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
     </head>
     <body>
         <header class="border-bottom border-primary">
@@ -43,7 +40,38 @@
             id="navbar"
             aria-labelledby="navbarLabel"
         >
-            <!-- TODO: INSERIR LINKS  -->
+            <div class="offcanvas-header">
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <nav class="offcanvas-body">
+                <div>
+                    <h6>Geral</h6>
+                    <ul>
+                        <li>
+                            <a href="/app/view/admin">
+                                <i class="fa-solid fa-chart-gantt"></i>
+                                <span>Painel de Controle</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Admin</h6>
+                    <ul>
+                        <li>
+                            <a href="/app/view/admin/funcionarios">
+                                <i class="fa-regular fa-id-badge"></i>
+                                <span>Funcionários</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
 
         <main>
