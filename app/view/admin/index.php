@@ -20,16 +20,7 @@
     </head>
     <body>
 
-        <?php 
-            require_once "../../../app/config/conexao.php";
-            require_once "../../../app/actions/pedido.php";
-            $resultados = getAllPedidos($conn);
-
-        if ($resultados[0][""] == "") {
-            echo 'sem pedidos';
-        }
-            print_r($resultados);
-        ?>
+        
 
         <header class="border-bottom border-primary">
             <div class="container">
@@ -93,6 +84,8 @@
         </div>
 
         <main>
+            
+
             <section class="container" id="highlights">
                 <div class="card hello">
                     <div>
@@ -131,58 +124,69 @@
             <section class="container" id="proximasTarefas">
                 <h3>Próximas Tarefas</h3>
                 <div id="tarefasContainer">
-                    <div class="card" data-type="entrega">
-                        <div class="card-header">
-                            <div>
-                                <h4 class="card-title">Mariana Amorim</h4>
-                                <p>26 ago. 12:30h</p>
-                            </div>
-                            <span>entrega</span>
-                        </div>
+                    <?php 
+                        require_once "../../../app/config/conexao.php";
+                        require_once "../../../app/actions/pedido.php";
 
-                        <div class="card-body">
-                            <p class="card-text">
-                                Rua Natingui, 134, Parque Santo Antônio
-                            </p>
-                            <div>
-                                <div class="itemCount">
-                                    <img
-                                        src="../../../public/assets/imgs/jogo.svg"
-                                        onload="SVGInject(this)"
-                                    />
-                                    <p>8 jogos</p>
-                                </div>
-                                <div class="itemCount">
-                                    <img
-                                        src="../../../public/assets/imgs/mesa.svg"
-                                        onload="SVGInject(this)"
-                                    />
-                                    <p>0 mesas</p>
-                                </div>
-                                <div class="itemCount">
-                                    <img
-                                        src="../../../public/assets/imgs/cadeira.svg"
-                                        onload="SVGInject(this)"
-                                    />
-                                    <p>0 cadeiras</p>
-                                </div>
-                            </div>
-                        </div>
+                        $resultados = getAllPedidos($conn);
 
-                        <div class="card-footer">
-                            <div>
-                                <i class="fa-solid fa-circle-user"></i>
-                                <h5>
-                                    Responsável:
-                                    <span>Gilson</span>
-                                </h5>
-                            </div>
 
-                            <a href="#">
-                                <i class="fa-solid fa-comments"></i>
-                            </a>
-                        </div>
-                    </div>
+
+                        if ($resultados) {
+                            foreach ($resultados as $pedido) {
+                                ?>
+                                    <div class="card" data-type=<?=$pedido['stts']?>>
+                                        <div class="card-header">
+                                            <div>
+                                                <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
+                                                <p><?=$pedido['dataEntg']?> <?=$pedido['horaEntg']?></p>
+                                            </div>
+                                            <span><?=$pedido['stts']?></span>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {
+                                                    echo ", ". $pedido['complemento'];
+                                                } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
+                                            </p>
+                                            <div>
+                                                <?php
+                                                    foreach($pedido['itensCarrinho'] as $item) {
+                                                        ?>
+                                                            <div class="itemCount">
+                                                                <img
+                                                                    src="../../../public/assets/imgs/<?=$item["nome"]?>.svg"
+                                                                    onload="SVGInject(this)"
+                                                                />
+                                                                <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
+                                                            </div>
+                                                        <?php
+                                                    }
+                                                ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <div>
+                                                <i class="fa-solid fa-circle-user"></i>
+                                                <h5>
+                                                    Responsável:
+                                                    <span><?=$pedido['nomeFuncionario']?></span>
+                                                </h5>
+                                            </div>
+
+                                            <a href="#">
+                                                <i class="fa-solid fa-comments"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        }
+                    ?>
+
+                    
                 </div>
                 <a
                     href="../../../app/view/admin/tarefas"

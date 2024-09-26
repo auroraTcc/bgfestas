@@ -13,7 +13,7 @@ create table funcionario(
     senha varchar (25),
     cargo varchar(10) not null
 );
-INSERT INTO funcionario (idProdt, nome, senha, cargo) VALUES ('652.369.700-24','Gilson Mangia', 'BGfestas001', 'Gerente');
+INSERT INTO funcionario (cpf, nome, senha, cargo) VALUES ('652.369.700-24','Gilson Mangia', 'BGfestas001', 'Gerente');
 
 CREATE TABLE produto (
     idProdt INT PRIMARY KEY,
@@ -23,9 +23,9 @@ CREATE TABLE produto (
     preco DECIMAL(10, 2)
 );
 
-INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (151, 'Jogo completo', 170, 170, 10.00);
-INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (152, 'Cadeira avulsa', 680, 680, 5.00);
-INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (153, 'Mesa avulsa', 170, 170, 2.00);
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (151, 'jogo', 170, 170, 10.00);
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (152, 'cadeira', 680, 680, 5.00);
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (153, 'mesa', 170, 170, 2.00);
 
 
 create table pedido(
@@ -43,10 +43,10 @@ create table pedido(
     cpfCliente char(14) not null,
     telefone char(15) not null,
     preco decimal(10,2),
-    cpfResponsavel int not null DEFAULT '652.369.700-24',
+    cpfResponsavel char(14) not null DEFAULT '652.369.700-24',
     stts varchar(30) DEFAULT 'entrega',
     
-    constraint fk_pedidoCliente foreign key (cpfCliente) references cliente(cpf)
+    constraint fk_pedidoCliente foreign key (cpfCliente) references cliente(cpf),
     constraint fk_pedidoFunc foreign key (cpfResponsavel) references funcionario(cpf)
 );
 
