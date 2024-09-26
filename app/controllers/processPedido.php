@@ -3,12 +3,14 @@
     require "../models/pedido.php";
     require "../models/cliente.php";
     require "../models/carrinho.php";
+    require_once "../actions/pedido.php";
 
     if (!$conn) {
         die("Erro ao conectar com o banco de dados: " . mysqli_connect_error());
     }
 
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
+        //coleta de dados do formulário
         $cep = $_POST["cep"];
         $endereco = $_POST["endereco"];
         $numero = $_POST["numero"];
@@ -28,6 +30,7 @@
         $nome = $_POST["nome"];
         $telefone = $_POST["telefone"];
 
+        //inserção de cliente
         $cliente = new Cliente($conn);
         $cliente->setCPF($cpfCliente);
         $cliente->setNome($nome);
@@ -35,6 +38,7 @@
 
         $cliente->inserirCliente($cpfCliente, $nome, $telefone);
  
+        //inserção de pedido
         $pedido = new Pedido($conn);
         $pedido->setCep($cep);
         $pedido->setEndereco($endereco);
@@ -50,18 +54,13 @@
         $pedido->setTelefone($telefone);
 
         $pedido->inserirPedido($cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataDeEntrega, $horarioDaEntrega, $dataDeRetirada, $horarioDaRetirada, $cpfCliente, $telefone);
-    
+
         $carrinho = new Carrinho($conn);
+        if ($qtdJogos > 0){$carrinho->inserirCarrinho("Jogo completo", $qtdJogos, $cpfCliente, $dataDeEntrega); }
+        if ($qtdMesas > 0) {$carrinho->inserirCarrinho("Mesa avulsa", $qtdMesas, $cpfCliente, $dataDeEntrega); }
+        if ($qtdCadeiras > 0) {$carrinho->inserirCarrinho("Cadeira avulsa", $qtdCadeiras, $cpfCliente, $dataDeEntrega); }
+        //QUANDO SELETOR É 0, O BANCO REGISTRA COMO 1   
 
-        if($qtdJogos > 0) {
-            $carrinho->inserirCarrinho("Jogo completo", $qtdJogos, $cpfCliente, $dataDeEntrega);
-        }
-
-        if($qtdMesas > 0) {
-            $carrinho->inserirCarrinho("Mesa avulsa", $qtdMesas, $cpfCliente, $dataDeEntrega);
-        }
-        if($qtdCadeiras > 0) {
-            $carrinho->inserirCarrinho("Cadeira avulsa", $qtdCadeiras, $cpfCliente, $dataDeEntrega);
-        }
+        atualizarPreco($conn, $cpfCliente, $dataDeEntrega, $qtdJogos, $qtdCadeiras, $qtdMesas);
     }
     
