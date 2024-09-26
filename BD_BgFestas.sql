@@ -8,11 +8,12 @@ create table cliente(
 );
 
 create table funcionario(
-	idFunc char(6) not null primary key,
+	cpf char(14) not null primary key,
     nome varchar(255) not null,
     senha varchar (25),
     cargo varchar(10) not null
 );
+INSERT INTO funcionario (idProdt, nome, senha, cargo) VALUES ('652.369.700-24','Gilson Mangia', 'BGfestas001', 'Gerente');
 
 CREATE TABLE produto (
     idProdt INT PRIMARY KEY,
@@ -42,11 +43,11 @@ create table pedido(
     cpfCliente char(14) not null,
     telefone char(15) not null,
     preco decimal(10,2),
-    #idResponsavel char(6) not null,
-    #stts varchar(30),
+    cpfResponsavel int not null DEFAULT '652.369.700-24',
+    stts varchar(30) DEFAULT 'entrega',
     
     constraint fk_pedidoCliente foreign key (cpfCliente) references cliente(cpf)
-    #constraint fk_pedidoFunc foreign key (idResponsavel) references funcionario(idFunc)
+    constraint fk_pedidoFunc foreign key (cpfResponsavel) references funcionario(cpf)
 );
 
 CREATE TABLE carrinho (

@@ -4,19 +4,19 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Funcionários</title>
-        <link rel="stylesheet" href="/public/assets/css/dashboard.css" />
-        <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="../../../../public/assets/css/dashboard.css" />
+        <script src="../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
             crossorigin="anonymous"
         ></script>
-        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
         <link
             rel="shortcut icon"
-            href="/public/assets/imgs/favicon.ico"
+            href="../../../../public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
-        <script src="/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+        <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
     </head>
     <body>
         <header class="border-bottom border-primary">
@@ -53,13 +53,13 @@
                     <h6>Geral</h6>
                     <ul>
                         <li>
-                            <a href="/app/view/admin">
+                            <a href="../../../../app/view/admin">
                                 <i class="fa-solid fa-chart-gantt"></i>
                                 <span>Painel de Controle</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/app/view/admin/tarefas">
+                            <a href="../../../../app/view/admin/tarefas">
                                 <i class="fa-regular fa-folder-open"></i>
                                 <span>Tarefas</span>
                             </a>
@@ -70,7 +70,7 @@
                     <h6>Admin</h6>
                     <ul>
                         <li>
-                            <a href="/app/view/admin/funcionarios">
+                            <a href="../../../../app/view/admin/funcionarios">
                                 <i class="fa-regular fa-id-badge"></i>
                                 <span>Funcionários</span>
                             </a>
@@ -227,6 +227,30 @@
                     </div>
                 </div>
             </section>
+
+            <nav aria-label="Page nav igation example"></nav>
+                <ul class="pagination pagination-md justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">Anterior</span>
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">Próximo</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </main>
     </body>
 </html>

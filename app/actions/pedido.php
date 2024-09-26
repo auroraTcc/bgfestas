@@ -1,5 +1,6 @@
 <?php
-    require "../config/conexao.php";
+    require "produto.php";
+    require "carrinho.php";
 
     function getIdPedidoByCpfAndDate($conn, $cpfCliente, $dataDeEntrega){
         $query = "SELECT idPedido from pedido WHERE cpfCliente = ? AND dataEntg = ?";
@@ -14,29 +15,29 @@
         }
     }
 
-    function getItensByIdpedido($conn, $idPedido){
-        $query = "SELECT * from carrinho WHERE idPedido = ?";
+    function getPedidosByCpfFunc($conn, $cpfFunc){
+        $query = "SELECT * from pedido WHERE cpfResponsavel = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $idPedido);
+        $stmt->bind_param('s', $cpfFunc);
 
         $stmt->execute();
 
-        $result = $stmt->get_result();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $rows;
+        $resultados = $stmt->get_result();
+        if ($row = $resultados->fetch_assoc()) {
+            return $row['idPedido'];
+        }
     }
 
-    function getPrecoByProdt($conn, $produto){
-        $query = "SELECT preco FROM produto WHERE nome = ?";
+    function getAllPedidos($conn){
+        $query = "SELECT * from pedido";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $produto);
-        
+
         $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            return $row['preco']; }
+
+        $resultados = $stmt->get_result();
+        if ($row = $resultados->fetch_assoc()) {
+            return $row['idPedido'];
+        }
     }
 
     function atualizarPreco($conn, $cpfCliente, $dataDeEntrega, $qtdJogos, $qtdCadeiras, $qtdMesas){
