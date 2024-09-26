@@ -14,15 +14,18 @@ create table funcionario(
     cargo varchar(10) not null
 );
 
-create table produto(
-	idProdt INT PRIMARY KEY,
-    nome varchar(255) not null,
-    qtdDisp int,
-    qtdTotal int
+CREATE TABLE produto (
+    idProdt INT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    qtdDisp INT,
+    qtdTotal INT,
+    preco DECIMAL(10, 2)
 );
-insert into produto(idProdt, nome, qtdDisp, qtdTotal) values (151,"Jogo completo", 170, 170);
-insert into produto(idProdt, nome, qtdDisp, qtdTotal) values (152,"Cadeira avulsa", 680, 680);
-insert into produto(idProdt, nome, qtdDisp, qtdTotal) values (153,"Mesa avulsa", 170, 170);
+
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (151, 'Jogo completo', 170, 170, 10.00);
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (152, 'Cadeira avulsa', 680, 680, 5.00);
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (153, 'Mesa avulsa', 170, 170, 2.00);
+
 
 create table pedido(
 	idPedido INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,6 +41,7 @@ create table pedido(
     horaRet time not null,
     cpfCliente char(14) not null,
     telefone char(15) not null,
+    preco decimal(10,2),
     #idResponsavel char(6) not null,
     #stts varchar(30),
     
@@ -53,8 +57,3 @@ CREATE TABLE carrinho (
     constraint fk_itensPedido foreign key (idPedido) references pedido(idPedido),
     constraint fk_itensProdt foreign key (idProdt) references produto(idProdt)
 );
-
-select * from cliente;
-select * from pedido;
-select * from carrinho;
-
