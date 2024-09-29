@@ -1,3 +1,5 @@
+const today = new Date().toISOString().split("T")[0];
+
 const precoJogos = 10;
 const precoMesas = 5;
 const precoCadeiras = 2;
@@ -33,6 +35,9 @@ function validarCPF(value) {
         digito2 === parseInt(cpf.charAt(10))
     );
 }
+
+$("#dataDeEntrega").attr("min", today);
+$("#dataDeRetirada").attr("min", today);
 
 $("#cep").mask("00000-000");
 $("#telefone").mask("(00) 00000-0000");

@@ -1,3 +1,21 @@
+<?php
+    $abbreviations = [
+        "entrega" => "Entg",
+        "retirada" => "Ret"
+    ];
+
+    
+
+
+    setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'pt_BR.utf8');
+    $dateFormatter = new IntlDateFormatter(
+        'pt_BR', 
+        IntlDateFormatter::LONG, 
+        IntlDateFormatter::NONE 
+    );
+    $dateFormatter->setPattern('dd MMM');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -130,16 +148,20 @@
 
                         $resultados = getAllPedidos($conn);
 
-
-
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
+
+                                $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
+                                $dateTime = new DateTime($dataHora);
+                                $formattedDate = $dateFormatter->format($dateTime);
+                                $formattedTime = $dateTime->format('H:i') . 'h';
+
                                 ?>
                                     <div class="card" data-type=<?=$pedido['stts']?>>
                                         <div class="card-header">
                                             <div>
                                                 <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
-                                                <p><?=$pedido['dataEntg']?> <?=$pedido['horaEntg']?></p>
+                                                <p><?=$formattedDate?> <?=$formattedTime?></p>
                                             </div>
                                             <span><?=$pedido['stts']?></span>
                                         </div>
