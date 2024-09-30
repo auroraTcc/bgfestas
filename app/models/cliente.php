@@ -1,5 +1,5 @@
 <?php
-    require_once "../config/conexao.php";
+    require "../config/conexao.php";
     class Cliente {
         function __construct($conn) {
             $this->conn = $conn;
@@ -49,13 +49,6 @@
             $stmt->bind_param('sss', $cpfCliente, $nome, $telefone);
 
             $stmt->execute();
-
-            /* if ($stmt->execute()) {
-                header("Location: /bgfestas/fazerpedido/sucesso"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
-                exit(); 
-            } else {
-                header("Location: /bgfestas/fazerpedido/erro"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
-            } */
 
             $stmt->close();
         }

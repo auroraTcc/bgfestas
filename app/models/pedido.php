@@ -1,9 +1,10 @@
 <?php
-    require_once "../config/conexao.php";
+    require "../config/conexao.php";
     class Pedido {
         function __construct($conn) {
             $this->conn = $conn;
-        }            
+        }
+        private $conn;            
         private $cep;
         private $endereco;
         private $numero;
@@ -108,13 +109,15 @@
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param('ssisssssssss', $cep, $endereco, $numero, $complemento, $bairro, $cidade, $dataEntg, $horaEntg, $dataRet, $horaRet, $cpfCliente, $telefone);
 
-            if ($stmt->execute()) {
-                header("Location: /fazerpedido/sucesso"); 
+            $stmt->execute();
+            /* if ($stmt->execute()) {
+                header("Location: /bgfestas/fazerpedido/sucesso"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
                 exit(); 
             } else {
-                header("Location: /fazerpedido/erro");
-            }
+                header("Location: /bgfestas/fazerpedido/erro"); //PARA HOMOLOGAR: RETIRAR O '/BGFESTAS'
+            } */
 
             $stmt->close();
         }
+
     }
