@@ -39,6 +39,7 @@
                         class="needs-validation"
                         novalidate
                         action="../../controllers/processPedido.php"
+                        style="transform: translateX(-100%)"
                     >
                         <div class="formCard active">
                             <header>
@@ -233,17 +234,21 @@
                                             </span>
                                             Jogos (1 mesa + 4 cadeiras)
                                         </label>
-                                        <select id="jogos" name="jogos">
+                                        <select id="ateCincoJogos" name="jogos">
                                             <option value="0">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
                                             <option value="2">Qtd: 2</option>
                                             <option value="3">Qtd: 3</option>
                                             <option value="4">Qtd: 4</option>
                                             <option value="5">Qtd: 5</option>
-                                            <option class="more">
-                                                Qtd: 6+
-                                            </option>
+                                            <option value="6">Qtd: 6+</option>
                                         </select>
+                                        <input
+                                            type="text"
+                                            id="jogos"
+                                            value="0"
+                                            class="form-control w-25"
+                                        />
                                     </div>
                                     <div class="cart-item">
                                         <label for="mesas">
@@ -256,17 +261,21 @@
                                             </span>
                                             Mesas avulsas</label
                                         >
-                                        <select id="mesas" name="mesas">
+                                        <select id="ateCincoMesas" name="mesas">
                                             <option value="0">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
                                             <option value="2">Qtd: 2</option>
                                             <option value="3">Qtd: 3</option>
                                             <option value="4">Qtd: 4</option>
                                             <option value="5">Qtd: 5</option>
-                                            <option class="more">
-                                                Qtd: 6+
-                                            </option>
+                                            <option value="6">Qtd: 6+</option>
                                         </select>
+                                        <input
+                                            type="text"
+                                            id="mesas"
+                                            value="0"
+                                            class="form-control w-25"
+                                        />
                                     </div>
                                     <div class="cart-item">
                                         <label for="cadeiras"
@@ -279,17 +288,24 @@
                                             </span>
                                             Cadeiras avulsas
                                         </label>
-                                        <select id="cadeiras" name="cadeiras">
+                                        <select
+                                            id="ateCincoCadeiras"
+                                            name="cadeiras"
+                                        >
                                             <option value="0">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
                                             <option value="2">Qtd: 2</option>
                                             <option value="3">Qtd: 3</option>
                                             <option value="4">Qtd: 4</option>
                                             <option value="5">Qtd: 5</option>
-                                            <option value="more" class="more">
-                                                Qtd: 6+
-                                            </option>
+                                            <option value="6">Qtd: 6+</option>
                                         </select>
+                                        <input
+                                            type="text"
+                                            id="cadeiras"
+                                            value="0"
+                                            class="form-control w-25"
+                                        />
                                     </div>
                                 </div>
                             </div>

@@ -61,5 +61,6 @@
         if ($qtdCadeiras > 0) {$carrinho->inserirCarrinho("cadeira", $qtdCadeiras, $cpfCliente, $dataDeEntrega); }
 
         atualizarPreco($conn, $cpfCliente, $dataDeEntrega, $qtdJogos, $qtdCadeiras, $qtdMesas);
+        header("location: /app/view/fazerpedido/sucesso");
     }
     

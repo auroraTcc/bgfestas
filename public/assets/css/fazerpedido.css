@@ -30,9 +30,9 @@ hr {
     opacity: 1 !important ;
     border-top: 1px solid var(--primary) !important;
 }
-#jogos,
-#mesas,
-#cadeiras {
+#ateCincoJogos,
+#ateCincoMesas,
+#ateCincoCadeiras {
     background-color: var(--primary);
     color: var(--body-bg);
     border: 1px solid var(--primary);

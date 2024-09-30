@@ -32,7 +32,6 @@
     } */
 
     function getAllPedidos($conn){
-
         $query = "SELECT * from pedido ORDER BY dataEntg, horaEntg, dataRet, horaRet";
         $stmt = $conn->prepare($query);
 
