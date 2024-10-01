@@ -1,13 +1,21 @@
-const precoJogos = 10;
-const precoMesas = 5;
-const precoCadeiras = 2;
+const today = new Date().toISOString().split("T")[0];
+
+const precos = {
+    jogos: 10,
+    mesas: 5,
+    cadeiras: 2,
+};
+
 const pedidoMinimo = 50;
 
 let slideIndex = 0;
 
-let valorTotalDeJogos = 0;
-let valorTotalDeMesas = 0;
-let valorTotalDeCadeiras = 0;
+let valorTotal = {
+    jogos: 0,
+    mesas: 0,
+    cadeiras: 0,
+};
+
 let frete = 0;
 let total = 0;
 
@@ -33,6 +41,9 @@ function validarCPF(value) {
         digito2 === parseInt(cpf.charAt(10))
     );
 }
+
+$("#dataDeEntrega").attr("min", today);
+$("#dataDeRetirada").attr("min", today);
 
 $("#cep").mask("00000-000");
 $("#telefone").mask("(00) 00000-0000");
@@ -124,7 +135,7 @@ function formatarMoeda(valor) {
 
 function calcularTotal() {
     let totalDosItens =
-        valorTotalDeJogos + valorTotalDeMesas + valorTotalDeCadeiras;
+        valorTotal.jogos + valorTotal.mesas + valorTotal.cadeiras;
 
     frete = totalDosItens < pedidoMinimo ? pedidoMinimo - totalDosItens : 0;
     total = totalDosItens + frete;
@@ -133,27 +144,64 @@ function calcularTotal() {
     $("#totalDoPedido").text(formatarMoeda(total));
 }
 
-$("#jogos").on("change", function () {
-    valorTotalDeJogos = precoJogos * $(this).val();
-    $("#totalDosJogos").text(formatarMoeda(valorTotalDeJogos));
-    calcularTotal();
-});
+function configurarEventoDeMudanca(
+    item,
+    defaultInput,
+    moreInput,
+    displayTotalElement
+) {
+    moreInput.hide();
 
-$("#mesas").on("change", function () {
-    valorTotalDeMesas = precoMesas * $(this).val();
+    defaultInput.on("change", function () {
+        let selectedValue = parseInt($(this).val());
+        $(moreInput).val(selectedValue);
 
-    $("#totalDasMesas").text(formatarMoeda(valorTotalDeMesas));
-    calcularTotal();
-});
+        if (selectedValue >= 6) {
+            $(this).hide();
+            $(moreInput).show();
+        }
 
-$("#cadeiras").on("change", function () {
-    var selectedValue = $(this).val();
+        const preco = precos[item];
+        valorTotal[item] = preco * selectedValue;
 
-    if (selectedValue === "more") {
-    }
+        displayTotalElement.text(formatarMoeda(valorTotal[item]));
+        calcularTotal();
+    });
 
-    valorTotalDeCadeiras = precoCadeiras * parseInt(selectedValue, 10);
+    moreInput.on("change", function () {
+        let selectedValue = parseInt($(this).val());
 
-    $("#totalDasCadeiras").text(formatarMoeda(valorTotalDeCadeiras));
-    calcularTotal();
-});
+        if (selectedValue < 6) {
+            $(this).hide();
+            $(defaultInput).show();
+            $(defaultInput).val(selectedValue);
+        }
+
+        const preco = precos[item];
+        valorTotal[item] = preco * selectedValue;
+
+        displayTotalElement.text(formatarMoeda(valorTotal[item]));
+        calcularTotal();
+    });
+}
+
+configurarEventoDeMudanca(
+    "jogos",
+    $("#ateCincoJogos"),
+    $("#jogos"),
+    $("#totalDosJogos")
+);
+
+configurarEventoDeMudanca(
+    "mesas",
+    $("#ateCincoMesas"),
+    $("#mesas"),
+    $("#totalDasMesas")
+);
+
+configurarEventoDeMudanca(
+    "cadeiras",
+    $("#ateCincoCadeiras"),
+    $("#cadeiras"),
+    $("#totalDasCadeiras")
+);
