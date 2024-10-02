@@ -2,7 +2,7 @@
     function getPrecoByProdt($conn, $produto){
         $query = "SELECT preco FROM produto WHERE nome = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $produto);
+        $stmt->bind_param('s', $produto);
         
         $stmt->execute();
         $result = $stmt->get_result();
