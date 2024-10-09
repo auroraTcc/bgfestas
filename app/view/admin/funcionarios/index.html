@@ -101,7 +101,28 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form class="needs-validation">
+                        <form class="needs-validation" action="../../../controllers/processInserirFunc.php" method="post">
+                            <div class="input-group has-validation"></div>
+                                <div class="input-group mb-3">
+                                    <span
+                                        class="input-group-text"
+                                        id="basic-addon1"
+                                    >
+                                        cpf:
+                                    </span>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        aria-describedby="basic-addon1"
+                                        required
+                                        id="cpfFunc"
+                                    />
+                                </div>
+
+                                <div class="invalid-feedback">
+                                    Por favor insira o cpf do funcionário.
+                                </div>
+                            </div>
                             <div class="input-group has-validation">
                                 <div class="input-group mb-3">
                                     <span
@@ -115,6 +136,7 @@
                                         class="form-control"
                                         aria-describedby="basic-addon1"
                                         required
+                                        id="nomeFunc"
                                     />
                                 </div>
                                 <div class="invalid-feedback">
@@ -134,6 +156,7 @@
                                         class="form-control"
                                         aria-describedby="basic-addon1"
                                         required
+                                        id="emailFunc"
                                     />
                                 </div>
 
@@ -141,16 +164,17 @@
                                     Por favor insira o email do funcionário.
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
+                            <button
+                            type="submit"
                             class="btn btn-primary"
                             data-bs-dismiss="modal"
                         >
                             Enviar
                         </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+            
                     </div>
                 </div>
             </div>

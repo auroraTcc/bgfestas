@@ -10,8 +10,9 @@ create table cliente(
 create table funcionario(
 	cpf char(14) not null primary key,
     nome varchar(255) not null,
-    senha varchar (25),
-    cargo varchar(10) not null
+    email varchar(255),
+    senha varchar (25) default "bgfestas",
+    cargo varchar(10) not null default "Funcionário"
 );
 INSERT INTO funcionario (cpf, nome, senha, cargo) VALUES ('652.369.700-24','Gilson Mangia', 'BGfestas001', 'Gerente');
 
@@ -24,8 +25,8 @@ CREATE TABLE produto (
 );
 
 INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (151, 'jogo', 170, 170, 10.00);
-INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (152, 'cadeira', 680, 680, 5.00);
-INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (153, 'mesa', 170, 170, 2.00);
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (152, 'cadeira', 680, 680, 2.00);
+INSERT INTO produto (idProdt, nome, qtdDisp, qtdTotal, preco) VALUES (153, 'mesa', 170, 170, 5.00);
 
 
 create table pedido(
@@ -58,3 +59,7 @@ CREATE TABLE carrinho (
     constraint fk_itensPedido foreign key (idPedido) references pedido(idPedido),
     constraint fk_itensProdt foreign key (idProdt) references produto(idProdt)
 );
+
+select * from cliente;
+select * from pedido;
+select * from carrinho;

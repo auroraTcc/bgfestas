@@ -59,13 +59,15 @@
         $precoCadeiras = getPrecoByProdt($conn, 'cadeira');
         $precoMesas = getPrecoByProdt($conn, 'mesa');
         
-        $totalProdts = $precoJogos*$qtdJogos + $precoCadeiras*$qtdCadeiras + $precoMesas*$qtdMesas;
-        
+        $totalProdts = ($precoJogos*$qtdJogos) + ($precoCadeiras*$qtdCadeiras) + ($precoMesas*$qtdMesas);
+
         //Pedido mínino de R$50,00
         if($totalProdts < 50.00){
             $frete = 50.00 - $totalProdts;
+            echo $frete;
         }else{
             $frete = 0;
+            echo $frete;
         }
 
         $totalPedido = $totalProdts + $frete;
