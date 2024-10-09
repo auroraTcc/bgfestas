@@ -150,9 +150,6 @@ main > * + * {
 
 @each $type, $color in $types {
     .card[data-type="#{$type}"] {
-        $main: $color;
-        border-radius: 1rem;
-
         & > div {
             background-color: unset;
             padding-top: 1rem;
@@ -160,8 +157,17 @@ main > * + * {
             padding-right: 1.5rem;
             padding-left: 1.5rem;
         }
+    }
+}
 
-        .card-header {
+@each $type, $color in $types {
+    .card[data-type="#{$type}"],
+    .container[data-type="#{$type}"] {
+        $main: $color;
+        border-radius: 1rem;
+
+        .card-header,
+        .main-header {
             display: flex;
             align-items: center;
             justify-content: space-between;

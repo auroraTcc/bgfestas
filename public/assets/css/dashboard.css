@@ -12089,9 +12089,6 @@ main > * + * {
   }
 }
 
-.card[data-type=entrega] {
-  border-radius: 1rem;
-}
 .card[data-type=entrega] > div {
   background-color: unset;
   padding-top: 1rem;
@@ -12099,70 +12096,111 @@ main > * + * {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
-.card[data-type=entrega] .card-header {
+
+.card[data-type=retirada] > div {
+  background-color: unset;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.card[data-type=entrega],
+.container[data-type=entrega] {
+  border-radius: 1rem;
+}
+.card[data-type=entrega] .card-header,
+.card[data-type=entrega] .main-header,
+.container[data-type=entrega] .card-header,
+.container[data-type=entrega] .main-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 0;
   border: none;
 }
-.card[data-type=entrega] .card-header h4, .card[data-type=entrega] .card-header .h4 {
+.card[data-type=entrega] .card-header h4, .card[data-type=entrega] .card-header .h4,
+.card[data-type=entrega] .main-header h4,
+.card[data-type=entrega] .main-header .h4,
+.container[data-type=entrega] .card-header h4,
+.container[data-type=entrega] .card-header .h4,
+.container[data-type=entrega] .main-header h4,
+.container[data-type=entrega] .main-header .h4 {
   margin-bottom: 0;
   font-size: 1.25rem;
 }
-.card[data-type=entrega] .card-header p {
+.card[data-type=entrega] .card-header p,
+.card[data-type=entrega] .main-header p,
+.container[data-type=entrega] .card-header p,
+.container[data-type=entrega] .main-header p {
   margin-bottom: 0;
   font-weight: 400;
 }
-.card[data-type=entrega] .card-header span {
+.card[data-type=entrega] .card-header span,
+.card[data-type=entrega] .main-header span,
+.container[data-type=entrega] .card-header span,
+.container[data-type=entrega] .main-header span {
   background-color: #eb7100;
   color: #fbf7f4;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
-.card[data-type=entrega] .card-body > p {
+.card[data-type=entrega] .card-body > p,
+.container[data-type=entrega] .card-body > p {
   font-size: 1.1rem;
 }
-.card[data-type=entrega] .card-body > div {
+.card[data-type=entrega] .card-body > div,
+.container[data-type=entrega] .card-body > div {
   display: flex;
   justify-content: space-between;
 }
-.card[data-type=entrega] .card-body > div .itemCount {
+.card[data-type=entrega] .card-body > div .itemCount,
+.container[data-type=entrega] .card-body > div .itemCount {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.card[data-type=entrega] .card-body > div .itemCount p {
+.card[data-type=entrega] .card-body > div .itemCount p,
+.container[data-type=entrega] .card-body > div .itemCount p {
   margin-bottom: 0;
   font-weight: 600;
   font-size: 1rem;
 }
-.card[data-type=entrega] .card-body svg {
+.card[data-type=entrega] .card-body svg,
+.container[data-type=entrega] .card-body svg {
   color: #eb7100;
   height: 2rem;
 }
-.card[data-type=entrega] .card-footer {
+.card[data-type=entrega] .card-footer,
+.container[data-type=entrega] .card-footer {
   border-color: #eb7100;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.card[data-type=entrega] .card-footer > div {
+.card[data-type=entrega] .card-footer > div,
+.container[data-type=entrega] .card-footer > div {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
-.card[data-type=entrega] .card-footer > div i {
+.card[data-type=entrega] .card-footer > div i,
+.container[data-type=entrega] .card-footer > div i {
   font-size: 1.25rem;
 }
-.card[data-type=entrega] .card-footer > div h5, .card[data-type=entrega] .card-footer > div .h5 {
+.card[data-type=entrega] .card-footer > div h5, .card[data-type=entrega] .card-footer > div .h5,
+.container[data-type=entrega] .card-footer > div h5,
+.container[data-type=entrega] .card-footer > div .h5 {
   margin-bottom: 0;
   font-size: 1rem;
 }
-.card[data-type=entrega] .card-footer > div h5 span, .card[data-type=entrega] .card-footer > div .h5 span {
+.card[data-type=entrega] .card-footer > div h5 span, .card[data-type=entrega] .card-footer > div .h5 span,
+.container[data-type=entrega] .card-footer > div h5 span,
+.container[data-type=entrega] .card-footer > div .h5 span {
   color: #eb7100;
 }
-.card[data-type=entrega] .card-footer a {
+.card[data-type=entrega] .card-footer a,
+.container[data-type=entrega] .card-footer a {
   color: #fbf7f4;
   background-color: #eb7100;
   width: 2.5rem;
@@ -12175,80 +12213,102 @@ main > * + * {
   text-decoration: none;
 }
 
-.card[data-type=retirada] {
+.card[data-type=retirada],
+.container[data-type=retirada] {
   border-radius: 1rem;
 }
-.card[data-type=retirada] > div {
-  background-color: unset;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-}
-.card[data-type=retirada] .card-header {
+.card[data-type=retirada] .card-header,
+.card[data-type=retirada] .main-header,
+.container[data-type=retirada] .card-header,
+.container[data-type=retirada] .main-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 0;
   border: none;
 }
-.card[data-type=retirada] .card-header h4, .card[data-type=retirada] .card-header .h4 {
+.card[data-type=retirada] .card-header h4, .card[data-type=retirada] .card-header .h4,
+.card[data-type=retirada] .main-header h4,
+.card[data-type=retirada] .main-header .h4,
+.container[data-type=retirada] .card-header h4,
+.container[data-type=retirada] .card-header .h4,
+.container[data-type=retirada] .main-header h4,
+.container[data-type=retirada] .main-header .h4 {
   margin-bottom: 0;
   font-size: 1.25rem;
 }
-.card[data-type=retirada] .card-header p {
+.card[data-type=retirada] .card-header p,
+.card[data-type=retirada] .main-header p,
+.container[data-type=retirada] .card-header p,
+.container[data-type=retirada] .main-header p {
   margin-bottom: 0;
   font-weight: 400;
 }
-.card[data-type=retirada] .card-header span {
+.card[data-type=retirada] .card-header span,
+.card[data-type=retirada] .main-header span,
+.container[data-type=retirada] .card-header span,
+.container[data-type=retirada] .main-header span {
   background-color: #5e67de;
   color: #fbf7f4;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
-.card[data-type=retirada] .card-body > p {
+.card[data-type=retirada] .card-body > p,
+.container[data-type=retirada] .card-body > p {
   font-size: 1.1rem;
 }
-.card[data-type=retirada] .card-body > div {
+.card[data-type=retirada] .card-body > div,
+.container[data-type=retirada] .card-body > div {
   display: flex;
   justify-content: space-between;
 }
-.card[data-type=retirada] .card-body > div .itemCount {
+.card[data-type=retirada] .card-body > div .itemCount,
+.container[data-type=retirada] .card-body > div .itemCount {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.card[data-type=retirada] .card-body > div .itemCount p {
+.card[data-type=retirada] .card-body > div .itemCount p,
+.container[data-type=retirada] .card-body > div .itemCount p {
   margin-bottom: 0;
   font-weight: 600;
   font-size: 1rem;
 }
-.card[data-type=retirada] .card-body svg {
+.card[data-type=retirada] .card-body svg,
+.container[data-type=retirada] .card-body svg {
   color: #5e67de;
   height: 2rem;
 }
-.card[data-type=retirada] .card-footer {
+.card[data-type=retirada] .card-footer,
+.container[data-type=retirada] .card-footer {
   border-color: #5e67de;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.card[data-type=retirada] .card-footer > div {
+.card[data-type=retirada] .card-footer > div,
+.container[data-type=retirada] .card-footer > div {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
-.card[data-type=retirada] .card-footer > div i {
+.card[data-type=retirada] .card-footer > div i,
+.container[data-type=retirada] .card-footer > div i {
   font-size: 1.25rem;
 }
-.card[data-type=retirada] .card-footer > div h5, .card[data-type=retirada] .card-footer > div .h5 {
+.card[data-type=retirada] .card-footer > div h5, .card[data-type=retirada] .card-footer > div .h5,
+.container[data-type=retirada] .card-footer > div h5,
+.container[data-type=retirada] .card-footer > div .h5 {
   margin-bottom: 0;
   font-size: 1rem;
 }
-.card[data-type=retirada] .card-footer > div h5 span, .card[data-type=retirada] .card-footer > div .h5 span {
+.card[data-type=retirada] .card-footer > div h5 span, .card[data-type=retirada] .card-footer > div .h5 span,
+.container[data-type=retirada] .card-footer > div h5 span,
+.container[data-type=retirada] .card-footer > div .h5 span {
   color: #5e67de;
 }
-.card[data-type=retirada] .card-footer a {
+.card[data-type=retirada] .card-footer a,
+.container[data-type=retirada] .card-footer a {
   color: #fbf7f4;
   background-color: #5e67de;
   width: 2.5rem;
