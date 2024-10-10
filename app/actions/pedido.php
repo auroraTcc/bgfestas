@@ -77,4 +77,12 @@
         $stmt->bind_param("di", $totalPedido, $idPedido);
         $stmt->execute();
     }
+
+    function getPedidoById($conn, $idPedido){
+        $query = "SELECT * FROM funcionario WHERE idPedido = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('i', $idPedido);
+
+        $stmt->execute();
+    }
 ?>

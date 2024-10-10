@@ -31,10 +31,10 @@
             $this->email = $email;
         }
 
-        public function inserirFuncionario($cpfFunc, $nomeFunc, $emailFunc){
-            $query = "INSERT INTO funcionario (cpf, nome, email) VALUES (?, ?, ?)";
+        public function inserirFuncionario($cpfFunc, $nomeFunc, $emailFunc, $senhaFunc, $cargo){
+            $query = "INSERT INTO funcionario (cpf, nome, email, senha, cargo) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bind_param('sss', $cpfFunc, $nomeFunc, $emailFunc);
+            $stmt->bind_param('sssss', $cpfFunc, $nomeFunc, $emailFunc, $senhaFunc, $cargo);
 
             $stmt->execute();
 

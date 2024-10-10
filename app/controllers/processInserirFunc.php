@@ -8,16 +8,17 @@
 
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         //coleta de dados do formulário
-        $cpf = $_POST["cpfFunc"];
-        $nome = $_POST["nomeFunc"];
-        $email = $_POST["emailFunc"];
-        $senha = $_POST[""];
+        $cpf = $_POST["cpf"];
+        $nome = $_POST["nome"];
+        $email = $_POST["email"];
+        $senha = "PrimeiroAcesso".$cpf;
+        $cargo = "Funcionário";
 
         $funcionario = new Funcionario($conn);
         $funcionario->setCPF($cpf);
         $funcionario->setNome($nome);
         $funcionario->setEmail($email);
 
-        $funcionario->inserirFuncionario( $cpfFunc, $nomeFunc, $emailFunc);
+        $funcionario->inserirFuncionario( $cpf, $nome, $email, $senha, $cargo);
 
     }
