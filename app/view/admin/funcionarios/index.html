@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Funcionários</title>
-        <link rel="stylesheet" href="../../../../public/assets/css/dashboard.css" />
+        <link
+            rel="stylesheet"
+            href="../../../../public/assets/css/dashboard.css"
+        />
         <script src="../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
@@ -101,81 +104,60 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form class="needs-validation" action="../../../controllers/processInserirFunc.php" method="post">
-                            <div class="input-group has-validation"></div>
-                                <div class="input-group mb-3">
-                                    <span
-                                        class="input-group-text"
-                                        id="basic-addon1"
-                                    >
-                                        cpf:
-                                    </span>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        aria-describedby="basic-addon1"
-                                        required
-                                        id="cpfFunc"
-                                    />
-                                </div>
-
-                                <div class="invalid-feedback">
-                                    Por favor insira o cpf do funcionário.
-                                </div>
-                            </div>
-                            <div class="input-group has-validation">
-                                <div class="input-group mb-3">
-                                    <span
-                                        class="input-group-text"
-                                        id="basic-addon1"
-                                    >
-                                        nome:
-                                    </span>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        aria-describedby="basic-addon1"
-                                        required
-                                        id="nomeFunc"
-                                    />
-                                </div>
-                                <div class="invalid-feedback">
-                                    Por favor insira o nome do funcionário.
-                                </div>
-                            </div>
-                            <div class="input-group has-validation">
-                                <div class="input-group mb-3">
-                                    <span
-                                        class="input-group-text"
-                                        id="basic-addon1"
-                                    >
-                                        email:
-                                    </span>
-                                    <input
-                                        type="email"
-                                        class="form-control"
-                                        aria-describedby="basic-addon1"
-                                        required
-                                        id="emailFunc"
-                                    />
-                                </div>
-
-                                <div class="invalid-feedback">
-                                    Por favor insira o email do funcionário.
-                                </div>
-                            </div>
-                            <button
-                            type="submit"
-                            class="btn btn-primary"
-                            data-bs-dismiss="modal"
+                        <form
+                            class="needs-validation"
+                            action="../../../controllers/processInserirFunc.php"
+                            method="post"
                         >
-                            Enviar
-                        </button>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1"
+                                    >cpf:</span
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="insira o CPF do funcionário"
+                                    id="cpf"
+                                    name="cpf"
+                                    aria-label="Username"
+                                    aria-describedby="basic-addon1"
+                                />
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1"
+                                    >nome:</span
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="insira o nome do funcionário"
+                                    id="nome"
+                                    name="nome"
+                                    aria-label="Username"
+                                    aria-describedby="basic-addon1"
+                                />
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1"
+                                    >email:</span
+                                >
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="insira o email do funcionário"
+                                    id="email"
+                                    name="email"
+                                    aria-label="Username"
+                                    aria-describedby="basic-addon1"
+                                />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">
+                                enviar
+                            </button>
                         </form>
                     </div>
-                    <div class="modal-footer">
-            
-                    </div>
+                    <div class="modal-footer"></div>
                 </div>
             </div>
         </div>
@@ -253,28 +235,27 @@
             </section>
 
             <nav aria-label="Page nav igation example"></nav>
-                <ul class="pagination pagination-md justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">Anterior</span>
-                        </a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">Próximo</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <ul class="pagination pagination-md justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">Anterior</span>
+                    </a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">Próximo</span>
+                    </a>
+                </li>
+            </ul>
         </main>
     </body>
 </html>
