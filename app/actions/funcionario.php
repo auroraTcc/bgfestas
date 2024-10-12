@@ -31,11 +31,17 @@
         }
     }
 
-    function deleteFunc($conn, $cpf){
-        $query = "SELECT * FROM funcionario WHERE cpf = ?";
+    function deleteFunc($conn, $cpf) {
+        $query = "DELETE FROM funcionario WHERE cpf = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('s', $cpf);
 
-        $stmt->execute();
+       
+        if ($stmt->execute()) {
+            $stmt->close(); 
+            return true; 
+        } else {
+            $stmt->close(); 
+            return false; 
+        }
     }
-?>

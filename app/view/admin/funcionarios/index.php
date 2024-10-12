@@ -223,10 +223,11 @@
                                         $i++
                                         ?><tr>
                                         <th scope="row"><?=$i?></th>
+                                        
                                         <td><?=$funcionario['nome']?></td>
                                         <td><?=$funcionario['email']?></td>
                                         <td class="d-flex gap-2">
-                                            <button class="btn delete-btn">
+                                            <button class="btn delete-btn" data-cpf="<?=$funcionario['cpf']?>">
                                                 <i class="fa-regular fa-trash-can">
                                                 </i>
                                             </button>

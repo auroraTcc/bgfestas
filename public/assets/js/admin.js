@@ -22,6 +22,23 @@ $("#workersSubtmitBtn").on("click", function (e) {
 
 $(".delete-btn").each(function () {
     $(this).on("click", function () {
-        console.log("hi");
+        const cpf = $(this).data("cpf");
+
+        $.ajax({
+            url: "../../../../app/controllers/processDeleteFunc.php",
+            type: "POST",
+            dataType: "json",
+            data: { cpf: cpf },
+            success: function (response) {
+                if (response.success) {
+                    console.log("removido!");
+                } else {
+                    console.log("erro ao remover.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Erro na requisição Ajax:", error);
+            },
+        });
     });
 });
