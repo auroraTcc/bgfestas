@@ -25,6 +25,7 @@
             type="image/x-icon"
         />
         <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+        <script src="../../../../public/assets/js/admin.js" defer></script>
     </head>
     <body>
         <header class="border-bottom border-primary">
@@ -110,9 +111,8 @@
                     </div>
                     <div class="modal-body">
                         <form
+                            id="addWorkerForm"
                             class="needs-validation"
-                            action="../../../controllers/processInserirFunc.php"
-                            method="post"
                         >
                             <div class="input-group mb-3">
                                 <span class="input-group-text">cpf:</span>
@@ -124,6 +124,7 @@
                                     name="cpf"
                                     aria-label="Username"
                                     aria-describedby="basic-addon1"
+                                    autocomplete="off"
                                 />
                             </div>
                             <div class="input-group mb-3">
@@ -136,6 +137,7 @@
                                     name="nome"
                                     aria-label="Username"
                                     aria-describedby="basic-addon1"
+                                    autocomplete="off"
                                 />
                             </div>
                             <div class="input-group mb-3">
@@ -148,10 +150,11 @@
                                     name="email"
                                     aria-label="Username"
                                     aria-describedby="basic-addon1"
+                                    autocomplete="off"
                                 />
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button id="workersSubtmitBtn" class="btn btn-primary w-100">
                                 enviar
                             </button>
                         </form>
@@ -207,21 +210,23 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Controles</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $resultados = getAllFuncs($conn);
-        
+                                $i = 0;
+
                                 if ($resultados) {
                                     foreach ($resultados as $funcionario) {
+                                        $i++
                                         ?><tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row"><?=$i?></th>
                                         <td><?=$funcionario['nome']?></td>
                                         <td><?=$funcionario['email']?></td>
                                         <td class="d-flex gap-2">
-                                            <button class="btn">
+                                            <button class="btn delete-btn">
                                                 <i class="fa-regular fa-trash-can">
                                                 </i>
                                             </button>
@@ -240,28 +245,7 @@
                 </div>
             </section>
 
-            <nav aria-label="Page nav igation example"></nav>
-            <ul class="pagination pagination-md justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">Anterior</span>
-                    </a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">Próximo</span>
-                    </a>
-                </li>
-            </ul>
+            
         </main>
     </body>
 </html>
