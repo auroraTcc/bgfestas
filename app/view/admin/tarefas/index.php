@@ -22,7 +22,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tarefas</title>
-        <link rel="stylesheet" href="../../../../public/assets/css/dashboard.css" />
+        <link rel="stylesheet" href="../../../../public/assets/css/admin.css" />
         <script src="../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
