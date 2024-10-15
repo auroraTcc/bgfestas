@@ -31,6 +31,7 @@
         }
     } */
 
+    //Seleciona todos os pedidos
     function getAllPedidos($conn){
         $query = "SELECT * from pedido ORDER BY dataEntg, horaEntg, dataRet, horaRet";
         $stmt = $conn->prepare($query);
@@ -53,6 +54,31 @@
         }
     }
 
+    //Seleciona pedidos individualmente
+    function getPedidoById($conn, $idPedido){
+        $query = "SELECT * FROM pedido WHERE idPedido = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('i', $idPedido);
+
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        $updatedResults = [];
+
+        if (mysqli_num_rows($resultados) > 0){
+            while ($pedido = mysqli_fetch_assoc($resultados)) {
+                $pedido['nomeCliente'] = getNomeClienteByCpf($conn, $pedido['cpfCliente']);
+                $pedido['nomeFuncionario'] = getNomeFuncionarioByCpf($conn, $pedido['cpfResponsavel']);
+                $pedido['itensCarrinho'] = getItensByIdpedido($conn, $pedido['idPedido']);
+                $updatedResults[] = $pedido;
+            }
+
+            return $updatedResults;
+        } else {
+            return null;
+        }
+    }
+
+    //Calcula e insere o preço na tabela
     function atualizarPreco($conn, $cpfCliente, $dataDeEntrega, $qtdJogos, $qtdCadeiras, $qtdMesas){
         $idPedido = getIdPedidoByCpfAndDate($conn, $cpfCliente, $dataDeEntrega);
         $precoJogos = getPrecoByProdt($conn, 'jogo');
@@ -78,11 +104,4 @@
         $stmt->execute();
     }
 
-    function getPedidoById($conn, $idPedido){
-        $query = "SELECT * FROM funcionario WHERE idPedido = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $idPedido);
-
-        $stmt->execute();
-    }
 ?>

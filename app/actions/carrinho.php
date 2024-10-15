@@ -1,5 +1,4 @@
 <?php
-
     function getItensByIdpedido($conn, $idPedido){
         $query = "SELECT * from carrinho WHERE idPedido = ?";
         $stmt = $conn->prepare($query);
@@ -12,6 +11,7 @@
         if(mysqli_num_rows($resultados)) {
             while ($item = $resultados->fetch_assoc()) {  
                 $item['nome'] = getProdtNameByProdtId($conn, $item['idProdt']);
+                $item['preco'] = getPrecoByProdt($conn, $item['nome']);
                 $carrinho[] = $item;
             }
             return $carrinho;

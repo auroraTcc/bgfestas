@@ -1,5 +1,23 @@
+<?php
+    $abbreviations = [
+        "entrega" => "Entg",
+        "retirada" => "Ret"
+    ];
+
+    
+
+
+    setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'pt_BR.utf8');
+    $dateFormatter = new IntlDateFormatter(
+        'pt_BR', 
+        IntlDateFormatter::LONG, 
+        IntlDateFormatter::NONE 
+    );
+    $dateFormatter->setPattern('dd MMM');
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -97,15 +115,32 @@
                 class="d-flex flex-column-reverse gap-3 flex-md-row justify-content-between align-md-items-center align-items-start"
             >
                 <div>
-                    <h3>Fillip Gabriel Mangia da Silva</h3>
+                    <?php 
+                        require_once "../../../../../app/config/conexao.php";
+                        require_once "../../../../../app/actions/pedido.php"; 
+                        $idPedido = $_GET['id'];
+                        $resultados = getPedidoById($conn, $idPedido);
+                        
+                        if ($resultados) {
+                            foreach ($resultados as $pedido) {
+
+                                $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
+                                $dateTime = new DateTime($dataHora);
+                                $formattedDate = $dateFormatter->format($dateTime);
+                                $formattedTime = $dateTime->format('H:i') . 'h';
+                                $pedido['subtotal'] = 0;
+                                $pedido['frete'] = 0;
+                                $pedido['total'] = 0;
+
+                                ?>
+
+                    <h3><?=$pedido['nomeCliente']?></h3>
                     <div class="d-flex flex-column gap-2">
                         <p class="d-flex align-items-center gap-2 mb-0">
-                            <i class="fa-regular fa-calendar"></i>30 out. 12:03h
+                            <i class="fa-regular fa-calendar"></i><?=$formattedDate?> <?=$formattedTime?>
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
-                            <i class="fa-solid fa-map-pin"></i>Rua João Antônio
-                            Stamato, 145, Vila Major Cícero de Carvalho,
-                            Bebedouro
+                            <i class="fa-solid fa-map-pin"></i><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
                             <i class="fa-solid fa-circle-user"></i
@@ -123,7 +158,7 @@
                 <span
                     class="badge bg-primary text-bg-secondary rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
                 >
-                    entrega
+                    <?=$pedido['stts']?>
                 </span>
             </section>
 
@@ -132,10 +167,15 @@
                     <h4>Produtos</h4>
                 </div>
                 <div class="p-3 d-flex flex-column gap-3">
+                    <?php
+                    foreach($pedido['itensCarrinho'] as $item) { 
+                        $pedido['subtotal'] = $pedido['subtotal'] + $item['preco'] * $item['quantidade'];
+                        ?>
                     <div
                         class="d-flex justify-content-between align-items-center"
                     >
                         <div class="item-titles align-items-center">
+                            <!-- FORMATAR AS IMAGENS -->
                             <div class="d-flex justify-content-center">
                                 <img
                                     src="../../../../../public/assets/imgs/jogo.svg"
@@ -144,53 +184,16 @@
                                     height="2rem"
                                 />
                             </div>
-                            <h5 class="text-secondary-color">Jogo</h5>
+                            <h5 class="text-secondary-color"><?=$item["nome"]?></h5>
                         </div>
                         <div class="d-flex gap-1 align-items-center">
-                            <p class="mb-0">6 x R$ 10,00 =</p>
-                            <p class="fw-bold mb-0">R$ 60,00</p>
+                            <p class="mb-0"><?=$item["quantidade"]?> x <?=$item["preco"]?> =</p>
+                            <p class="fw-bold mb-0">R$ <?=$item["quantidade"]*$item["preco"]?>,00</p> 
+                            <!-- FORMATAR EM REAL -->
                         </div>
                     </div>
-
-                    <div
-                        class="d-flex justify-content-between align-items-center"
-                    >
-                        <div class="item-titles align-items-center">
-                            <div class="d-flex justify-content-center">
-                                <img
-                                    src="../../../../../public/assets/imgs/mesa.svg"
-                                    onload="SVGInject(this)"
-                                    class="text-primary"
-                                    height="2rem"
-                                />
-                            </div>
-                            <h5 class="text-secondary-color">Mesa</h5>
-                        </div>
-                        <div class="d-flex gap-1 align-items-center">
-                            <p class="mb-0">6 x R$ 5,00 =</p>
-                            <p class="fw-bold mb-0">R$ 30,00</p>
-                        </div>
-                    </div>
-
-                    <div
-                        class="d-flex justify-content-between align-items-center"
-                    >
-                        <div class="item-titles align-items-center">
-                            <div class="d-flex justify-content-center">
-                                <img
-                                    src="../../../../../public/assets/imgs/cadeira.svg"
-                                    onload="SVGInject(this)"
-                                    class="text-primary"
-                                    height="2rem"
-                                />
-                            </div>
-                            <h5 class="text-secondary-color">Cadeira</h5>
-                        </div>
-                        <div class="d-flex gap-1 align-items-center">
-                            <p class="mb-0">6 x R$ 2,00 =</p>
-                            <p class="fw-bold mb-0">R$ 18,00</p>
-                        </div>
-                    </div>
+                    <?php 
+                        } ?>
                 </div>
             </section>
 
@@ -198,21 +201,29 @@
                 <div class="p-3 border-bottom">
                     <h4>Pagamento</h4>
                 </div>
+                <?php
+                    if($pedido['subtotal'] < 50.00){
+                        $pedido['frete'] = 50.00 - $pedido['subtotal'];
+                    }else{
+                        $pedido['frete'];
+                    }
+                    }
+                ?>
                 <div class="p-3 d-flex flex-column gap-3">
                     <div>
                         <div class="d-flex justify-content-between pb-1">
                             <span>Subtotal</span>
-                            <span>R$ 98,00</span>
+                            <span>R$ <?=$pedido['subtotal']?></span>
                         </div>
                         <div class="d-flex justify-content-between pb-2">
                             <span>Frete</span>
-                            <span>R$ 00,00</span>
+                            <span>R$ <?=$pedido['frete']?></span>
                         </div>
                         <div
                             class="d-flex justify-content-between border-top border-primary pt-3 pb-3"
                         >
                             <strong>Total</strong>
-                            <strong>R$ 98,00</strong>
+                            <strong>R$ <?=$pedido['subtotal']+$pedido['frete']?></strong>
                         </div>
                     </div>
                 </div>
@@ -227,6 +238,11 @@
                 <button class="btn btn-primary ms-auto">
                     Confirmar Pagamento
                 </button>
+
+                <?php
+                      }
+                ?>
+
             </section>
         </main>
     </body>
