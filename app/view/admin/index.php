@@ -32,6 +32,13 @@
             type="image/x-icon"
         />
         <script src="../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+        <script src="../../../public/assets/js/admin.js" defer></script>
+        <style>
+            a {
+                color: unset !important;
+                text-decoration: none !important;
+            }
+        </style>
     </head>
     <body>
 
@@ -147,66 +154,60 @@
 
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
-
                                 $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
                                 $formattedTime = $dateTime->format('H:i') . 'h';
-
                                 ?>
-                                    <div class="card" data-type=<?=$pedido['stts']?>>
-                                        <div class="card-header">
-                                            <div>
-                                                <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
-                                                <p><?=$formattedDate?> <?=$formattedTime?></p>
-                                            </div>
-                                            <span><?=$pedido['stts']?></span>
+                                
+                                <div role="button" class="card pedido" data-type="<?=$pedido['stts']?>" data-id="<?=$pedido['idPedido']?>">
+                                    <div class="card-header">
+                                        <div>
+                                            <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
+                                            <p><?=$formattedDate?> <?=$formattedTime?></p>
                                         </div>
+                                        <span><?=$pedido['stts']?></span>
+                                    </div>
 
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                <?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {
-                                                    echo ", ". $pedido['complemento'];
-                                                } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
-                                            </p>
-                                            <div>
-                                                <?php
-                                                    foreach($pedido['itensCarrinho'] as $item) {
-                                                        ?>
-                                                            <div class="itemCount">
-                                                                <img
-                                                                    src="../../../public/assets/imgs/<?=$item["nome"]?>.svg"
-                                                                    onload="SVGInject(this)"
-                                                                />
-                                                                <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
-                                                            </div>
-                                                        <?php
-                                                    }
-                                                ?>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-footer">
-                                            <div>
-                                                <i class="fa-solid fa-circle-user"></i>
-                                                <h5>
-                                                    Responsável:
-                                                    <span><?=$pedido['nomeFuncionario']?></span>
-                                                </h5>
-                                            </div>
-
-                                            <a href="#">
-                                                <i class="fa-solid fa-comments"></i>
-                                            </a>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <?=$pedido['endereco']?>, <?=$pedido['numero']?><?php if($pedido['complemento']) { echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
+                                        </p>
+                                        <div>
+                                            <?php foreach($pedido['itensCarrinho'] as $item) { ?>
+                                                <div class="itemCount">
+                                                    <img
+                                                        src="../../../public/assets/imgs/<?=$item["nome"]?>.svg"
+                                                        onload="SVGInject(this)"
+                                                    />
+                                                    <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
+
+                                    <div class="card-footer">
+                                        <div>
+                                            <i class="fa-solid fa-circle-user"></i>
+                                            <h5>
+                                                Responsável:
+                                                <span><?=$pedido['nomeFuncionario']?></span>
+                                            </h5>
+                                        </div>
+
+                                        <a href="#">
+                                            <i class="fa-solid fa-comments"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
                                 <?php
                             }
                         }
                     ?>
-
-                    
                 </div>
+
+
                 <a
                     href="../../../app/view/admin/tarefas"
                     class="btn btn-outline-primary d-flex ms-auto align-items-center gap-2"
