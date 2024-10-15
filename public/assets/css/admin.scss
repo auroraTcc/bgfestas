@@ -259,3 +259,68 @@ main > * + * {
         }
     }
 }
+:root {
+    --primary: #eb7100;
+    --body-color: #160c04;
+    --secondary-color: #3b3837;
+    --tertiary-color: #7f7977;
+    --body-bg: #fbf7f4;
+    --secondary-bg: #ede8e1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    background: var(--secondary-bg);
+    font-family: "Inter", sans-serif !important;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    min-height: 100vh;
+}
+h5{
+    font-weight: 700;
+}
+form label {
+    font-size: 1rem !important;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+form label span {
+    color: var(--primary);
+}
+.btn-entrar {
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--body-bg);
+    padding: 0.5rem 2.5rem;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 1.5rem;
+}
+.login-box{
+    width: 34rem;
+    background-color: white;
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: var(--body-bg);
+    gap: 1.5rem;
+}
+.login-box h5 i {
+    color: var(--primary) !important
+}
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+

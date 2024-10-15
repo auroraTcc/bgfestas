@@ -19,5 +19,27 @@
         <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <script src="../../../../public/assets/js/admin.js" defer></script>
     </head>
-    <body></body>
+    <body>
+        <div class="geral">
+            <div class="login-box">
+                <h5><i class="fa-solid fa-right-to-bracket"></i> Bem-vindo de volta! :)</h5>
+                <p>Antes de acessar sua área, por favor, preencha o formulário abaixo para verificarmos sua identidade.</p>
+                <form>
+                    <div class="form-group">
+                        <label for="cpf"><span>*</span>CPF</label>
+                        <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF">
+                    </div>
+                    <div class="form-group">
+                        <label for="senha"><span>*</span>Senha</label>
+                        <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="conectado">
+                        <label for="conectado" class="ml-2">Manter Conectado</label>
+                    </div>
+                    <button type="submit" class="btn-entrar">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
