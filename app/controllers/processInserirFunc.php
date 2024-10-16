@@ -2,6 +2,7 @@
     require "../config/conexao.php";
     require "../models/funcionario.php";
 
+
     header('Content-Type: application/json');
 
     if (!$conn) {
@@ -13,10 +14,11 @@
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         //coleta de dados do formulário
         $cpf = $_POST["cpf"];
-        $cpfNumbers = preg_replace('/[^0-9]/', '', $cpf).
+        $cpfNumbers = preg_replace('/[^0-9]/', '', $cpf);
         $nome = $_POST["nome"];
         $email = $_POST["email"];
         $senha = "PrimeiroAcesso$cpfNumbers";
+        $senhahash = password_hash($senha, PASSWORD_DEFAULT);
         $cargo = "Funcionário";
 
         if (empty($cpf) || empty($nome) || empty($email)) {
@@ -30,7 +32,7 @@
         $funcionario->setNome($nome);
         $funcionario->setEmail($email);
 
-        $funcionario->inserirFuncionario( $cpf, $nome, $email, $senha, $cargo);
+        $funcionario->inserirFuncionario( $cpf, $nome, $email, $senhahash, $cargo);
         $response = ["success" => true, "message" => "Funcionário inserido com sucesso"];
         echo json_encode($response);
         

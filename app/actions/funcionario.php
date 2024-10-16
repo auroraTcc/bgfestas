@@ -45,3 +45,28 @@
             return false; 
         }
     }
+    
+    function verificarUsuario($conn, $cpf, $senha){
+        $query = "SELECT * FROM funcionario WHERE cpf = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $cpf);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if($result->num_rows === 1){
+            $funcionario = $result->fetch_assoc();
+    
+            // Debug: print senha fornecida e hash esperado
+            if (password_verify($senha, $funcionario['senha'])) {
+                return ["success" => true, "message" => "", "content" => $funcionario];
+            } else {
+                return [
+                    "success" => false,
+                    "message" => "Senha incorreta",
+                    "content" => ""
+                ];
+            }
+        }
+    
+        return ["success" => false, "message" => "Usuário não encontrado", "content" => ""];
+    }

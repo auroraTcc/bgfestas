@@ -4,15 +4,16 @@ use bgfestas;
 create table cliente(
 	cpf char(14) not null primary key,
     nome varchar(255) not null,
-    telefone char(15) not null
+    telefone varchar(255) not null
 );
 
 create table funcionario(
 	cpf char(14) not null primary key,
     nome varchar(255) not null,
     email varchar(255),
-    senha varchar (25),
-    cargo varchar(10) not null
+    senha varchar (255),
+    cargo varchar(255) not null,
+    primAcess boolean default true
 );
 INSERT INTO funcionario (cpf, nome, senha, cargo) VALUES ('309.277.248-20','Gilson Mangia', 'BGfestas001', 'Gerente');
 
@@ -61,3 +62,5 @@ CREATE TABLE carrinho (
 );
 
 select * from pedido;
+select * from funcionario;
+drop database bgfestas;

@@ -24,14 +24,14 @@
             <div class="login-box">
                 <h5><i class="fa-solid fa-right-to-bracket"></i> Bem-vindo de volta! :)</h5>
                 <p>Antes de acessar sua área, por favor, preencha o formulário abaixo para verificarmos sua identidade.</p>
-                <form>
+                <form method="POST" action="../../../controllers/processLogin.php">
                     <div class="form-group">
                         <label for="cpf"><span>*</span>CPF</label>
-                        <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF">
+                        <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite seu CPF">
                     </div>
                     <div class="form-group">
                         <label for="senha"><span>*</span>Senha</label>
-                        <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
+                        <input type="password" class="form-control" name="senha" id="senha" placeholder="Digite sua senha">
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" id="conectado">

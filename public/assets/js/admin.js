@@ -2,6 +2,8 @@ $("#workersSubtmitBtn").on("click", function (e) {
     e.preventDefault();
     const dados = $("#addWorkerForm").serialize();
 
+    console.log(dados)
+
     $.ajax({
         url: "../../../../app/controllers/processInserirFunc.php",
         type: "POST",
@@ -10,12 +12,16 @@ $("#workersSubtmitBtn").on("click", function (e) {
         success: function (response) {
             if (response.success) {
                 console.log("Funcionário inserido com sucesso!");
+                console.log(response)
             } else {
+                console.log(response)
                 console.log("Erro ao inserir funcionário.");
             }
         },
         error: function (xhr, status, error) {
             console.error("Erro na requisição Ajax:", error);
+            
+
         },
     });
 });
