@@ -27,6 +27,9 @@
             href="../imgs/favicon.ico"
             type="image/x-icon"
         />
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     </head>
 
     <body>
@@ -163,7 +166,7 @@
                                     <h5>Contato</h5>
                                 </div>
                             </header>
-                            <div class="form-section">
+                            <div class="form-section d-none">
                                 <div>
                                     <label for="dataDeEntrega"
                                         ><span>*</span> Data da entrega</label
@@ -191,7 +194,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="form-section">
+                            <div class="form-section d-none">
                                 <div>
                                     <label for="dataDeRetirada"
                                         ><span>*</span> Data de Retirada</label
@@ -218,6 +221,12 @@
                                     />
                                 </div>
                             </div>
+
+                            <div class="form-section">
+                                <label for="datetimes">Período de locação</label>
+                                <input type="text" name="datetimes" required />
+                            </div>  
+
 
                             <div class="form-carrinho">
                                 <h3>Carrinho de compras</h3>
@@ -440,5 +449,6 @@
                 <span></span>
             </div>
         </div>
+
     </body>
 </html>

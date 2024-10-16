@@ -148,7 +148,8 @@ form label span {
 
 .form-section {
     display: flex;
-    gap: 2rem;
+    flex-direction: column;
+    gap: .5rem;
 }
 
 .form-section div {

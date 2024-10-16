@@ -12336,16 +12336,6 @@ main > * + * {
   box-sizing: border-box;
 }
 
-html,
-body {
-  background: var(--secondary-bg);
-  font-family: "Inter", sans-serif !important;
-  display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  min-height: 100vh;
-}
-
 h5, .h5 {
   font-weight: 700;
 }

@@ -144,6 +144,8 @@ function calcularTotal() {
     $("#totalDoPedido").text(formatarMoeda(total));
 }
 
+
+
 function configurarEventoDeMudanca(
     item,
     defaultInput,
@@ -185,6 +187,29 @@ function configurarEventoDeMudanca(
     });
 }
 
+$('input[name="datetimes"]').daterangepicker({
+    timePicker: true,
+    minDate: moment(),
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+        format: 'DD/MM hh:mm A'
+    }
+}).on('apply.daterangepicker', function(ev, picker) {
+
+    console.log(picker.startDate)
+    let startDate = new Date(picker.startDate.format('MM/DD/YYYY')).toISOString().slice(0, 10)
+    let endDate = new Date(picker.endDate.format('MM/DD/YYYY')).toISOString().slice(0, 10)
+    let startTime = picker.startDate.format('HH:mm');
+    let endTime = picker.endDate.format('HH:mm');
+
+
+    $("input[name='dataDeEntrega']").val(startDate)
+    $("input[name='dataDeRetirada']").val(endDate)
+    $("input[name='horarioDaEntrega']").val(startTime)
+    $("input[name='horarioDaRetirada']").val(endTime)
+});
+
 configurarEventoDeMudanca(
     "jogos",
     $("#ateCincoJogos"),
@@ -205,3 +230,4 @@ configurarEventoDeMudanca(
     $("#cadeiras"),
     $("#totalDasCadeiras")
 );
+
