@@ -144,8 +144,6 @@ function calcularTotal() {
     $("#totalDoPedido").text(formatarMoeda(total));
 }
 
-
-
 function configurarEventoDeMudanca(
     item,
     defaultInput,
@@ -202,7 +200,6 @@ $('input[name="datetimes"]').daterangepicker({
     let endDate = new Date(picker.endDate.format('MM/DD/YYYY')).toISOString().slice(0, 10)
     let startTime = picker.startDate.format('HH:mm');
     let endTime = picker.endDate.format('HH:mm');
-
 
     $("input[name='dataDeEntrega']").val(startDate)
     $("input[name='dataDeRetirada']").val(endDate)

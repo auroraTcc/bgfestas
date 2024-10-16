@@ -185,7 +185,7 @@
                             <!-- FORMATAR AS IMAGENS -->
                             <div class="d-flex justify-content-center">
                                 <img
-                                    src="../../../../../public/assets/imgs/jogo.svg"
+                                    src="../../../../../public/assets/imgs/<?=$item['nome']?>.svg"
                                     onload="SVGInject(this)"
                                     class="text-primary"
                                     height="2rem"

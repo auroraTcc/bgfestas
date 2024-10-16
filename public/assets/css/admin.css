@@ -80,7 +80,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #160c04;
   --bs-body-color-rgb: 22, 12, 4;
-  --bs-body-bg: #fbf7f4;
+  --bs-body-bg: #FBF7F4;
   --bs-body-bg-rgb: 251, 247, 244;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
@@ -2471,10 +2471,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #fbf7f4, 0 0 0 0.25rem rgba(235, 113, 0, 0.25);
+  box-shadow: 0 0 0 1px #FBF7F4, 0 0 0 0.25rem rgba(235, 113, 0, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #fbf7f4, 0 0 0 0.25rem rgba(235, 113, 0, 0.25);
+  box-shadow: 0 0 0 1px #FBF7F4, 0 0 0 0.25rem rgba(235, 113, 0, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;
@@ -11966,14 +11966,14 @@ textarea.form-control-lg {
   }
 }
 .btn-outline-primary:hover {
-  color: #fbf7f4;
+  color: #FBF7F4;
 }
 
 header {
   padding-top: 1rem;
   padding-bottom: 1rem;
   position: fixed;
-  background-color: #fbf7f4;
+  background-color: #FBF7F4;
   top: 0;
   left: 0;
   width: 100%;
@@ -12011,10 +12011,10 @@ header .container {
 }
 
 .btn-primary {
-  color: #fbf7f4;
+  color: #FBF7F4;
 }
 .btn-primary:hover {
-  color: #fbf7f4;
+  color: #FBF7F4;
 }
 
 .logo {
@@ -12069,7 +12069,7 @@ main > * + * {
 
 .card.hello {
   background-color: #eb7100;
-  color: #fbf7f4;
+  color: #FBF7F4;
 }
 
 #proximasTarefas {
@@ -12141,7 +12141,7 @@ main > * + * {
 .container[data-type=entrega] .card-header span,
 .container[data-type=entrega] .main-header span {
   background-color: #eb7100;
-  color: #fbf7f4;
+  color: #FBF7F4;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
@@ -12201,7 +12201,7 @@ main > * + * {
 }
 .card[data-type=entrega] .card-footer a,
 .container[data-type=entrega] .card-footer a {
-  color: #fbf7f4;
+  color: #FBF7F4;
   background-color: #eb7100;
   width: 2.5rem;
   height: 2.5rem;
@@ -12249,7 +12249,7 @@ main > * + * {
 .container[data-type=retirada] .card-header span,
 .container[data-type=retirada] .main-header span {
   background-color: #5e67de;
-  color: #fbf7f4;
+  color: #FBF7F4;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
@@ -12309,7 +12309,7 @@ main > * + * {
 }
 .card[data-type=retirada] .card-footer a,
 .container[data-type=retirada] .card-footer a {
-  color: #fbf7f4;
+  color: #FBF7F4;
   background-color: #5e67de;
   width: 2.5rem;
   height: 2.5rem;
@@ -12319,66 +12319,4 @@ main > * + * {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-}
-
-:root {
-  --primary: #eb7100;
-  --body-color: #160c04;
-  --secondary-color: #3b3837;
-  --tertiary-color: #7f7977;
-  --body-bg: #fbf7f4;
-  --secondary-bg: #ede8e1;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-h5, .h5 {
-  font-weight: 700;
-}
-
-form label {
-  font-size: 1rem !important;
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-
-form label span {
-  color: var(--primary);
-}
-
-.btn-entrar {
-  cursor: pointer;
-  background-color: var(--primary);
-  color: var(--body-bg);
-  padding: 0.5rem 2.5rem;
-  width: 100%;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-top: 1.5rem;
-}
-
-.login-box {
-  width: 34rem;
-  background-color: white;
-  padding: 1.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  background-color: var(--body-bg);
-  gap: 1.5rem;
-}
-
-.login-box h5 i, .login-box .h5 i {
-  color: var(--primary) !important;
-}
-
-.checkbox {
-  display: flex;
-  align-items: center;
-  margin-top: 0.5rem;
 }/*# sourceMappingURL=admin.css.map */
