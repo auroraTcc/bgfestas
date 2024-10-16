@@ -5,8 +5,6 @@
     ];
 
     
-
-
     setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'pt_BR.utf8');
     $dateFormatter = new IntlDateFormatter(
         'pt_BR', 
@@ -148,9 +146,18 @@
                                 class="form-select"
                                 aria-label="Default select example"
                             >
-                                <option selected>Gilson</option>
-                                <option value="2">Lucas</option>
-                                <option value="3">Vladimir</option>
+                                <?php
+                                    require_once "../../../../config/conexao.php";
+
+                                    $resultados = getAllFuncs($conn);
+
+                                if ($resultados) {
+                                    foreach ($resultados as $funcionario) {
+                                ?>
+                                <option value="<?=$funcionario['cpf']?>"> <?=$funcionario['nome'];?></option><?php
+                                    };
+                                }?>
+                                
                             </select>
                         </p>
                     </div>

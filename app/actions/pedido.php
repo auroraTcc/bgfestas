@@ -104,4 +104,14 @@
         $stmt->execute();
     }
 
+        //Atualizar o funcionario responsavel
+        function setFunc($conn, $){
+            $idPedido = $_GET['id'];
+            $idFunc = $funcionario['cpf'];
+            $query = "UPDATE pedido SET cpfResponsavel = $idFunc WHERE idPedido = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $idPedido);
+            $stmt->execute();
+        }
+
 ?>
