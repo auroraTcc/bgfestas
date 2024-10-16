@@ -49,7 +49,7 @@ $(".delete-btn").each(function () {
     });
 });
 
-$(".card").each(function () {
+$(".pedido").each(function () {
     $(this).on("click", function () {
         window.location = `http://localhost/bgfestas/app/view/admin/tarefas/detalhes?id=${$(
             this
