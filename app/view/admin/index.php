@@ -1,4 +1,11 @@
 <?php
+    
+    require "../../config/isLogged.php";
+
+    if (!$isLogged) {
+        header("Location: /bgfestas/app/view/admin/login/");
+    }
+
     $abbreviations = [
         "entrega" => "Entg",
         "retirada" => "Ret"
@@ -111,7 +118,7 @@
             <section class="container" id="highlights">
                 <div class="card hello">
                     <div>
-                        <h3>Bem-vindo de volta, <span>Gilson</span></h3>
+                    <h3>Bem-vindo de volta, <span><?=$_SESSION["funcionario"]["nome"]?></span></h3>
                         <p>painel de controle bgfestas.</p>
                     </div>
                 </div>

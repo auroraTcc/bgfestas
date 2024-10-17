@@ -45,7 +45,7 @@
             return false; 
         }
     }
-    
+
     function verificarUsuario($conn, $cpf, $senha){
         $query = "SELECT * FROM funcionario WHERE cpf = ?";
         $stmt = $conn->prepare($query);
@@ -58,15 +58,32 @@
     
             // Debug: print senha fornecida e hash esperado
             if (password_verify($senha, $funcionario['senha'])) {
-                return ["success" => true, "message" => "", "content" => $funcionario];
+                return ["success" => true, "message" => "Login Realizado com sucesso", "funcionario" => $funcionario];
             } else {
                 return [
                     "success" => false,
                     "message" => "Senha incorreta",
-                    "content" => ""
+                    "funcionario" => ""
                 ];
             }
         }
     
-        return ["success" => false, "message" => "Usuário não encontrado", "content" => ""];
+        return ["success" => false, "message" => "Usuário não encontrado", "funcionario" => ""];
+    }
+
+    function alterarSenha($conn, $cpf, $senha) {
+        $query = "UPDATE funcionario SET senha = ?, primAcess = false WHERE cpf = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ss", $senha, $cpf);
+        $stmt->execute();
+        
+        if ($stmt->affected_rows > 0) {
+            return ["success" => true, "message" => "Senha alterada com sucesso"];
+        } else {
+            return ["success" => false, "message" => "Nenhuma alteração feita. Verifique se o CPF está correto."];
+        }
+
+        
+
+
     }

@@ -1,21 +1,28 @@
 <?php
-     require_once "../config/conexao.php";
-     require "../actions/funcionario.php";
+    require_once "../config/conexao.php";
+    require "../actions/funcionario.php";
 
-     if($_SERVER["REQUEST_METHOD"]=="POST"){
+    header('Content-Type: application/json');
+
+    if (!$conn) {
+        $response = ["success" => false, "message" => "Erro ao conectar com o banco de dados"];
+        echo json_encode($response);
+        exit;
+    }
+
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
         $cpf = $_POST['cpf'];
         $senha = $_POST['senha'];
-        $funcionario = verificarUsuario($conn, $cpf, $senha);
+        $response = verificarUsuario($conn, $cpf, $senha);
     
-        if ($funcionario["success"] || !$funcionario["content"]){
+        if ($response["success"] || $response["funcionario"] !== ""){
             session_start();
-            $_SESSION['funcionario'] = $funcionario["content"];
+            $_SESSION['funcionario'] = $response["funcionario"];
+
+            echo json_encode($response);
         }else{
-            echo $funcionario["message"];
+            echo json_encode($response);
         }
      }
 
-     
-
-
-?>
+    
