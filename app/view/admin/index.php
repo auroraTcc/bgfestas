@@ -1,9 +1,8 @@
 <?php
-    
     require "../../config/isLogged.php";
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login/");
+        header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
     }
 
     $abbreviations = [
@@ -62,7 +61,7 @@
                 >
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <span class="logo">bgfestas</span>
+                <button class="btn" id="logOutBtn"><i class="fa-solid fa-circle-user fs-5"></i></button>
             </div>
         </header>
 

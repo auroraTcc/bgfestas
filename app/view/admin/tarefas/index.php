@@ -1,12 +1,14 @@
 <?php
+    require "../../../config/isLogged.php";
+
+    if (!$isLogged) {
+        header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
+    }
+
     $abbreviations = [
         "entrega" => "Entg",
         "retirada" => "Ret"
     ];
-
-    
-
-
     setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'pt_BR.utf8');
     $dateFormatter = new IntlDateFormatter(
         'pt_BR', 
@@ -15,6 +17,7 @@
     );
     $dateFormatter->setPattern('dd MMM');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

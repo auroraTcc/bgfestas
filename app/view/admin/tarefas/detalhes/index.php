@@ -1,4 +1,11 @@
 <?php
+
+    require "../../../../config/isLogged.php";
+
+    if (!$isLogged) {
+        header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
+    }
+
     $abbreviations = [
         "entrega" => "Entg",
         "retirada" => "Ret"

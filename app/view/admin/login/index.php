@@ -2,8 +2,10 @@
     require "../../../config/isLogged.php";
 
     if ($isLogged) {
-        header("Location: /bgfestas/app/view/admin");
+        header("Location: /bgfestas/app/view/admin"); //! DEPLOY: TROCAR PARA /app/view/admin
     }
+
+    $isPasswordReset = isset($_GET["resetarSenha"])
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +55,13 @@
             style="background-color: #fbf7f4"
             class="carousselSlideWidth overflow-hidden rounded shadow-sm border pe-0 ps-0"
         >
-            <div id="carrousselSlider" class="w-100 d-flex carousselSlideWidth">
+            <div id="carrousselSlider"
+                style=" <?php
+                    echo $isPasswordReset
+                        ? "transform: translateX(-200%)"
+                        : ""
+                ?>"
+            class="w-100 d-flex carousselSlideWidth">
                 <div class="w-100 p-3 bg-primary-bg carousselSlideWidth">
                     <div class="d-flex flex-column gap-1">
                         <h4 class="fw-semibold d-flex gap-2 align-items-center">
@@ -137,7 +145,7 @@
 
                     <form
                         class="d-flex flex-column gap-3 needs-validation"
-                        id="ResetPassword"
+                        id="UpdatePassword"
                         novalidate
                     >
                         <div>
@@ -187,12 +195,62 @@
                         <div>
                             <p
                                 class="text-danger"
-                                id="resetPasswordErrorMessage"
+                                id="UpdatePasswordErrorMessage"
                             ></p>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">
                             Entrar
+                        </button>
+                    </form>
+                </div>
+
+                <div class="w-100 p-3 bg-primary-bg carousselSlideWidth">
+                    <div class="d-flex flex-column gap-1">
+                        <h4 class="fw-semibold d-flex gap-2 align-items-center">
+                            <i class="fa-solid fa-address-card text-primary"></i
+                            >Esqueceu sua senha?
+                        </h4>
+                        <p>
+                            Ao preencher esse formulário, sua senha retornará ao padrão!
+                        </p>
+                    </div>
+
+                    <form
+                        class="d-flex flex-column gap-3 needs-validation"
+                        id="ResetPassword"
+                        novalidate
+                    >
+                        <div>
+                            <label
+                                for="newPassword"
+                                class="d-flex align-items-center fw-bold gap-1"
+                                ><span class="text-primary">*</span>CPF:</label
+                            >
+                            <div>
+                                <input
+                                    name="newPassword"
+                                    id="newPassword"
+                                    required
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Digite sua nova senha"
+                                />
+                                <div class="invalid-feedback">
+                                    Insira um cpf válido.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p
+                                class="text-danger"
+                                id="resetPasswordErrorMessage"
+                            ></p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Resetar senha
                         </button>
                     </form>
                 </div>
@@ -217,6 +275,8 @@
                                     "transform",
                                     "translateX(-100%)"
                                 );
+                            } else {
+                                window.location.href = "/bgfestas/app/view/admin"; 
                             }
                         } else {
                             $("#loginErrorMessage").text(response.message);
@@ -228,12 +288,12 @@
                 });
             });
 
-            $("form#ResetPassword").on("submit", function (e) {
+            $("form#UpdatePassword").on("submit", function (e) {
                 e.preventDefault();
 
                 const newPassword = $("#newPassword").val();
                 const newPasswordRepeat = $("#newPasswordRepeat").val();
-                const cpf = $("#cpf").val(); //! Pegar de outro lugar dps
+                const cpf = $("#cpf").val();
 
                 if (newPassword !== newPasswordRepeat) {
                     $("#resetPasswordErrorMessage").text(
@@ -252,14 +312,15 @@
                         newPasswordRepeat: newPasswordRepeat,
                     },
                     success: function (response) {
-                        $("#resetPasswordErrorMessage").text(response.message);
+                        $("#UpdatePasswordErrorMessage").text(response.message);
+                        window.location.href = "/bgfestas/app/view/admin"; 
                     },
                     error: function (xhr, status, error) {
                         console.error(
                             "Erro na requisição Ajax:",
                             xhr.responseText
                         );
-                        $("#resetPasswordErrorMessage").text(
+                        $("#UpdatePasswordErrorMessage").text(
                             "Erro ao processar a solicitação. Tente novamente mais tarde."
                         );
                     },
