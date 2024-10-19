@@ -38,7 +38,20 @@
                 transition: transform 0.4s ease-in-out;
             }
 
+            #carroussel {
+                height: 100svh;
+            }
+
+            .carousselSlideWidth {
+                min-width: 100vw;
+                max-width: 100vw;
+            }
+
             @media screen and (min-width: 768px) {
+                #carroussel {
+                    height: unset;
+                }
+
                 .carousselSlideWidth {
                     min-width: 720px;
                     max-width: 720px;
@@ -62,7 +75,7 @@
                         : ""
                 ?>"
             class="w-100 d-flex carousselSlideWidth">
-                <div class="w-100 p-3 bg-primary-bg carousselSlideWidth">
+                <div class="w-100 p-md-3 p-4 bg-primary-bg carousselSlideWidth">
                     <div class="d-flex flex-column gap-1">
                         <h4 class="fw-semibold d-flex gap-2 align-items-center">
                             <i
@@ -128,10 +141,16 @@
                         <button type="submit" class="btn btn-primary w-100">
                             Entrar
                         </button>
+
+                        <div>
+                            <a href="?resetarSenha" class="text-decoration-none">
+                                Esqueceu a senha?
+                            </a>
+                        </div>
                     </form>
                 </div>
 
-                <div class="w-100 p-3 bg-primary-bg carousselSlideWidth">
+                <div class="w-100 p-md-3 p-4 bg-primary-bg carousselSlideWidth">
                     <div class="d-flex flex-column gap-1">
                         <h4 class="fw-semibold d-flex gap-2 align-items-center">
                             <i class="fa-solid fa-address-card text-primary"></i
@@ -205,11 +224,11 @@
                     </form>
                 </div>
 
-                <div class="w-100 p-3 bg-primary-bg carousselSlideWidth">
+                <div class="w-100 p-md-3 p-4 bg-primary-bg carousselSlideWidth">
                     <div class="d-flex flex-column gap-1">
                         <h4 class="fw-semibold d-flex gap-2 align-items-center">
-                            <i class="fa-solid fa-address-card text-primary"></i
-                            >Esqueceu sua senha?
+                            <i class="fa-solid fa-key text-primary"></i>
+                            Esqueceu sua senha?
                         </h4>
                         <p>
                             Ao preencher esse formulário, sua senha retornará ao padrão!
