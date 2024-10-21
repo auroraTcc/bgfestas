@@ -2,14 +2,14 @@
     require "../../../config/isLogged.php";
 
     if ($isLogged) {
-        header("Location: /bgfestas/app/view/admin"); //! DEPLOY: TROCAR PARA /app/view/admin
+        header("Location: /bgfestas/app/view/admin"); //TODO: DEPLOY: TROCAR PARA /app/view/admin
     }
 
     $isPasswordReset = isset($_GET["resetarSenha"])
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

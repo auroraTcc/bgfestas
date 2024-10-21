@@ -4,7 +4,7 @@
     require "../../../config/isLogged.php";
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
+        header("Location: /bgfestas/app/view/admin/login"); //TODO: DEPLOY: TROCAR PARA /app/view/admin/login
     }
 ?>
 
@@ -52,7 +52,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2">
+                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2 w-100">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Sair
                             </button>
@@ -94,17 +94,24 @@
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <h6>Admin</h6>
-                    <ul>
-                        <li>
-                            <a href="../../../../app/view/admin/funcionarios">
-                                <i class="fa-regular fa-id-badge"></i>
-                                <span>Funcionários</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <?php
+                    if ($_SESSION['funcionario']['cargo'] === "Gerente") {
+                        ?>
+                            <div>
+                                <h6>Admin</h6>
+                                <ul>
+                                    <li>
+                                        <a href="../../../../app/view/admin/funcionarios">
+                                            <i class="fa-regular fa-id-badge"></i>
+                                            <span>Funcionários</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        <?php
+                    }
+                ?>
+                
             </nav>
         </div>
 
@@ -133,7 +140,7 @@
                             id="addWorkerForm"
                             class="needs-validation"
                         >
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3 has-validation">
                                 <span class="input-group-text">cpf:</span>
                                 <input
                                     type="text"
@@ -145,6 +152,9 @@
                                     aria-describedby="basic-addon1"
                                     autocomplete="off"
                                 />
+                                <div class="invalid-feedback">
+                                    CPF inválido!
+                                </div>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">nome:</span>
@@ -172,6 +182,8 @@
                                     autocomplete="off"
                                 />
                             </div>
+
+                            
 
                             <button id="workersSubtmitBtn" class="btn btn-primary w-100">
                                 enviar
@@ -229,6 +241,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Cargo</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -245,6 +258,7 @@
                                         
                                         <td><?=$funcionario['nome']?></td>
                                         <td><?=$funcionario['email']?></td>
+                                        <td><?=$funcionario['cargo']?></td>
                                         <td class="d-flex gap-2">
                                             <button class="btn delete-btn" data-cpf="<?=$funcionario['cpf']?>">
                                                 <i class="fa-regular fa-trash-can">
@@ -271,7 +285,7 @@
                 e.preventDefault();
                 const dados = $("#addWorkerForm").serialize();
 
-                console.log(dados);
+                //TODO: Adicionar verificar CPF
 
                 $.ajax({
                     url: "../../../../app/controllers/processInserirFunc.php",
@@ -315,6 +329,8 @@
                     });
                 });
             });
+
+
         </script>
     </body>
 </html>

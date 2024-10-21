@@ -2,7 +2,7 @@
     require "../../config/isLogged.php";
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
+        header("Location: /bgfestas/app/view/admin/login"); //TODO: DEPLOY: TROCAR PARA /app/view/admin/login
     }
 
     $abbreviations = [
@@ -20,7 +20,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,7 +69,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2">
+                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2 w-100">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Sair
                             </button>
