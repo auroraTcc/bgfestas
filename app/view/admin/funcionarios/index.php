@@ -295,9 +295,10 @@
                     success: function (response) {
                         if (response.success) {
                             console.log("Funcionário inserido com sucesso!");
-                            console.log(response);
+
+                            $('#exampleModal').modal('hide');
+                            $('#addWorkerForm')[0].reset();
                         } else {
-                            console.log(response);
                             console.log("Erro ao inserir funcionário.");
                         }
                     },

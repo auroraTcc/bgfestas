@@ -58,7 +58,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2">
+                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2 w-100">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Sair
                             </button>
@@ -100,19 +100,27 @@
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <h6>Admin</h6>
-                    <ul>
-                        <li>
-                            <a href="../../../../app/view/admin/funcionarios">
-                                <i class="fa-regular fa-id-badge"></i>
-                                <span>Funcionários</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <?php
+                    if ($_SESSION['funcionario']['cargo'] === "Gerente") {
+                        ?>
+                            <div>
+                                <h6>Admin</h6>
+                                <ul>
+                                    <li>
+                                        <a href="../../../../app/view/admin/funcionarios">
+                                            <i class="fa-regular fa-id-badge"></i>
+                                            <span>Funcionários</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        <?php
+                    }
+                ?>
+                
             </nav>
         </div>
+
 
         <main>
             <section class="container">

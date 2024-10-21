@@ -66,7 +66,8 @@ CREATE TABLE `funcionario` (
 --
 
 INSERT INTO `funcionario` (`cpf`, `nome`, `email`, `senha`, `cargo`, `primAcess`) VALUES
-('000.000.000-00', 'root', 'aurora.tccif@gmail.com', '$2y$10$OwLyr2bp4xSsj39V7xdhZu2QRGSvEVWFBosmp45Gu18smUY7sGSFa', 'Funcionário', 0);
+('000.000.000-00', 'root', 'aurora.tccif@gmail.com', '$2y$10$OwLyr2bp4xSsj39V7xdhZu2QRGSvEVWFBosmp45Gu18smUY7sGSFa', 'Administrador', 0),
+('309.277.248-20', 'Gilson', 'gilsonmangia@yahoo.com.br', '$2y$10$tVoJ44l95a6UPN2F/wAWqezuqihs1d9uS5Wi5gOQQQA78M5sZhJhC', 'Gerente', 1);
 
 -- --------------------------------------------------------
 
