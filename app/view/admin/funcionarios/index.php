@@ -1,11 +1,11 @@
 <?php
     require_once "../../../../app/config/conexao.php";
     require_once "../../../../app/actions/funcionario.php";
-    // require "../../../config/isLogged.php";
+    require "../../../config/isLogged.php";
 
-    // if (!$isLogged) {
-    //     header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
-    // }
+    if (!$isLogged) {
+        header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
+    }
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +45,20 @@
                 >
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <span class="logo">bgfestas</span>
+
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-circle-user fs-5"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Sair
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </header>
 
@@ -252,5 +265,56 @@
                 </div>
             </section>
         </main>
+
+        <script>
+            $("#workersSubtmitBtn").on("click", function (e) {
+                e.preventDefault();
+                const dados = $("#addWorkerForm").serialize();
+
+                console.log(dados);
+
+                $.ajax({
+                    url: "../../../../app/controllers/processInserirFunc.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: dados,
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("Funcionário inserido com sucesso!");
+                            console.log(response);
+                        } else {
+                            console.log(response);
+                            console.log("Erro ao inserir funcionário.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erro na requisição Ajax:", error);
+                    },
+                });
+            });
+
+            $(".delete-btn").each(function () {
+                $(this).on("click", function () {
+                    const cpf = $(this).data("cpf");
+
+                    $.ajax({
+                        url: "../../../../app/controllers/processDeleteFunc.php",
+                        type: "POST",
+                        dataType: "json",
+                        data: { cpf: cpf },
+                        success: function (response) {
+                            if (response.success) {
+                                console.log("removido!");
+                            } else {
+                                console.log("erro ao remover.");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Erro na requisição Ajax:", error);
+                        },
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

@@ -62,7 +62,20 @@
                 >
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <button class="btn" id="logOutBtn"><i class="fa-solid fa-circle-user fs-5"></i></button>
+
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-circle-user fs-5"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Sair
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </header>
 
