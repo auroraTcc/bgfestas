@@ -26,6 +26,7 @@
             href="../../../../public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
+        <script src="../../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <script src="../../../../public/assets/js/admin.js" defer></script>
         <style>
@@ -97,7 +98,7 @@
                             <label
                                 for="cpf"
                                 class="d-flex align-items-center fw-bold gap-1"
-                                ><span class="text-primary">*</span>CPF</label
+                                ><span class="text-primary cpf">*</span>CPF</label
                             >
                             <div>
                                 <input
@@ -105,7 +106,7 @@
                                     id="cpf"
                                     required
                                     type="text"
-                                    class="form-control"
+                                    class="form-control cpf"
                                     placeholder="Digite seu CPF"
                                 />
                                 <div class="invalid-feedback">
@@ -242,18 +243,19 @@
                     >
                         <div>
                             <label
-                                for="newPassword"
+                                for="userCPF"
                                 class="d-flex align-items-center fw-bold gap-1"
                                 ><span class="text-primary">*</span>CPF:</label
                             >
                             <div>
                                 <input
                                     name="newPassword"
-                                    id="newPassword"
+                                    id="userCPF"
                                     required
-                                    type="password"
-                                    class="form-control"
-                                    placeholder="Digite sua nova senha"
+                                    type="string"
+                                    class="form-control cpf"
+                                    placeholder="Digite seu CPF"
+                                    maxlength="14"
                                 />
                                 <div class="invalid-feedback">
                                     Insira um cpf válido.
@@ -277,6 +279,9 @@
         </div>
 
         <script>
+           
+            
+
             $("form#loginForm").on("submit", function (e) {
                 e.preventDefault();
 

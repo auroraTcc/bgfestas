@@ -37,6 +37,7 @@
             href="/public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
+        <script src="../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         <script src="../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <script src="../../../public/assets/js/admin.js" defer></script>
         <style>

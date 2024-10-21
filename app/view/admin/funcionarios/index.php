@@ -1,11 +1,11 @@
 <?php
     require_once "../../../../app/config/conexao.php";
     require_once "../../../../app/actions/funcionario.php";
-    require "../../../config/isLogged.php";
+    // require "../../../config/isLogged.php";
 
-    if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
-    }
+    // if (!$isLogged) {
+    //     header("Location: /bgfestas/app/view/admin/login"); //! DEPLOY: TROCAR PARA /app/view/admin/login
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +29,7 @@
             href="../../../../public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
+        <script src="../../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <script src="../../../../public/assets/js/admin.js" defer></script>
     </head>
@@ -123,7 +124,7 @@
                                 <span class="input-group-text">cpf:</span>
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control cpf"
                                     placeholder="insira o CPF do funcionário"
                                     id="cpf"
                                     name="cpf"
@@ -250,8 +251,6 @@
                     </div>
                 </div>
             </section>
-
-            
         </main>
     </body>
 </html>

@@ -18,6 +18,8 @@
         $password = $_POST['newPassword'];
         $passwordRepeat = $_POST['newPasswordRepeat'];
 
+        $senhahash = password_hash($password, PASSWORD_DEFAULT);
+
 
         if ($password === "PrimeiroAcesso$cpf") {
             $response = ["success" => false, "message" => "Não utilize a senha básica"];
@@ -32,6 +34,6 @@
             exit;
         }
 
-        $response = alterarSenha($conn, $cpf, $password);
+        $response = alterarSenha($conn, $cpf, $senhahash);
         echo json_encode($response);
     }

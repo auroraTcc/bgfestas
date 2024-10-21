@@ -1,3 +1,5 @@
+$(".cpf").mask("000.000.000-00");
+
 $("#workersSubtmitBtn").on("click", function (e) {
     e.preventDefault();
     const dados = $("#addWorkerForm").serialize();
