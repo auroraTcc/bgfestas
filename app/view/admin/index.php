@@ -40,17 +40,9 @@
         <script src="../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         <script src="../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <script src="../../../public/assets/js/admin.js" defer></script>
-        <style>
-            a {
-                color: unset !important;
-                text-decoration: none !important;
-            }
-        </style>
+        
     </head>
     <body>
-
-        
-
         <header class="border-bottom border-primary">
             <div class="container">
                 <button
@@ -111,17 +103,25 @@
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <h6>Admin</h6>
-                    <ul>
-                        <li>
-                            <a href="../../../app/view/admin/funcionarios">
-                                <i class="fa-regular fa-id-badge"></i>
-                                <span>Funcionários</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <?php
+                    if ($_SESSION['funcionario']['cargo'] === "Gerente"
+                            ||
+                        $_SESSION['funcionario']['cargo'] === "Administrador") {
+                        ?>
+                            <div>
+                                <h6>Admin</h6>
+                                <ul>
+                                    <li>
+                                        <a href="../../../app/view/admin/funcionarios">
+                                            <i class="fa-regular fa-id-badge"></i>
+                                            <span>Funcionários</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        <?php
+                    }
+                ?>
             </nav>
         </div>
 
@@ -215,7 +215,7 @@
                                             </h5>
                                         </div>
 
-                                        <a href="#">
+                                        <a href="#" class="text-body-bg">
                                             <i class="fa-solid fa-comments"></i>
                                         </a>
                                     </div>

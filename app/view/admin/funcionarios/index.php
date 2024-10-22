@@ -248,6 +248,9 @@
                             <tbody>
                                 <?php
                                 $resultados = getAllFuncs($conn);
+
+                                //TODO: REMORAR O ROOT DAQUI $resultados
+
                                 $i = 0;
 
                                 if ($resultados) {

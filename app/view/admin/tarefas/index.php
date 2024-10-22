@@ -101,7 +101,9 @@
                     </ul>
                 </div>
                 <?php
-                    if ($_SESSION['funcionario']['cargo'] === "Gerente") {
+                    if ($_SESSION['funcionario']['cargo'] === "Gerente"
+                            ||
+                        $_SESSION['funcionario']['cargo'] === "Administrador") {
                         ?>
                             <div>
                                 <h6>Admin</h6>
@@ -199,7 +201,7 @@
                                                 </h5>
                                             </div>
 
-                                            <a href="#">
+                                            <a href="#" class="text-body-bg">
                                                 <i class="fa-solid fa-comments"></i>
                                             </a>
                                         </div>
