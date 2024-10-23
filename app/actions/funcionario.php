@@ -12,6 +12,19 @@
         }
     }
 
+    function getCpfFuncionarioByNome($conn, $nome){
+        $query = "SELECT cpf from funcionario WHERE nome = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('s', $nome);
+
+        $stmt->execute();
+
+        $resultados = $stmt->get_result();
+        if ($row = $resultados->fetch_assoc()) {
+            return $row['cpf'];
+        }
+    }
+
     function getAllFuncs($conn){
         $query = "SELECT * FROM funcionario";
         $stmt = $conn->prepare($query);
@@ -82,8 +95,28 @@
         } else {
             return ["success" => false, "message" => "Nenhuma alteração feita. Verifique se o CPF está correto."];
         }
+    }
 
+
+    //TODO:criar o pop-up para edição de funcionários.
+    //* Importante que os inputs venham preenchidos com as infos atuais
+    function atualizarCadastroFunc($conn, $idFunc, $nome, $email, $cargo ){
+        $query = "UPDATE funcionario SET nome = ?, email = ?, cargo = ? WHERE cpf = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssss", $nome, $email, $cargo, $idFunc);
+        $stmt->execute();
         
+        if ($stmt->affected_rows > 0) {
+            return ["success" => true, "message" => "Atualização realizada com sucesso"];
+        } else {
+            return ["success" => false, "message" => "Problemas ao atualizar cadastro."];
+        }
+    }
 
-
+    //*O cpf solicitado será com pontuação?
+    function ResetDefaultSenha($conn, $cpfFunc){
+        $query = "UPDATE funcionario SET senha = 'PrimeiroAceso$cpfFunc', primAcess = true WHERE cpf = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $cpfFunc);
+        $stmt->execute();
     }
