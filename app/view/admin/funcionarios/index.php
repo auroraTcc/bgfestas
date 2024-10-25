@@ -185,8 +185,6 @@
                                 />
                             </div>
 
-                            
-
                             <button id="workersSubtmitBtn" class="btn btn-primary w-100">
                                 enviar
                             </button>
@@ -223,18 +221,7 @@
                 </div>
 
                 <div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                        <input
-                            type="text"
-                            class="form-control"
-                            placeholder="pesquise alguma coisa"
-                            aria-label="pesquise alguma coisa"
-                            aria-describedby="basic-addon1"
-                        />
-                    </div>
+                    
 
                     <div class="table-responsive">
                         <table class="table">
@@ -248,7 +235,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--AQUI SÃO INSERIDOS OS FUNCIONARIOS VIA AJAX!-->
                             </tbody>
                         </table>
                     </div>
@@ -259,22 +245,6 @@
         </main>
 
         <script>
-            $.ajax({
-                url: "../../../../app/controllers/processGetAllFuncs.php",
-                type: "POST",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success) {
-                        inserirFuncionarios(response.funcionarios)
-                    } else {
-                        console.log("Houve um erro.");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Erro na requisição Ajax:", error);
-                },
-            })
-
             function inserirFuncionarios(funcionarios) {
                 $("tbody").empty();
 
@@ -304,12 +274,33 @@
                 });
             }
 
+            $.ajax({
+                url: "../../../../app/controllers/processGetAllFuncs.php",
+                type: "POST",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        inserirFuncionarios(response.funcionarios)
+                    } else {
+                        console.log("Houve um erro.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erro na requisição Ajax:", error);
+                },
+            })
 
             $("#workersSubtmitBtn").on("click", function (e) {
                 e.preventDefault();
                 const dados = $("#addWorkerForm").serialize();
 
-                //TODO: Adicionar verificar CPF
+                if(!validarCPF($("input[id='cpf']").val())) {
+                    $("input[id='cpf']").addClass("is-invalid").removeClass("is-valid");
+                    return
+                } else {
+                    $("input[id='cpf']").addClass("is-valid").removeClass("is-invalid");
+                }
+            
 
                 $.ajax({
                     url: "../../../../app/controllers/processInserirFunc.php",
