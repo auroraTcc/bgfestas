@@ -20,7 +20,8 @@
         }
 
         if (deleteFunc($conn, $cpf)) {
-            $response = ["success" => true, "message" => "Funcionário inserido com sucesso"];
+            $allFuncs = getAllFuncs($conn);
+            $response = ["success" => true, "message" => "Funcionário inserido com sucesso", "funcionarios" => $allFuncs];
             echo json_encode($response);
         } else {
             $response = ["success" => false, "message" => "Ocorreu um erro vey"];

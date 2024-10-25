@@ -95,13 +95,15 @@
                     </ul>
                 </div>
                 <?php
-                    if ($_SESSION['funcionario']['cargo'] === "Gerente") {
+                    if ($_SESSION['funcionario']['cargo'] === "Gerente"
+                            ||
+                        $_SESSION['funcionario']['cargo'] === "Administrador") {
                         ?>
                             <div>
                                 <h6>Admin</h6>
                                 <ul>
                                     <li>
-                                        <a href="../../../../app/view/admin/funcionarios">
+                                        <a href="../../../app/view/admin/funcionarios">
                                             <i class="fa-regular fa-id-badge"></i>
                                             <span>Funcionários</span>
                                         </a>
@@ -246,44 +248,63 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                $resultados = getAllFuncs($conn);
-
-                                //TODO: REMORAR O ROOT DAQUI $resultados
-
-                                $i = 0;
-
-                                if ($resultados) {
-                                    foreach ($resultados as $funcionario) {
-                                        $i++
-                                        ?><tr>
-                                        <th scope="row"><?=$i?></th>
-                                        
-                                        <td><?=$funcionario['nome']?></td>
-                                        <td><?=$funcionario['email']?></td>
-                                        <td><?=$funcionario['cargo']?></td>
-                                        <td class="d-flex gap-2">
-                                            <button class="btn delete-btn" data-cpf="<?=$funcionario['cpf']?>">
-                                                <i class="fa-regular fa-trash-can">
-                                                </i>
-                                            </button>
-                                            <button class="btn">
-                                                <i
-                                                    class="fa-regular fa-pen-to-square"
-                                                ></i>
-                                            </button>
-                                        </td>
-                                    </tr><?php                                        
-                                    }}
-                                ?>
+                                <!--AQUI SÃO INSERIDOS OS FUNCIONARIOS VIA AJAX!-->
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                
             </section>
         </main>
 
         <script>
+            $.ajax({
+                url: "../../../../app/controllers/processGetAllFuncs.php",
+                type: "POST",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        inserirFuncionarios(response.funcionarios)
+                    } else {
+                        console.log("Houve um erro.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erro na requisição Ajax:", error);
+                },
+            })
+
+            function inserirFuncionarios(funcionarios) {
+                $("tbody").empty();
+
+                funcionarios.forEach((funcionario, index) => {
+                    if (funcionario["cpf"] === "000.000.000-00") {
+                        return
+                    }
+                    
+                    const row = document.createElement("tr");
+                    
+                    row.innerHTML = `
+                        <th scope="row">${index}</th>   
+                        <td>${funcionario.nome}</td>
+                        <td>${funcionario.email}</td>
+                        <td>${funcionario.cargo}</td>
+                        <td class="d-flex gap-2">
+                            <button class="btn delete-btn" data-cpf="${funcionario.cpf}">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                            <button class="btn">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                    `.trim();
+
+                    $("tbody").append(row); 
+                });
+            }
+
+
             $("#workersSubtmitBtn").on("click", function (e) {
                 e.preventDefault();
                 const dados = $("#addWorkerForm").serialize();
@@ -299,6 +320,8 @@
                         if (response.success) {
                             console.log("Funcionário inserido com sucesso!");
 
+                            inserirFuncionarios(response.funcionarios)
+
                             $('#exampleModal').modal('hide');
                             $('#addWorkerForm')[0].reset();
                         } else {
@@ -311,30 +334,27 @@
                 });
             });
 
-            $(".delete-btn").each(function () {
-                $(this).on("click", function () {
-                    const cpf = $(this).data("cpf");
+            $("tbody").on("click", ".delete-btn", function () {
+                const cpf = $(this).data("cpf");
 
-                    $.ajax({
-                        url: "../../../../app/controllers/processDeleteFunc.php",
-                        type: "POST",
-                        dataType: "json",
-                        data: { cpf: cpf },
-                        success: function (response) {
-                            if (response.success) {
-                                console.log("removido!");
-                            } else {
-                                console.log("erro ao remover.");
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Erro na requisição Ajax:", error);
-                        },
-                    });
+                $.ajax({
+                    url: "../../../../app/controllers/processDeleteFunc.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: { cpf: cpf },
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("removido!");
+                            inserirFuncionarios(response.funcionarios);
+                        } else {
+                            console.log("erro ao remover.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erro na requisição Ajax:", error);
+                    },
                 });
             });
-
-
         </script>
     </body>
 </html>

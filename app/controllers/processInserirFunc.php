@@ -1,6 +1,7 @@
 <?php
     require "../config/conexao.php";
     require "../models/funcionario.php";
+    require "../actions/funcionario.php";
 
 
     header('Content-Type: application/json');
@@ -33,7 +34,8 @@
         $funcionario->setEmail($email);
 
         $funcionario->inserirFuncionario( $cpf, $nome, $email, $senhahash, $cargo);
-        $response = ["success" => true, "message" => "Funcionário inserido com sucesso"];
+        $allFuncs = getAllFuncs($conn);
+        $response = ["success" => true, "message" => "Funcionário inserido com sucesso", "funcionarios" => $allFuncs];
         echo json_encode($response);
         
     }  else {

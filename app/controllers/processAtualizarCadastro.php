@@ -14,6 +14,10 @@
         $email = $_POST["email"];
         $cargo = $_POST["cargo"];
 
+        $allFuncs = getAllFuncs($conn);
+
         atualizarCadastroFunc($conn, $idFunc, $nome, $email, $cargo);
+        $response = ["success" => true, "message" => "", "funcionarios" => $allFuncs];
+        echo json_encode($response);
     }
 
