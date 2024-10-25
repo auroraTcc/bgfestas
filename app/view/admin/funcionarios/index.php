@@ -153,6 +153,7 @@
                                     aria-label="Username"
                                     aria-describedby="basic-addon1"
                                     autocomplete="off"
+                                    required
                                 />
                                 <div class="invalid-feedback">
                                     CPF inválido!
@@ -169,6 +170,7 @@
                                     aria-label="Username"
                                     aria-describedby="basic-addon1"
                                     autocomplete="off"
+                                    required
                                 />
                             </div>
                             <div class="input-group mb-3">
@@ -182,8 +184,11 @@
                                     aria-label="Username"
                                     aria-describedby="basic-addon1"
                                     autocomplete="off"
+                                    required
                                 />
                             </div>
+
+                            <p class="text-danger" id="errorMessagge"></p>
 
                             <button id="workersSubtmitBtn" class="btn btn-primary w-100">
                                 enviar
@@ -240,16 +245,18 @@
                     </div>
                 </div>
 
-                
             </section>
         </main>
 
         <script>
-            function inserirFuncionarios(funcionarios) {
-                $("tbody").empty();
+            const errorMessaeParagraph = $("#errorMessagge")
 
-                funcionarios.forEach((funcionario, index) => {
-                    if (funcionario["cpf"] === "000.000.000-00") {
+            function mostrarFuncionarios(funcionarios) {
+                $("tbody").empty();
+                let index = 1;
+
+                funcionarios.forEach((funcionario) => {
+                    if (funcionario.cpf === "000.000.000-00") {
                         return
                     }
                     
@@ -271,6 +278,7 @@
                     `.trim();
 
                     $("tbody").append(row); 
+                    index++
                 });
             }
 
@@ -280,13 +288,13 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.success) {
-                        inserirFuncionarios(response.funcionarios)
+                        mostrarFuncionarios(response.funcionarios)
                     } else {
-                        console.log("Houve um erro.");
+                        console.error(response.message)
                     }
                 },
                 error: function (xhr, status, error) {
-                    console.error("Erro na requisição Ajax:", error);
+                    errorMessaeParagraph.text("Houve um erro: ", error)                   
                 },
             })
 
@@ -311,16 +319,16 @@
                         if (response.success) {
                             console.log("Funcionário inserido com sucesso!");
 
-                            inserirFuncionarios(response.funcionarios)
+                            mostrarFuncionarios(response.funcionarios)
 
                             $('#exampleModal').modal('hide');
                             $('#addWorkerForm')[0].reset();
                         } else {
-                            console.log("Erro ao inserir funcionário.");
+                            errorMessaeParagraph.text(response.message)
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error("Erro na requisição Ajax:", error);
+                        errorMessaeParagraph.text("Houve um erro: ", error)                   
                     },
                 });
             });
@@ -335,14 +343,13 @@
                     data: { cpf: cpf },
                     success: function (response) {
                         if (response.success) {
-                            console.log("removido!");
-                            inserirFuncionarios(response.funcionarios);
+                            mostrarFuncionarios(response.funcionarios);
                         } else {
-                            console.log("erro ao remover.");
+                            errorMessaeParagraph.text(response.message)
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error("Erro na requisição Ajax:", error);
+                        errorMessaeParagraph.text("Houve um erro: ", error)                   
                     },
                 });
             });

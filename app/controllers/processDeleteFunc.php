@@ -24,7 +24,7 @@
             $response = ["success" => true, "message" => "Funcionário inserido com sucesso", "funcionarios" => $allFuncs];
             echo json_encode($response);
         } else {
-            $response = ["success" => false, "message" => "Ocorreu um erro vey"];
+            $response = ["success" => false, "message" => "Ocorreu um erro"];
             echo json_encode($response);
         }
     }

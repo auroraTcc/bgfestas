@@ -249,7 +249,7 @@
                             >
                             <div>
                                 <input
-                                    name="newPassword"
+                                    name="userCPF"
                                     id="userCPF"
                                     required
                                     type="string"
@@ -265,23 +265,27 @@
 
                         <div>
                             <p
-                                class="text-danger"
+                                class="text-danger d-none"
                                 id="resetPasswordErrorMessage"
+                            ></p>
+                            <p
+                                class="text-success d-none"
+                                id="resetPasswordSucessMessage"
                             ></p>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">
-                            Resetar senha
-                        </button>
+                        <div class="">
+                            <button type="submit" class="btn btn-primary w-100 ">
+                                Resetar senha
+                            </button>
+                            <a href="?" class="btn w-100 mt-2">Entrar</a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
 
         <script>
-           
-            
-
             $("form#loginForm").on("submit", function (e) {
                 e.preventDefault();
 
@@ -350,6 +354,41 @@
                     },
                 });
             });
+        
+            $("form#ResetPassword").on("submit", function(e) {
+                e.preventDefault()
+
+                if(!validarCPF($("input[id='userCPF']").val())) {
+                    $("input[id='userCPF']").addClass("is-invalid").removeClass("is-valid");
+                    return
+                } else {
+                    $("input[id='userCPF']").addClass("is-valid").removeClass("is-invalid");
+                }
+            
+
+                $.ajax({
+                    url: "../../../controllers/processForgotPassword.php",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if(response.sucess) {
+                            $("#resetPasswordSucessMessage").text(response.message).removeClass("d-none").addClass("d-block");
+                        } else {
+                            $("#resetPasswordErrorMessage").text(response.message).removeClass("d-none").addClass("d-block");
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(
+                            "Erro na requisição Ajax:",
+                            xhr.responseText
+                        );
+                        $("#resetPasswordErrorMessage").text(
+                            "Erro ao processar a solicitação. Tente novamente mais tarde."
+                        ).removeClass("d-none").addClass("d-block");
+                    },
+                })
+            })
         </script>
     </body>
 </html>

@@ -2,6 +2,8 @@
     require_once "../config/conexao.php";
     require_once "../actions/funcionario.php";
 
+    header('Content-Type: application/json');
+
     if (!$conn) {
         $response = ["success" => false, "message" => "Erro ao conectar com o banco de dados"];
         echo json_encode($response);

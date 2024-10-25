@@ -26,9 +26,8 @@
     }
 
     function getAllFuncs($conn){
-        $query = "SELECT * FROM funcionario";
+        $query = "SELECT * FROM funcionario ORDER BY FIELD(cargo, 'Gerente', 'Administrador', 'Funcionário')";
         $stmt = $conn->prepare($query);
-
         $stmt->execute();
         $resultados = $stmt->get_result();
         $updatedResults = [];
@@ -112,11 +111,29 @@
             return ["success" => false, "message" => "Problemas ao atualizar cadastro."];
         }
     }
+    function resetSenhaPadrao($conn, $cpfFunc) {
+        
+        $cpfNumbers = preg_replace('/\D/', '', $cpfFunc);
+        $senhaPadrao = "PrimeiroAcesso$cpfNumbers";
+        $senhaHash = password_hash($senhaPadrao, PASSWORD_DEFAULT);
 
-    //*O cpf solicitado será com pontuação?
-    function ResetDefaultSenha($conn, $cpfFunc){
-        $query = "UPDATE funcionario SET senha = 'PrimeiroAceso$cpfFunc', primAcess = true WHERE cpf = ?";
+        $checkQuery  = "SELECT * FROM funcionario WHERE cpf = ?";
+        $checkStmt = $conn->prepare($checkQuery );
+        $checkStmt->bind_param("s", $cpfFunc);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+
+        if ($checkStmt->num_rows === 0) {
+            return ["success" => false, "message" => "CPF não encontrado."];
+        }
+    
+        $query = "UPDATE funcionario SET senha = ?, primAcess = true WHERE cpf = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("s", $cpfFunc);
-        $stmt->execute();
+        $stmt->bind_param("ss", $senhaHash, $cpfFunc);
+        
+        if ($stmt->execute()) {
+            return ["success" => true, "message" => "Sua senha foi redefinida para o padrão. Tente logar agora."];
+        } else {
+            return ["success" => false, "message" => "Ocorreu um erro ao redefinir a senha. Tente novamente."];
+        }
     }
