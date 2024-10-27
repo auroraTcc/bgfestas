@@ -262,14 +262,12 @@
                     if ($pedido['subtotal'] < 50.00) {
                         $pedido['frete'] = 50.00 - $pedido['subtotal'];
                     } else {
-                        $pedido['frete'] = 0; // Garantir que o frete seja 0 se não for necessário
+                        $pedido['frete'] = 0;
                     }
 
-                    // Formatar subtotal e frete apenas para apresentação
                     $subtotalFormatted = number_format($pedido['subtotal'], 2, ',', '.');
                     $freteFormatted = number_format($pedido['frete'], 2, ',', '.');
 
-                    // Calcular o total (sem formatação)
                     $total = $pedido['subtotal'] + $pedido['frete'];
                     $totalFormatted = number_format($total, 2, ',', '.');
                 }
