@@ -1,6 +1,8 @@
 <?php
 
     require "../../../../config/isLogged.php";
+    require_once "../../../../config/conexao.php";
+
 
     if (!$isLogged) {
         header("Location: /bgfestas/app/view/admin/login"); //TODO: DEPLOY: TROCAR PARA /app/view/admin/login
@@ -19,6 +21,12 @@
         IntlDateFormatter::NONE 
     );
     $dateFormatter->setPattern('dd MMM');
+
+
+    require_once "../../../../../app/config/conexao.php";
+    require_once "../../../../../app/actions/pedido.php"; 
+    $idPedido = $_GET['id'];
+    $resultados = getPedidoById($conn, $idPedido);
 ?>
 
 <!DOCTYPE html>
@@ -136,16 +144,12 @@
         </div>
 
 
-        <main class="container" data-type="entrega">
+        <main class="container" data-type=<?=$resultados[0]["stts"]?>>
             <section
                 class="d-flex flex-column-reverse gap-3 flex-md-row justify-content-between align-md-items-center align-items-start"
             >
                 <div>
-                    <?php 
-                        require_once "../../../../../app/config/conexao.php";
-                        require_once "../../../../../app/actions/pedido.php"; 
-                        $idPedido = $_GET['id'];
-                        $resultados = getPedidoById($conn, $idPedido);
+                    <?php
                         
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
@@ -171,34 +175,45 @@
                             <i class="fa-solid fa-map-pin"></i><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
-                            <i class="fa-solid fa-circle-user"></i
-                            ><select
-                                class="form-select"
-                                id="selectFunc"
-                                aria-label="Default select example"
-                            >
-                                <?php
-                                    require_once "../../../../config/conexao.php";
+                            <i class="fa-solid fa-circle-user"></i>
+                            <?php
+                                if($_SESSION['funcionario']['cargo'] === "Gerente"
+                                ||
+                                $_SESSION['funcionario']['cargo'] === "Administrador") {
+                                    ?>
+                                    <select
+                                            class="form-select"
+                                            id="selectFunc"
+                                            aria-label="Default select example"
+                                        >
+                                            <?php
 
-                                    $resultados = getAllFuncs($conn);
+                                                $resultados = getAllFuncs($conn);
 
-                                if ($resultados) {
-                                    foreach ($resultados as $funcionario) {
-                                ?>
-                                <option value="<?=$funcionario['cpf']?>" <?php
-                                    if ($pedido["cpfResponsavel"] === $funcionario["cpf"]) {
-                                        echo "selected";
-                                    }
-                                ?>> <?=$funcionario['nome'];?></option><?php
-                                    };
-                                }?>
-                                
-                            </select>
+                                            if ($resultados) {
+                                                foreach ($resultados as $funcionario) {
+                                            ?>
+                                            <option value="<?=$funcionario['cpf']?>" <?php
+                                                if ($pedido["cpfResponsavel"] === $funcionario["cpf"]) {
+                                                    echo "selected";
+                                                }
+                                            ?>> <?=$funcionario['nome'];?></option><?php
+                                                };
+                                            }?>
+                                            
+                                        </select>
+                                    <?php
+                                } else {
+                                    $funcionario = getNomeFuncionarioByCpf($conn, $pedido["cpfResponsavel"]);
+
+                                    echo $funcionario;
+                                }
+                            ?>
                         </p>
                     </div>
                 </div>
                 <span
-                    class="badge bg-main text-bg-secondary rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
+                    class="badge bg-main text-bg-main rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
                 >
                     <?=$pedido['stts']?>
                 </span>

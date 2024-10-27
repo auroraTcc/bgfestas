@@ -260,7 +260,7 @@ main > * + * {
 }
 
 @each $type, $color in $types {
-    main[data-type="#{$type}"] {
+    .container[data-type="#{$type}"] {
         $main: $color;
 
         .bg-main {
@@ -280,6 +280,11 @@ main > * + * {
         }
 
         .btn-main {
+            background-color: $main;
+            color: $body-bg;
+        }
+
+        .text-bg-main {
             background-color: $main;
         }
     }
