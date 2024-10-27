@@ -150,6 +150,8 @@
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
 
+                                echo "<script>const pedido = " . json_encode($pedido) . ";</script>";
+
                                 $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
@@ -172,6 +174,7 @@
                             <i class="fa-solid fa-circle-user"></i
                             ><select
                                 class="form-select"
+                                id="selectFunc"
                                 aria-label="Default select example"
                             >
                                 <?php
@@ -182,7 +185,11 @@
                                 if ($resultados) {
                                     foreach ($resultados as $funcionario) {
                                 ?>
-                                <option value="<?=$funcionario['cpf']?>"> <?=$funcionario['nome'];?></option><?php
+                                <option value="<?=$funcionario['cpf']?>" <?php
+                                    if ($pedido["cpfResponsavel"] === $funcionario["cpf"]) {
+                                        echo "selected";
+                                    }
+                                ?>> <?=$funcionario['nome'];?></option><?php
                                     };
                                 }?>
                                 
@@ -280,5 +287,32 @@
 
             </section>
         </main>
+
+        <script>
+            $("#selectFunc").on("change", function () {
+
+                const cpf = $(this).val();
+                const idPedido = pedido.idPedido;
+
+                console.log(cpf, idPedido)
+
+                $.ajax({
+                    url: "../../../../../app/controllers/processAlterarFuncResponsavel.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: { cpf: cpf, pedido: idPedido },
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("Alteração realizada com sucesso");
+                        } else {
+                            console.log("Falha ao alterar o responsável");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Erro ao processar a solicitação:", error);
+                    },
+                });
+            })
+        </script>
     </body>
 </html>

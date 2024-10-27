@@ -105,13 +105,15 @@
     }
 
     //Atualizar o funcionario responsavel
-    function setFunc($conn, $nomeFunc){
-        $idPedido = $_GET['id'];
-        $idFunc = getCpfFuncionarioByNome($conn, $nomeFunc);
-        $query = "UPDATE pedido SET cpfResponsavel = $idFunc WHERE idPedido = ?";
+    function setFunc($conn, $cpfFunc, $idPedido): bool {
+        $query = "UPDATE pedido SET cpfResponsavel = ? WHERE idPedido = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("i", $idPedido);
-        $stmt->execute();
+        
+        if (!$stmt) {
+            return false; 
+        }
+        $stmt->bind_param("si", $cpfFunc, $idPedido);
+        return $stmt->execute();
     }
 
     function atualizarSttsPedido($conn, $idPedido){

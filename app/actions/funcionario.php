@@ -26,7 +26,9 @@
     }
 
     function getAllFuncs($conn){
-        $query = "SELECT * FROM funcionario ORDER BY FIELD(cargo, 'Gerente', 'Administrador', 'Funcionário')";
+        $query =    "SELECT * FROM funcionario 
+                    WHERE cpf <> '000.000.000-00' 
+                    ORDER BY FIELD(cargo, 'Gerente', 'Administrador', 'Funcionário')";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $resultados = $stmt->get_result();

@@ -256,10 +256,6 @@
                 let index = 1;
 
                 funcionarios.forEach((funcionario) => {
-                    if (funcionario.cpf === "000.000.000-00") {
-                        return
-                    }
-                    
                     const row = document.createElement("tr");
                     
                     row.innerHTML = `

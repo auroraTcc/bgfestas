@@ -270,7 +270,7 @@
                             ></p>
                             <p
                                 class="text-success d-none"
-                                id="resetPasswordSucessMessage"
+                                id="resetPasswordSuccessMessage"
                             ></p>
                         </div>
 
@@ -371,8 +371,8 @@
                     type: "POST",
                     data: $(this).serialize(),
                     success: function (response) {
-                        if(response.sucess) {
-                            $("#resetPasswordSucessMessage").text(response.message).removeClass("d-none").addClass("d-block");
+                        if(response.success) {
+                            $("#resetPasswordSuccessMessage").text(response.message).removeClass("d-none").addClass("d-block");
                         } else {
                             $("#resetPasswordErrorMessage").text(response.message).removeClass("d-none").addClass("d-block");
 
