@@ -232,7 +232,6 @@
                         class="d-flex justify-content-between align-items-center"
                     >
                         <div class="item-titles align-items-center">
-                            <!-- FORMATAR AS IMAGENS -->
                             <div class="d-flex justify-content-center">
                                 <img
                                     src="../../../../../public/assets/imgs/<?=$item['nome']?>.svg"
@@ -245,9 +244,8 @@
                             <h5 class="text-secondary-color"><?=$item["nome"]?></h5>
                         </div>
                         <div class="d-flex gap-1 align-items-center">
-                            <p class="mb-0"><?=$item["quantidade"]?> x <?=$item["preco"]?> =</p>
-                            <p class="fw-bold mb-0">R$ <?=$item["quantidade"]*$item["preco"]?>,00</p> 
-                            <!-- FORMATAR EM REAL -->
+                            <p class="mb-0"><?=$item["quantidade"]?> x <?=number_format($item["preco"], 2, ',', '.') ?> =</p>
+                            <p class="fw-bold mb-0">R$ <?=number_format($item["quantidade"] * $item["preco"], 2, ',', '.') ?></p> 
                         </div>
                     </div>
                     <?php 
@@ -260,28 +258,35 @@
                     <h4>Pagamento</h4>
                 </div>
                 <?php
-                    if($pedido['subtotal'] < 50.00){
+                    // Definindo o valor do frete
+                    if ($pedido['subtotal'] < 50.00) {
                         $pedido['frete'] = 50.00 - $pedido['subtotal'];
-                    }else{
-                        $pedido['frete'];
+                    } else {
+                        $pedido['frete'] = 0; // Garantir que o frete seja 0 se não for necessário
                     }
-                    }
+
+                    // Formatar subtotal e frete apenas para apresentação
+                    $subtotalFormatted = number_format($pedido['subtotal'], 2, ',', '.');
+                    $freteFormatted = number_format($pedido['frete'], 2, ',', '.');
+
+                    // Calcular o total (sem formatação)
+                    $total = $pedido['subtotal'] + $pedido['frete'];
+                    $totalFormatted = number_format($total, 2, ',', '.');
+                }
                 ?>
                 <div class="p-3 d-flex flex-column gap-3">
                     <div>
                         <div class="d-flex justify-content-between pb-1">
                             <span>Subtotal</span>
-                            <span>R$ <?=$pedido['subtotal']?></span>
+                            <span>R$ <?=$subtotalFormatted?></span>
                         </div>
                         <div class="d-flex justify-content-between pb-2">
                             <span>Frete</span>
-                            <span>R$ <?=$pedido['frete']?></span>
+                            <span>R$ <?=$freteFormatted?></span>
                         </div>
-                        <div
-                            class="d-flex justify-content-between border-top border-main pt-3 pb-3"
-                        >
+                        <div class="d-flex justify-content-between border-top border-main pt-3 pb-3">
                             <strong>Total</strong>
-                            <strong>R$ <?=$pedido['subtotal']+$pedido['frete']?></strong>
+                            <strong>R$ <?=$totalFormatted?></strong>
                         </div>
                     </div>
                 </div>
@@ -291,7 +296,14 @@
                 class="d-md-flex text-center justify-content-between align-items-center border shadow-sm rounded p-3"
             >
                 <p class="mb-0">
-                    Receba o pagamento antes de prosseguir com a entrega
+                    <?php
+                        if ($pedido["stts"] === "entrega") {
+                            echo "Receba o pagamento antes de prosseguir com a entrega";
+                        } else {
+                            echo "Verifique a condição dos itens antes de prosseguir com a retirada";
+                        }
+                    ?>
+                    
                 </p>
                 <button id="confirmBtn" class="btn btn-main ms-auto">
                     <?php
