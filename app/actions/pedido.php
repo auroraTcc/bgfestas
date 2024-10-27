@@ -112,10 +112,35 @@
         if (!$stmt) {
             return false; 
         }
+
         $stmt->bind_param("si", $cpfFunc, $idPedido);
         return $stmt->execute();
     }
 
     function atualizarSttsPedido($conn, $idPedido){
-        
+        $pedido = getPedidoById($conn, $idPedido);
+
+        if (!$pedido) {
+            return false;
+        }
+
+        $newLabel = match ($pedido[0]["stts"]) {
+            "entrega" => "retirada",
+            "retirada" => "finalizado",
+            default => null
+        };
+
+        if ($newLabel === null) {
+            return false;
+        }
+
+        $query = "UPDATE pedido SET stts = ? WHERE idPedido = ?";
+        $stmt = $conn->prepare($query);
+
+        if (!$stmt) {
+            return false; 
+        }
+
+        $stmt->bind_param("si", $newLabel, $idPedido);
+        return $stmt->execute();
     }

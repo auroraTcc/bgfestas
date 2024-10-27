@@ -52,7 +52,7 @@
         </style>
     </head>
     <body>
-        <header class="border-bottom border-primary">
+        <header class="border-bottom border-main">
             <div class="container">
                 <button
                     class="btn"
@@ -198,7 +198,7 @@
                     </div>
                 </div>
                 <span
-                    class="badge bg-primary text-bg-secondary rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
+                    class="badge bg-main text-bg-secondary rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
                 >
                     <?=$pedido['stts']?>
                 </span>
@@ -222,8 +222,9 @@
                                 <img
                                     src="../../../../../public/assets/imgs/<?=$item['nome']?>.svg"
                                     onload="SVGInject(this)"
-                                    class="text-primary"
+                                    class="text-main"
                                     height="2rem"
+                                    fill="currentColor"
                                 />
                             </div>
                             <h5 class="text-secondary-color"><?=$item["nome"]?></h5>
@@ -262,7 +263,7 @@
                             <span>R$ <?=$pedido['frete']?></span>
                         </div>
                         <div
-                            class="d-flex justify-content-between border-top border-primary pt-3 pb-3"
+                            class="d-flex justify-content-between border-top border-main pt-3 pb-3"
                         >
                             <strong>Total</strong>
                             <strong>R$ <?=$pedido['subtotal']+$pedido['frete']?></strong>
@@ -277,8 +278,14 @@
                 <p class="mb-0">
                     Receba o pagamento antes de prosseguir com a entrega
                 </p>
-                <button class="btn btn-primary ms-auto">
-                    Confirmar Pagamento
+                <button id="confirmBtn" class="btn btn-main ms-auto">
+                    <?php
+                        if ($pedido["stts"] === "entrega") {
+                            echo "Confirmar Pagamento";
+                        } else {
+                            echo "Confirmar retirada";
+                        }
+                    ?>
                 </button>
 
                 <?php
@@ -289,12 +296,30 @@
         </main>
 
         <script>
-            $("#selectFunc").on("change", function () {
-
-                const cpf = $(this).val();
+            $("#confirmBtn").on("click", function () {
                 const idPedido = pedido.idPedido;
 
-                console.log(cpf, idPedido)
+                $.ajax({
+                    url: "../../../../../app/controllers/processAtualizarStatusDoPedido.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: { pedido: idPedido },
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("Alteração realizada com sucesso");
+                        } else {
+                            console.log("Falha ao alterar as coisas:", response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Erro ao processar a solicitação:", error);
+                    },
+                });
+            });
+
+            $("#selectFunc").on("change", function () {
+                const cpf = $(this).val();
+                const idPedido = pedido.idPedido;
 
                 $.ajax({
                     url: "../../../../../app/controllers/processAlterarFuncResponsavel.php",

@@ -161,8 +161,7 @@ main > * + * {
 }
 
 @each $type, $color in $types {
-    .card[data-type="#{$type}"],
-    .container[data-type="#{$type}"] {
+    .card[data-type="#{$type}"] {
         $main: $color;
         border-radius: 1rem;
 
@@ -256,6 +255,32 @@ main > * + * {
                 justify-content: center;
                 text-decoration: none;
             }
+        }
+    }
+}
+
+@each $type, $color in $types {
+    main[data-type="#{$type}"] {
+        $main: $color;
+
+        .bg-main {
+            background-color: $main;
+        }
+
+        .text-main {
+            color: $main;
+        }
+
+        svg {
+            color: $main;
+        }
+
+        .border-primary {
+            border-color: $main;
+        }
+
+        .btn-main {
+            background-color: $main;
         }
     }
 }
