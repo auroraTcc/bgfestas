@@ -1,4 +1,6 @@
 <?php
+    ob_start();
+
     require "../config/conexao.php";
     require "../models/pedido.php";
     require "../models/cliente.php";
@@ -62,5 +64,10 @@
 
         atualizarPreco($conn, $cpfCliente, $dataDeEntrega, $qtdJogos, $qtdCadeiras, $qtdMesas);
         header("location: /app/view/fazerpedido/sucesso");
+
+
     }
+
+    ob_end_flush();
+
     
