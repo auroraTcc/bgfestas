@@ -1,6 +1,4 @@
 <?php
-
-
 $servername = "localhost";
 $username = "ifhostgru_bgfestas";
 $password = "ifspgru@2024";
