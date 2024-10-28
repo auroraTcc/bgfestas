@@ -223,11 +223,14 @@
                         </p>
                     </div>
                 </div>
-                <span
-                    class="badge bg-main text-bg-main rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
-                >
-                    <?=$pedido['stts']?>
-                </span>
+                <div class="d-flex align-items-center gap-6">
+                    <span
+                        class="badge bg-main text-bg-main rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
+                    >
+                        <?=$pedido['stts']?>
+                    </span>
+                    <button id="deleteBtn" class="btn"><i class="fa-solid fa-trash"></i> Deletar Pedido</button>
+                </div>
             </section>
 
             <section class="border shadow-sm rounded">
@@ -332,6 +335,29 @@
         </main>
 
         <script>
+            $("#deleteBtn").on("click", function () {
+                const idPedido = pedido.idPedido;
+
+                if (confirm("Tem certeza de que deseja excluir este pedido?")) {
+                    $.ajax({
+                    url: "../../../../../app/controllers/processDeletePedido.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: { pedido: idPedido },
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = "/app/view/admin";
+                        } else {
+                            console.log("Falha ao alterar as coisas:", response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Erro ao processar a solicitação:", error);
+                    },
+                });
+                }
+            })
+
             $("#confirmBtn").on("click", function () {
                 const idPedido = pedido.idPedido;
 
@@ -342,7 +368,7 @@
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "/bgfestas/app/view/admin";
+                            window.location.href = "/app/view/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }
