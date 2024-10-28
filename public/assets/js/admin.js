@@ -2,7 +2,7 @@ $(".cpf").mask("000.000.000-00");
 
 $(".pedido").each(function () {
     $(this).on("click", function () {
-        window.location = `http://bgfestas.hostdeprojetosdoifsp.gru.br/app/view/admin/tarefas/detalhes?id=${$(
+        window.location = `https://bgfestas.hostdeprojetosdoifsp.gru.br/app/view/admin/tarefas/detalhes?id=${$(
             this
         ).data("id")}`;
     });

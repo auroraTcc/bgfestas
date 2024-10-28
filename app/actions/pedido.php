@@ -18,18 +18,28 @@
         }
     }
 
-    /* function getPedidosByCpfFunc($conn, $cpfFunc){
+    function getPedidosByCpfFunc($conn, $cpfFunc){
         $query = "SELECT * from pedido WHERE cpfResponsavel = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('s', $cpfFunc);
 
         $stmt->execute();
-
         $resultados = $stmt->get_result();
-        if ($row = $resultados->fetch_assoc()) {
-            return $row['idPedido'];
+        $updatedResults = [];
+
+        if (mysqli_num_rows($resultados) > 0){
+            while ($pedido = mysqli_fetch_assoc($resultados)) {
+                $pedido['nomeCliente'] = getNomeClienteByCpf($conn, $pedido['cpfCliente']);
+                $pedido['nomeFuncionario'] = getNomeFuncionarioByCpf($conn, $pedido['cpfResponsavel']);
+                $pedido['itensCarrinho'] = getItensByIdpedido($conn, $pedido['idPedido']);
+                $updatedResults[] = $pedido;
+            }
+
+            return $updatedResults;
+        } else {
+            return null;
         }
-    } */
+    }
 
     //Seleciona todos os pedidos
     function getAllPedidos($conn){

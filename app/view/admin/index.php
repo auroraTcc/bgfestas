@@ -169,8 +169,13 @@
                     <?php 
                         require_once "../../../app/config/conexao.php";
                         require_once "../../../app/actions/pedido.php";
+                        $resultados;
 
-                        $resultados = getAllPedidos($conn);
+                        if ($_SESSION['funcionario']['cargo'] === "Gerente" || $_SESSION['funcionario']['cargo'] === "Administrador") {
+                            $resultados = getAllPedidos($conn);
+                        } else {
+                            $resultados = getPedidosByCpfFunc($conn, $_SESSION['funcionario']['cpf']);
+                        }
 
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
