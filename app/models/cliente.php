@@ -46,6 +46,13 @@
 
             $query = "INSERT INTO cliente (cpf, nome, telefone) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($query);
+
+            $stmt = $this->conn->prepare($query);
+            
+            if (!$stmt) {
+                die("Erro na preparação da query: " . $this->conn->error);
+            }
+
             $stmt->bind_param('sss', $cpfCliente, $nome, $telefone);
 
             $stmt->execute();
