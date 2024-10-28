@@ -12,6 +12,18 @@
         }
     }
 
+    function getFuncionarioByCpf($conn, $cpfCliente){
+        $query = "SELECT * from funcionario WHERE cpf = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('s', $cpfCliente);
+
+        $stmt->execute();
+
+        $resultados = $stmt->get_result();
+        $funcionario = $resultados->fetch_assoc();
+        return $funcionario;
+    }
+
     function getCpfFuncionarioByNome($conn, $nome){
         $query = "SELECT cpf from funcionario WHERE nome = ?";
         $stmt = $conn->prepare($query);
@@ -98,13 +110,10 @@
         }
     }
 
-
-    //TODO:criar o pop-up para edição de funcionários.
-    //* Importante que os inputs venham preenchidos com as infos atuais
-    function atualizarCadastroFunc($conn, $idFunc, $nome, $email, $cargo ){
-        $query = "UPDATE funcionario SET nome = ?, email = ?, cargo = ? WHERE cpf = ?";
+    function atualizarCadastroFunc($conn, $nome, $email, $cpf) {
+        $query = "UPDATE funcionario SET nome = ?, email = ? WHERE cpf = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssss", $nome, $email, $cargo, $idFunc);
+        $stmt->bind_param("sss", $nome, $email, $cpf);
         $stmt->execute();
         
         if ($stmt->affected_rows > 0) {

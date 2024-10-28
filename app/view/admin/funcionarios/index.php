@@ -128,7 +128,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">
-                            Adicionar Novo Funcionário
+                            Criar/Editar Funcionarios
                         </h1>
                         <button
                             type="button"
@@ -260,14 +260,14 @@
                     
                     row.innerHTML = `
                         <th scope="row">${index}</th>   
-                        <td>${funcionario.nome}</td>
-                        <td>${funcionario.email}</td>
-                        <td>${funcionario.cargo}</td>
+                        <td class="nome">${funcionario.nome}</td>
+                        <td class="email">${funcionario.email}</td>
+                        <td class="cargo">${funcionario.cargo}</td>
                         <td class="d-flex gap-2">
                             <button class="btn delete-btn" data-cpf="${funcionario.cpf}">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
-                            <button class="btn">
+                            <button class="btn edit-btn" data-cpf="${funcionario.cpf}">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                         </td>
@@ -324,6 +324,7 @@
                         }
                     },
                     error: function (xhr, status, error) {
+                       
                         errorMessaeParagraph.text("Houve um erro: ", error)                   
                     },
                 });
@@ -348,6 +349,19 @@
                         errorMessaeParagraph.text("Houve um erro: ", error)                   
                     },
                 });
+            });
+
+            $("tbody").on("click", ".edit-btn", function () {
+
+                const row = $(this).closest("tr");
+
+                $("#exampleModal").modal("show")
+                $("#cpf").val($(this).data("cpf")).prop('readonly', true);
+                $("#nome").val(row.find(".nome").html());
+                $("#email").val(row.find(".email").html());
+
+
+               
             });
         </script>
     </body>

@@ -33,7 +33,15 @@
         $funcionario->setNome($nome);
         $funcionario->setEmail($email);
 
-        $funcionario->inserirFuncionario( $cpf, $nome, $email, $senhahash, $cargo);
+        $selectedFunc = getFuncionarioByCpf($conn, $cpf);
+
+        if ($selectedFunc) {
+            atualizarCadastroFunc($conn, $nome, $email, $cpf);
+        } else {
+            $funcionario->inserirFuncionario($cpf, $nome, $email, $senhahash, $cargo);
+        }
+
+        
         $allFuncs = getAllFuncs($conn);
         $response = ["success" => true, "message" => "Funcionário inserido com sucesso", "funcionarios" => $allFuncs];
         echo json_encode($response);

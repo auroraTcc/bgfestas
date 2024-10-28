@@ -270,7 +270,7 @@
 
                     $total = $pedido['subtotal'] + $pedido['frete'];
                     $totalFormatted = number_format($total, 2, ',', '.');
-                }
+                
                 ?>
                 <div class="p-3 d-flex flex-column gap-3">
                     <div>
@@ -314,7 +314,7 @@
                 </button>
 
                 <?php
-                      }
+                      }}
                 ?>
 
             </section>
