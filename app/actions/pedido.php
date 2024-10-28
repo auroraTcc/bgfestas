@@ -144,3 +144,43 @@
         $stmt->bind_param("si", $newLabel, $idPedido);
         return $stmt->execute();
     }
+
+    function excluirPedido($conn, $idPedido) {
+ 
+        $conn->begin_transaction();
+    
+        try {
+           
+            $query = "DELETE FROM carrinho WHERE idPedido = ?";
+            $stmt = $conn->prepare($query);
+            
+            if (!$stmt) {
+                throw new Exception("Erro ao preparar a exclusão do carrinho.");
+            }
+    
+            $stmt->bind_param("i", $idPedido);
+            if (!$stmt->execute()) {
+                throw new Exception("Erro ao executar a exclusão do carrinho.");
+            }
+
+            $query = "DELETE FROM pedido WHERE idPedido = ?";
+            $stmt = $conn->prepare($query);
+    
+            if (!$stmt) {
+                throw new Exception("Erro ao preparar a exclusão do pedido.");
+            }
+    
+            $stmt->bind_param("i", $idPedido);
+            if (!$stmt->execute()) {
+                throw new Exception("Erro ao executar a exclusão do pedido.");
+            }
+    
+            $conn->commit();
+            return true;
+    
+        } catch (Exception $e) {
+            
+            $conn->rollback();
+            return false;
+        }
+    }
