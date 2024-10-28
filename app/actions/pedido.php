@@ -134,11 +134,13 @@
             return false;
         }
 
-        $newLabel = match ($pedido[0]["stts"]) {
-            "entrega" => "retirada",
-            "retirada" => "finalizado",
-            default => null
-        };
+        $newLabel = null;
+
+        if ($pedido[0]["stts"] === "entrega") {
+            $newLabel = "retirada";
+        } elseif ($pedido[0]["stts"] === "retirada") {
+            $newLabel = "finalizado";
+        }
 
         if ($newLabel === null) {
             return false;
