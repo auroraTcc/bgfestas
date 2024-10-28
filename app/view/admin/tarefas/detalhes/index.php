@@ -143,6 +143,17 @@
             </nav>
         </div>
 
+        <?php
+            if ($resultados[0]["stts"] === "finalizado") {
+                
+                ?>
+                    <main class="container h-100 d-flex align-items-center justify-content-center">
+                        <h2>Esse pedido já está finalizado</h2>
+                    </main>
+                <?php return;
+            }
+        ?>
+
 
         <main class="container" data-type=<?=$resultados[0]["stts"]?>>
             <section
@@ -331,7 +342,7 @@
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            console.log("Alteração realizada com sucesso");
+                            window.location.href = "/bgfestas/app/view/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }

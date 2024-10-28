@@ -174,10 +174,17 @@
 
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
+
+                                if($pedido["stts"] === "finalizado") {
+                                    continue;
+                                }
+
                                 $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
                                 $formattedTime = $dateTime->format('H:i') . 'h';
+
+                                
                                 ?>
                                 
                                 <div role="button" class="card pedido" data-type="<?=$pedido['stts']?>" data-id="<?=$pedido['idPedido']?>">

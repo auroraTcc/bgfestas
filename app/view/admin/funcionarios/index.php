@@ -217,7 +217,8 @@
             <div id="toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
 
                 <div class="toast-header">
-                    <span  class="rounded me-2 bg-primary" style="height: 1.25rem; width: 1.25rem;" ></span>
+                    <i class="fa-solid fa-bell fs-6 text-primary me-2"></i>
+                    
                     <strong class="me-auto">Notificação</strong>
                     <small>1s atrás</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

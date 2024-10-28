@@ -32,6 +32,7 @@
             crossorigin="anonymous"
         ></script>
         <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="../../../../public/assets/js/admin.js"></script>
         <link
             rel="shortcut icon"
             href="/public/assets/imgs/favicon.ico"
@@ -154,13 +155,17 @@
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
 
+                                if($pedido["stts"] === "finalizado") {
+                                    continue;
+                                }
+
                                 $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
                                 $formattedTime = $dateTime->format('H:i') . 'h';
 
                                 ?>
-                                    <div class="card" data-type=<?=$pedido['stts']?>>
+                                    <div role="button" class="card pedido" data-type="<?=$pedido['stts']?>" data-id="<?=$pedido['idPedido']?>">
                                         <div class="card-header">
                                             <div>
                                                 <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
