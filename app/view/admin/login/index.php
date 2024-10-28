@@ -304,7 +304,7 @@
                                     "translateX(-100%)"
                                 );
                             } else {
-                                window.location.href = "/app/view/admin"; 
+                                window.location.href = "/bgfestas/app/view/admin"; 
                             }
                         } else {
                             $("#loginErrorMessage").text(response.message);

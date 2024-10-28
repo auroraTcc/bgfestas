@@ -10,7 +10,7 @@ $(".pedido").each(function () {
 
 $("#logOutBtn").on("click", function () {
     $.ajax({
-        url: "/app/controllers/processDesconectar.php",
+        url: "/bgfestas/app/controllers/processDesconectar.php",
         type: "POST",
         dataType: "json",
         success: function (response) {
