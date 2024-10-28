@@ -2,7 +2,7 @@
     require "../../../config/isLogged.php";
 
     if ($isLogged) {
-        header("Location: /bgfestas/app/view/admin");
+        header("Location: /app/view/admin");
     }
 
     $isPasswordReset = isset($_GET["resetarSenha"])
@@ -304,7 +304,7 @@
                                     "translateX(-100%)"
                                 );
                             } else {
-                                window.location.href = "/bgfestas/app/view/admin"; 
+                                window.location.href = "/app/view/admin"; 
                             }
                         } else {
                             $("#loginErrorMessage").text(response.message);

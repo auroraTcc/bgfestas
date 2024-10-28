@@ -5,7 +5,7 @@
 
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); 
+        header("Location: /app/view/admin/login"); 
     }
 
     $abbreviations = [
@@ -346,7 +346,7 @@
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "/bgfestas/app/view/admin";
+                            window.location.href = "/app/view/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }
@@ -368,7 +368,7 @@
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "/bgfestas/app/view/admin";
+                            window.location.href = "/app/view/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }

@@ -4,7 +4,7 @@
     require "../../../config/isLogged.php";
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login");
+        header("Location: /app/view/admin/login");
     }
 ?>
 
