@@ -136,31 +136,31 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div>
+                    <!-- <div>
                         <h4>10</h4>
                         <p>Tarefas essa semana.</p>
                     </div>
                     <div class="icon">
                         <i class="fa-solid fa-calendar-week"></i>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card">
-                    <div>
+                    <!-- <div>
                         <h4>32</h4>
                         <p>Novos pedidos.</p>
                     </div>
                     <div class="icon">
                         <i class="fa-solid fa-clipboard"></i>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card">
-                    <div>
+                    <!-- <div>
                         <h4>R$ 2.000,00</h4>
                         <p>Rendimento bruto.</p>
                     </div>
                     <div class="icon">
                         <i class="fa-solid fa-money-bills"></i>
-                    </div>
+                    </div> -->
                 </div>
             </section>
             <section class="container" id="proximasTarefas">

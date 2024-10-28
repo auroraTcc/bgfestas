@@ -213,6 +213,24 @@
             </div>
         </div>
 
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+
+                <div class="toast-header">
+                    <span  class="rounded me-2 bg-primary" style="height: 1.25rem; width: 1.25rem;" ></span>
+                    <strong class="me-auto">Notificação</strong>
+                    <small>1s atrás</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                
+                <div class="toast-body">
+                    Funcionário Deletado
+                </div>
+                  
+                
+            </div>
+        </div>
+
         <main>
             <section class="container">
                 <div
@@ -355,6 +373,7 @@
                     success: function (response) {
                         if (response.success) {
                             mostrarFuncionarios(response.funcionarios);
+                            $('#toast').toast('show');
                         } else {
                             errorMessaeParagraph.text(response.message)
                         }
