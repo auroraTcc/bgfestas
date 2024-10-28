@@ -32,6 +32,19 @@
         <script src="../../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <script src="../../../../public/assets/js/admin.js" defer></script>
+
+        <style>
+            input:read-only {
+                background-color: #e9ecef;
+                cursor: default ;
+                border: none;
+            }
+            input:read-only:focus {
+                background-color: #e9ecef;
+                box-shadow: none;
+                border: none;
+            }
+        </style>
     </head>
     <body>
         <header class="border-bottom border-primary">
@@ -220,6 +233,7 @@
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
+                        id="modalBtn"
                     >
                         adiconar novo
                     </button>
@@ -351,17 +365,17 @@
                 });
             });
 
+            $("#modalBtn").on("click", function () {
+                $('#addWorkerForm')[0].reset();
+                $("#cpf").prop('readonly', false);
+            })
+
             $("tbody").on("click", ".edit-btn", function () {
-
                 const row = $(this).closest("tr");
-
                 $("#exampleModal").modal("show")
                 $("#cpf").val($(this).data("cpf")).prop('readonly', true);
                 $("#nome").val(row.find(".nome").html());
                 $("#email").val(row.find(".email").html());
-
-
-               
             });
         </script>
     </body>
