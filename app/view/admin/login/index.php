@@ -2,7 +2,7 @@
     require "../../../config/isLogged.php";
 
     if ($isLogged) {
-        header("Location: /app/view/admin");
+        header("Location: /bgfestas/app/view/admin");
     }
 
     $isPasswordReset = isset($_GET["resetarSenha"])
