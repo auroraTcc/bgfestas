@@ -2,7 +2,7 @@ $(".cpf").mask("000.000.000-00");
 
 $(".pedido").each(function () {
     $(this).on("click", function () {
-        window.location = `http://localhost/bgfestas/app/view/admin/tarefas/detalhes?id=${$(
+        window.location = `http://bgfestas.hostdeprojetosdoifsp.gru.br/app/view/app/view/admin/tarefas/detalhes?id=${$(
             this
         ).data("id")}`;
     });
@@ -10,13 +10,13 @@ $(".pedido").each(function () {
 
 $("#logOutBtn").on("click", function () {
     $.ajax({
-        url: "/bgfestas/app/controllers/processDesconectar.php", //TODO: DEPLOY: TROCAR PARA /app/controllers/processDesconectar.php
+        url: "/app/controllers/processDesconectar.php",
         type: "POST",
         dataType: "json",
         success: function (response) {
             if (response.success) {
                 console.log("Usuário desconectado com sucesso!");
-                window.location.href = "/bgfestas/app/view/admin"; //TODO: DEPLOY: TROCAR PARA /app/view/admin
+                window.location.href = "/app/view/admin";
             } else {
                 console.log("Erro ao desconectar.");
             }
