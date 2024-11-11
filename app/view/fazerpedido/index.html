@@ -27,9 +27,19 @@
             href="../imgs/favicon.ico"
             type="image/x-icon"
         />
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+        ></script>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+        />
     </head>
 
     <body>
@@ -41,7 +51,6 @@
                         method="POST"
                         class="needs-validation"
                         novalidate
-                        action="../../controllers/processPedido.php"
                     >
                         <div class="formCard active">
                             <header>
@@ -223,10 +232,11 @@
                             </div>
 
                             <div class="form-section">
-                                <label for="datetimes">Período de locação</label>
+                                <label for="datetimes"
+                                    >Período de locação</label
+                                >
                                 <input type="text" name="datetimes" required />
-                            </div>  
-
+                            </div>
 
                             <div class="form-carrinho">
                                 <h3>Carrinho de compras</h3>
@@ -450,5 +460,18 @@
             </div>
         </div>
 
+        <script>
+            $("form#slides-container").on("submit", function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "../../controllers/processPedido.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: $(this).serialize(),
+                    //TODO: TRATAR OS DADOS AQUI DPS
+                });
+            });
+        </script>
     </body>
 </html>
