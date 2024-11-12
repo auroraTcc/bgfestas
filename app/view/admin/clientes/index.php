@@ -1,66 +1,40 @@
 <?php
-
-    require "../../../../config/isLogged.php";
-    require_once "../../../../config/conexao.php";
-
+    require_once "../../../../app/config/conexao.php";
+    require_once "../../../../app/actions/funcionario.php";
+    require "../../../config/isLogged.php";
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); 
+        header("Location: /bgfestas/app/view/admin/login");
     }
-
-    $abbreviations = [
-        "entrega" => "Entg",
-        "retirada" => "Ret"
-    ];
-
-    
-    setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'pt_BR.utf8');
-    $dateFormatter = new IntlDateFormatter(
-        'pt_BR', 
-        IntlDateFormatter::LONG, 
-        IntlDateFormatter::NONE 
-    );
-    $dateFormatter->setPattern('dd MMM');
-
-
-    require_once "../../../../../app/config/conexao.php";
-    require_once "../../../../../app/actions/pedido.php"; 
-    $idPedido = $_GET['id'];
-    $resultados = getPedidoById($conn, $idPedido);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tarefas finalizadas</title>
+        <title>Clientes</title>
         <link
-            rel="stylesheet"
-            href="../../../../../public/assets/css/admin.css"
-        />
-        <script src="../../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script
-            src="https://kit.fontawesome.com/4c0a49f720.js"
-            crossorigin="anonymous"
-        ></script>
-        <script src="../../../../../node_modules/jquery/dist/jquery.min.js"></script>
-        <link
-            rel="shortcut icon"
-            href="/public/assets/imgs/favicon.ico"
-            type="image/x-icon"
-        />
-        <script src="../../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
-        <style>
-            .item-titles {
-                display: grid;
-                gap: 0.5rem;
-                grid-template-columns: 4rem auto;
-            }
-        </style>
+                rel="stylesheet"
+                href="../../../../public/assets/css/admin.css"
+            />
+            <script src="../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script
+                src="https://kit.fontawesome.com/4c0a49f720.js"
+                crossorigin="anonymous"
+            ></script>
+            <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+            <link
+                rel="shortcut icon"
+                href="../../../../public/assets/imgs/favicon.ico"
+                type="image/x-icon"
+            />
+            <script src="../../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+            <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+            <script src="../../../../public/assets/js/admin.js" defer></script>
+
     </head>
     <body>
-        <header class="border-bottom border-primary">
+    <header class="border-bottom border-primary">
             <div class="container">
                 <button
                     class="btn"
@@ -150,10 +124,10 @@
                     class="d-md-flex container align-items-center justify-content-between mb-4"
                 >
                     <div class="title-container">
-                        <h2>Pedidos Concluídos</h2>
+                        <h2>Clientes</h2>
                         <p class="mb-2">
-                            Nesta página, você pode visualizar os pedidos que já foram cluídos,
-                            criar e enviar recibos, conforme necessário
+                            Nesta página, você pode visualizar e filtrar quaisquer clientes
+                            que já fizeram pedidos em seu site.
                         </p>
                     </div>
 
@@ -169,7 +143,7 @@
                                 <tr class="table-light">
                                     <th scope="col">#</th>
                                     <th scope="col">Nome</th>
-                                    <th scope="col">Data de conclusão</th>
+                                    <th scope="col">Bairros</th>
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
@@ -177,9 +151,9 @@
                                 <tr>
                                     <th scope="row">1</th>
                                     <td>Fillip Mangia</td>
-                                    <td>18 ab. 2024</td>
+                                    <td>Gopouva, Cumbica</td>
                                     <td>
-                                        <span class="badge bg-primary text-bg-secondary rounded-pill">gerar recibo</span>
+                                        
                                         <span class="badge bg-primary text-bg-secondary rounded-pill">Enviar mensáem</span>
                                     </td>
                                 </tr>
