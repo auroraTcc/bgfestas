@@ -129,12 +129,23 @@
                                 <h6>Admin</h6>
                                 <ul>
                                     <li>
-                                        <a href="../../../../app/view/admin/funcionarios">
+                                        <a href="../../../../../app/view/admin/funcionarios">
                                             <i class="fa-regular fa-id-badge"></i>
                                             <span>Funcionários</span>
                                         </a>
                                     </li>
-                                   
+                                    <li>
+                                        <a href="../../../../../app/view/admin/tarefas/finalizadas">
+                                            <i class="fa-regular fa-id-badge"></i>
+                                            <span>Tarefas Finalizadas</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../../../../../app/view/admin/clientes">
+                                            <i class="fa-regular fa-id-badge"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         <?php
