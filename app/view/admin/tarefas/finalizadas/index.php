@@ -25,8 +25,6 @@
 
     require_once "../../../../../app/config/conexao.php";
     require_once "../../../../../app/actions/pedido.php"; 
-    $idPedido = $_GET['id'];
-    $resultados = getPedidoById($conn, $idPedido);
 ?>
 
 <!DOCTYPE html>
@@ -107,13 +105,13 @@
                     <h6>Geral</h6>
                     <ul>
                         <li>
-                            <a href="../../../../app/view/admin">
+                            <a href="../../../../../app/view/admin">
                                 <i class="fa-solid fa-chart-gantt"></i>
                                 <span>Painel de Controle</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../../../../app/view/admin/tarefas">
+                            <a href="../../../../../app/view/admin/tarefas">
                                 <i class="fa-regular fa-folder-open"></i>
                                 <span>Tarefas</span>
                             </a>
@@ -136,13 +134,13 @@
                                     </li>
                                     <li>
                                         <a href="../../../../../app/view/admin/tarefas/finalizadas">
-                                            <i class="fa-regular fa-id-badge"></i>
+                                            <i class="fa-regular fa-square-check"></i>
                                             <span>Tarefas Finalizadas</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="../../../../../app/view/admin/clientes">
-                                            <i class="fa-regular fa-id-badge"></i>
+                                            <i class="fa-solid fa-user-tag"></i>
                                             <span>Clientes</span>
                                         </a>
                                     </li>
@@ -181,6 +179,8 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Data de conclusão</th>
+                                    <th scope="col">Endereço</th>
+                                    <th scope="col">Preço total</th>
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
@@ -189,6 +189,8 @@
                                     <th scope="row">1</th>
                                     <td>Fillip Mangia</td>
                                     <td>18 ab. 2024</td>
+                                    <td>Rua Qualquer Coisa, 135, Goiás</td>
+                                    <td>R$ 400,00</td>
                                     <td>
                                         <span class="badge bg-primary text-bg-secondary rounded-pill">gerar recibo</span>
                                         <span class="badge bg-primary text-bg-secondary rounded-pill">Enviar mensáem</span>

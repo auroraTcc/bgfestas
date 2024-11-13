@@ -136,13 +136,13 @@
                                     </li>
                                     <li>
                                         <a href="../../../../../app/view/admin/tarefas/finalizadas">
-                                            <i class="fa-regular fa-id-badge"></i>
+                                            <i class="fa-regular fa-square-check"></i>
                                             <span>Tarefas Finalizadas</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="../../../../../app/view/admin/clientes">
-                                            <i class="fa-regular fa-id-badge"></i>
+                                            <i class="fa-solid fa-user-tag"></i>
                                             <span>Clientes</span>
                                         </a>
                                     </li>
