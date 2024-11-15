@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cliente->setNome($nome);
     $cliente->setContato($telefone);
 
-    $cliente->inserirCliente($cpfCliente, $nome, $telefone);
+    $cliente->inserirCliente($conn, $cpfCliente, $nome, $telefone);
 
     $pedido = new Pedido($conn);
     $pedido->setCep($cep);

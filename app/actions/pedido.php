@@ -100,7 +100,6 @@
         //Pedido mínino de R$50,00
         if($totalProdts < 50.00){
             $frete = 50.00 - $totalProdts;
-            
         }else{
             $frete = 0;
         }

@@ -31,26 +31,24 @@
             $this->contato = $contato;
         }
 
-        public function inserirCliente($cpfCliente, $nome, $telefone) {
-            // $query_check = "SELECT cpf FROM cliente WHERE cpf = ? AND WHERE bairro = ?";
-            // $stmt_check = $this->conn->prepare($query_check);
-            // $stmt_check->bindParam('s', $this->cpf);
-            // $stmt_check->execute();
-            // if ($stmt_check->rowCount() == 0) {
-            //     // Se o cliente não existe, faz a inserção
-                
-            // } else {
-            //     // Se o cliente já existe, não faz inserção e retorna verdadeiro
-            //     return true;
-            // }
+        public function inserirCliente($conn, $cpfCliente, $nome, $telefone) {
 
-            $query = "INSERT INTO cliente (cpf, nome, telefone) VALUES (?, ?, ?)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param('sss', $cpfCliente, $nome, $telefone);
+            $query = "SELECT * from cliente WHERE cpf = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('s', $cpfCliente);
 
             $stmt->execute();
 
-            $stmt->close();
+            $resultados = $stmt->get_result();
+
+            if($resultados->num_rows == 0 ){
+                $query = "INSERT INTO cliente (cpf, nome, telefone) VALUES (?, ?, ?)";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bind_param('sss', $cpfCliente, $nome, $telefone);
+
+                $stmt->execute();
+
+                $stmt->close();
+            }
         }
     }
-
