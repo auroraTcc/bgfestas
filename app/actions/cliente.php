@@ -1,5 +1,4 @@
 <?php
-   
    function getAllClientes($conn){
     $query = "SELECT * from cliente";
     $stmt = $conn->prepare($query);

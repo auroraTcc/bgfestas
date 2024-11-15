@@ -1,6 +1,5 @@
 <?php
     require_once "../../../../app/config/conexao.php";
-    require_once "../../../../app/actions/funcionario.php";
     require "../../../config/isLogged.php";
 
     if (!$isLogged) {
@@ -145,9 +144,24 @@
                    
                 </div>
 
-                <div>
-                    
+                <div class="mb-2">
+                    <div class="btn-group border rounded-pill">
+                        <button class="btn btn-sm d-flex align-items-center gap-2" type="button">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            Bairro(s):
+                        </button>
+                        <button type="button" class="btn btn-sm dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="text-primary dropdown-toggle">Gopoúva, Jacuacanga</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            ...
+                        </ul>
+                    </div>
 
+                    
+                </div>
+
+                <div>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -159,15 +173,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Fillip Mangia</td>
-                                    <td>Gopouva, Cumbica</td>
-                                    <td>
-                                        
-                                        <span class="badge bg-primary text-bg-secondary rounded-pill">Enviar mensáem</span>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -175,5 +181,62 @@
 
             </section>
         </main>
+
+        <script>
+            let allClients;
+            let bairrosSelecionados;
+            
+            function insertClients(clients) {
+                $("tbody").empty();
+                let index = 1;
+
+                clients.forEach((cliente) => {
+                    const row = document.createElement("tr");
+                    const telefone = parseInt(cliente.telefone.split(/\D+/).join(""), 10)
+                    
+                    row.innerHTML = `
+                        <th scope="row">${index}</th>   
+                        <td class="nome">${cliente.nome}</td>
+                        <td class="bairros">
+                            ${cliente.bairros 
+                                ? cliente.bairros.map(bairro => bairro).join(", ") 
+                                : "Não disponível"}
+                        </td>
+                        <td>
+                            <a  href="https://api.whatsapp.com/send?phone=55${telefone}&text=Olá%20${cliente.nome}!%20Sou%20o%20Gilson,%20gerente%20da%20BGFESTAS.%20Recentemente%20você%20fez%20um%20pedido%20conosco%20e%20gostaria%20de%20falar%20contigo."
+                                class="badge bg-primary text-bg-secondary rounded-pill d-flex align-items-center gap-1"
+                                style="width: fit-content; text-decoration: none"
+                                target="_blank"
+                            >
+                                <i class="fa-solid fa-comments" aria-hidden="true"></i>
+                                Enviar Mensagem
+                            </a>
+                        </td>
+                    `.trim();
+
+                    $("tbody").append(row); 
+                    index++
+                });
+            }
+
+            $.ajax({
+                url: "../../../../app/controllers/processGetAllClients.php",
+                type: "POST",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        insertClients(response.clientes)
+                        allClients = response.clientes
+                    } else {
+                        console.error(response.message)
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText)                       
+                },
+                
+            })
+
+        </script>
     </body>
 </html>

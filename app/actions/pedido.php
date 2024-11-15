@@ -196,14 +196,16 @@
     }
 
     function getBairroByCpfCliente($conn, $cpfCliente){
-        $query = "SELECT bairro from pedido WHERE cpfCliente = ?";
+        $query = "SELECT DISTINCT bairro FROM pedido WHERE cpfCliente = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('s', $cpfCliente);
 
         $stmt->execute();
-
         $resultados = $stmt->get_result();
-        if ($row = $resultados->fetch_assoc()) {
-            return $row['bairro'];
+
+        $bairros = [];
+        while ($row = $resultados->fetch_assoc()) {
+            $bairros[] = $row['bairro'];
         }
+        return $bairros;
     }
