@@ -209,3 +209,17 @@
         }
         return $bairros;
     }
+
+    function getAllBairros($conn){
+        $query = "SELECT DISTINCT bairro FROM pedido";
+        $stmt = $conn->prepare($query);
+
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+
+        $bairros = [];
+        while ($row = $resultados->fetch_assoc()) {
+            $bairros[] = $row['bairro'];
+        }
+        return $bairros;
+    }

@@ -30,6 +30,7 @@
             <script src="../../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
             <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
             <script src="../../../../public/assets/js/admin.js" defer></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     </head>
     <body>
@@ -115,7 +116,7 @@
                                     </li>
                                     <li>
                                         <a href="../../../../app/view/admin/clientes">
-                                            <i class="fa-solid fa-user-tag"></i>
+                                            <i class="fa-regular fa-address-card"></i>
                                             <span>Clientes</span>
                                         </a>
                                     </li>
@@ -146,15 +147,18 @@
 
                 <div class="mb-2">
                     <div class="btn-group border rounded-pill">
-                        <button class="btn btn-sm d-flex align-items-center gap-2" type="button">
-                            <i class="fa-solid fa-circle-xmark"></i>
+                        <button id="emptySelectedBairros" style="display: none;" class="btn btn-sm align-items-center gap-2" type="button">
+                            <i class="bi bi-x-circle"></i>
                             Bairro(s):
                         </button>
                         <button type="button" class="btn btn-sm dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="text-primary dropdown-toggle">Gopoúva, Jacuacanga</span>
+                            <span id="selectBairrosText" class="d-flex align-items-center gap-2">
+                                <i class="bi bi-plus-circle"></i>
+                                Bairros
+                            </span>
                         </button>
-                        <ul class="dropdown-menu">
-                            ...
+                        <ul id="selectBairros" class="dropdown-menu p-2">
+                            
                         </ul>
                     </div>
 
@@ -184,8 +188,64 @@
 
         <script>
             let allClients;
-            let bairrosSelecionados;
+            const originalSelectBairrosHTML = $("#selectBairrosText").html();
+            const originalSelectBairrosClasses = $("#selectBairrosText").attr("class"); 
+
+            function getSelectedBairros() {
+                const bairros = [];
+                $(".form-check-input:checked").each(function () {
+                    bairros.push($(this).val());
+                });
+                return bairros;
+            }
+
+          
+            function filterClientsByBairros(selectedBairros) {
+                if (selectedBairros.length === 0) {
+                    insertClients(allClients);
+                    return;
+                }
+                const filteredClients = allClients.filter(cliente => {
+                    return cliente.bairros && cliente.bairros.some(bairro => selectedBairros.includes(bairro));
+                });
+
+                insertClients(filteredClients);
+            }
+
+            function displaySelectedBairros(selectedBairros) {
+                if (selectedBairros.length === 0) {
+                    $("#emptySelectedBairros").hide()
+                    $("#selectBairrosText") .html(originalSelectBairrosHTML)
+                                            .attr("class", originalSelectBairrosClasses);
+                    return
+                }
+
+                let bairros = getSelectedBairros()
+
+                $("#selectBairrosText") .empty()
+                                        .text(bairros.map(bairro => bairro).join(", "))
+                                        .addClass("text-primary fw-semibold dropdown-toggle")
+
+
+                $("#emptySelectedBairros").css("display", "flex")
+            }
             
+            
+            function insertBairros(bairros) {
+                $("#selectBairros").empty(); 
+
+                bairros.forEach((bairro) => {
+                    const item = document.createElement("li"); 
+                    item.innerHTML = `
+                        <label>
+                            <input class="form-check-input" type="checkbox" value="${bairro}" id="flexCheckDefault">
+                            ${bairro}
+                        </label>
+                    `.trim(); 
+                    $("#selectBairros").append(item); 
+                });
+            }
+
             function insertClients(clients) {
                 $("tbody").empty();
                 let index = 1;
@@ -219,6 +279,24 @@
                 });
             }
 
+            $(".dropdown-menu").on('click', function (e) {
+                e.stopPropagation();
+            });
+
+            $("#selectBairros").on("change", ".form-check-input", function () {
+                const selectedBairros = getSelectedBairros(); 
+                filterClientsByBairros(selectedBairros);
+                displaySelectedBairros(selectedBairros)
+            });
+
+            $("#emptySelectedBairros").on("click", function () {
+                $(".form-check-input").each(function() {
+                    $(this).prop('checked', false)
+                })
+                filterClientsByBairros([])
+                displaySelectedBairros([])
+            })
+
             $.ajax({
                 url: "../../../../app/controllers/processGetAllClients.php",
                 type: "POST",
@@ -227,6 +305,24 @@
                     if (response.success) {
                         insertClients(response.clientes)
                         allClients = response.clientes
+                    } else {
+                        console.error(response.message)
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText)                       
+                },
+                
+            })
+
+            
+            $.ajax({
+                url: "../../../../app/controllers/processGetAllBairros.php",
+                type: "POST",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        insertBairros(response.bairros)
                     } else {
                         console.error(response.message)
                     }

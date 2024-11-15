@@ -142,7 +142,7 @@
                                     </li>
                                     <li>
                                         <a href="../../../../../app/view/admin/clientes">
-                                            <i class="fa-solid fa-user-tag"></i>
+                                            <i class="fa-regular fa-address-card"></i>
                                             <span>Clientes</span>
                                         </a>
                                     </li>
