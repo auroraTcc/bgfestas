@@ -170,8 +170,6 @@
                 </div>
 
                 <div>
-                    
-
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -185,22 +183,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Fillip Mangia</td>
-                                    <td>18 ab. 2024</td>
-                                    <td>Rua Qualquer Coisa, 135, Goiás</td>
-                                    <td>R$ 400,00</td>
-                                    <td>
-                                        <span class="badge bg-primary text-bg-secondary rounded-pill">gerar recibo</span>
-                                        <span class="badge bg-primary text-bg-secondary rounded-pill">Enviar mensáem</span>
-                                    </td>
-                                </tr>
+                                <?php
+                                    $pedidos = getPedidosFinalizados($conn);
+                                    foreach ($pedidos as $pedido) {
+                                        $i = 1;
+                                        $pedido['subtotal'] = 0;
+                                        foreach($pedido['itensCarrinho'] as $item) { 
+                                            $pedido['subtotal'] = $pedido['subtotal'] + $item['preco'] * $item['quantidade'];
+                                        }
+                                        
+                                        if ($pedido['subtotal'] < 50.00) {
+                                            $pedido['frete'] = 50.00 - $pedido['subtotal'];
+                                        } else {
+                                            $pedido['frete'] = 0;
+                                        }
+                                        $total = $pedido['subtotal'] + $pedido['frete'];
+                                        $totalFormatted = number_format($total, 2, ',', '.');
+                                ?>
+                                        <tr>
+                                            <th scope="row"><?=$i?></th>
+                                            <td><?=$pedido["nomeCliente"]?></td>
+                                            <td><?=$pedido["dataRet"]?></td>
+                                            <td><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {
+                                                        echo ", ". $pedido['complemento'];
+                                                    } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?></td>
+                                            <td>R$ <?=$totalFormatted?></td>
+                                            <td>
+                                                <a href="../../../../controllers/processGerarRecibo.php?id=<?=$pedido['idPedido']?>" target="_blank" class="badge bg-primary text-bg-secondary rounded-pill">gerar recibo</a>
+                                                <span class="badge bg-primary text-bg-secondary rounded-pill">Enviar mensáem</span>
+                                            </td>
+                                        </tr>
+                                <?php
+                                        $i++;    
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </section>
         </main>
     </body>

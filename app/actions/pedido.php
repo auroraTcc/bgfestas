@@ -223,3 +223,25 @@
         }
         return $bairros;
     }
+
+    function getPedidosFinalizados($conn){
+        $query = "SELECT * FROM pedido WHERE stts = 'finalizado'";
+        $stmt = $conn->prepare($query);
+
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        $updatedResults = [];
+
+        if (mysqli_num_rows($resultados) > 0){
+            while ($pedido = mysqli_fetch_assoc($resultados)) {
+                $pedido['nomeCliente'] = getNomeClienteByCpf($conn, $pedido['cpfCliente']);
+                $pedido['nomeFuncionario'] = getNomeFuncionarioByCpf($conn, $pedido['cpfResponsavel']);
+                $pedido['itensCarrinho'] = getItensByIdpedido($conn, $pedido['idPedido']);
+                $updatedResults[] = $pedido;
+            }
+
+            return $updatedResults;
+        } else {
+            return null;
+        }
+    }
