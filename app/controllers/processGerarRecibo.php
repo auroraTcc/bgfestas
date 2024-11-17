@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
 require "../config/isLogged.php";
 require_once "../config/conexao.php";
 require_once "../actions/recibo.php"; 
@@ -57,7 +59,6 @@ $dados = [
         "telefone" => "(11) 92005-6929",
         "funcionario" => "Gilson Angelo Mangia"
     ]
-   
 ];
 
 

@@ -67,11 +67,15 @@
 
             <p >Valor Pago: R$ {{ valor|number_format(2, ',', '.') }}</p>
             <p>Valor Restante: R$ 0,00</p>
+        </div>
 
-            <div style="width: 100%; heiht: 1px; background: #eb7100; margin: 1rem 0"></div>
+        <div style="width: 100%; heiht: 1px; background: #eb7100; margin: 1rem 0"></div>
 
-            <p>NOME DO FUNCIONÁRIO: Gilson Angelo Mangia</p>
-            <p>Impresso em {{ data }} {{ hora }}</p>
+        <div>
+            <p>Nome do Funcionário: Gilson Angelo Mangia</p>
+            <p>Impresso em: {{ data }} {{ hora }}</p>
+            <p style="float: right;">{{empresa.telefone}}</p>
+            <p>{{empresa.endereco}}</p>
         </div>
     </body>
 </html>

@@ -177,7 +177,11 @@
                                 $formattedTime = $dateTime->format('H:i') . 'h';
 
                                 ?>
-                                    <div role="button" class="card pedido" data-type="<?=$pedido['stts']?>" data-id="<?=$pedido['idPedido']?>">
+                                    <a  style="text-decoration: none"
+                                        class="card pedido d-flex" 
+                                        data-type="<?=$pedido['stts']?>"
+                                        href="./tarefas/detalhes?id=<?=$pedido['idPedido']?>"
+                                    >
                                         <div class="card-header">
                                             <div>
                                                 <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
@@ -188,24 +192,18 @@
 
                                         <div class="card-body">
                                             <p class="card-text">
-                                                <?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {
-                                                    echo ", ". $pedido['complemento'];
-                                                } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
+                                                <?=$pedido['endereco']?>, <?=$pedido['numero']?><?php if($pedido['complemento']) { echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
                                             </p>
                                             <div>
-                                                <?php
-                                                    foreach($pedido['itensCarrinho'] as $item) {
-                                                        ?>
-                                                            <div class="itemCount">
-                                                                <img
-                                                                    src="../../../../public/assets/imgs/<?=$item["nome"]?>.svg"
-                                                                    onload="SVGInject(this)"
-                                                                />
-                                                                <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
-                                                            </div>
-                                                        <?php
-                                                    }
-                                                ?>
+                                                <?php foreach($pedido['itensCarrinho'] as $item) { ?>
+                                                    <div class="itemCount">
+                                                        <img
+                                                            src="../../../public/assets/imgs/<?=$item["nome"]?>.svg"
+                                                            onload="SVGInject(this)"
+                                                        />
+                                                        <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
 
@@ -218,11 +216,14 @@
                                                 </h5>
                                             </div>
 
-                                            <a href="#" class="text-body-bg">
+                                            <div    class="whatsapp-button bg-primary d-flex align-items-center justify-content-center rounded-pill text-bg-secondary"
+                                                    style="height: 2.5rem; width: 2.5rem;" 
+                                                    data-telefone="<?=$cliente['telefone']?>"
+                                            >
                                                 <i class="fa-solid fa-comments"></i>
-                                            </a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 <?php
                             }
                         }
@@ -233,5 +234,21 @@
 
             
         </main>
+
+        <script>
+            const whatsappButtons = document.querySelectorAll('.whatsapp-button');
+
+            whatsappButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault()
+                    e.stopPropagation(); 
+                    const phone = button.getAttribute('data-telefone');
+                    if (phone) {
+                        const whatsappLink = `https://api.whatsapp.com/send?phone=${phone}&text=Olá! Sou da BGFESTAS. Recentemente você fez um pedido conosco e gostaria de falar contigo.`;
+                        window.open(whatsappLink, '_blank'); 
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

@@ -184,9 +184,9 @@
                             </thead>
                             <tbody>
                                 <?php
+                                    $i = 1;
                                     $pedidos = getPedidosFinalizados($conn);
                                     foreach ($pedidos as $pedido) {
-                                        $i = 1;
                                         $pedido['subtotal'] = 0;
                                         foreach($pedido['itensCarrinho'] as $item) { 
                                             $pedido['subtotal'] = $pedido['subtotal'] + $item['preco'] * $item['quantidade'];
@@ -199,18 +199,25 @@
                                         }
                                         $total = $pedido['subtotal'] + $pedido['frete'];
                                         $totalFormatted = number_format($total, 2, ',', '.');
+                                        $dataRetOriginal = $pedido["dataRet"];
+                                        $dataRetFormatada = (new DateTime($dataRetOriginal))->format('d/m/Y');
+                                
                                 ?>
                                         <tr>
                                             <th scope="row"><?=$i?></th>
                                             <td><?=$pedido["nomeCliente"]?></td>
-                                            <td><?=$pedido["dataRet"]?></td>
+                                            <td><?=$dataRetFormatada?></td>
                                             <td><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {
                                                         echo ", ". $pedido['complemento'];
                                                     } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?></td>
                                             <td>R$ <?=$totalFormatted?></td>
                                             <td>
-                                                <a href="../../../../controllers/processGerarRecibo.php?id=<?=$pedido['idPedido']?>" target="_blank" class="badge bg-primary text-bg-secondary rounded-pill">gerar recibo</a>
-                                                <span class="badge bg-primary text-bg-secondary rounded-pill">Enviar mensáem</span>
+                                                <a  style="text-decoration: none;"
+                                                    href="../../../../controllers/processGerarRecibo.php?id=<?=$pedido['idPedido']?>"
+                                                    target="_blank"
+                                                    class="badge bg-primary text-bg-secondary rounded-pill"
+                                                >gerar recibo</a>
+                                                <span class="badge bg-primary text-bg-secondary rounded-pill">Enviar mensagem</span>
                                             </td>
                                         </tr>
                                 <?php
