@@ -17,60 +17,50 @@
     </head>
     <body>
 
-        <div>
-            <h1 style="margin-bottom: 1rem">Recibo</h1>
-
+        <div style="margin-bottom: 1rem">
+            <h2 style="float: right;">Recibo</h2>
+            <h1 style="color: #eb7100;">{{ empresa.nome }}</h1>
         </div>
         
         <div>
-            <h3>
-                <span style="color: #eb7100">{{ empresa.nome }}</span> <br />
-                {{ empresa.endereco }} <br />
-                {{ empresa.telefone }}
-            </h3>
-        </div>
-       
-
-        <hr style="margin: 1rem 0" />
-
-        <div>
-            <h4>Data: {{ data }}</h4>
             <p>Recebemos de: {{ nome }}</p>
-            <p style="margin-bottom: 1rem">CPF: {{ cpf }}</p>
+            <p>CPF: {{ cpf }}</p>
             <p>A importância de: R$ {{ valor|number_format(2, ',', '.') }}</p>
         </div>
 
-        <hr style="margin: 1rem 0" />
 
         <div>
-            <h4>Referente à:</h4>
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-family: Arial, sans-serif;">
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-family: Arial, sans-serif;">
                 <thead>
-                    <tr>
-                        <th style="text-align: left; padding: 8px; border-bottom: 2px solid #ccc; ">Quantidade</th>
-                        <th style="text-align: left; padding: 8px; border-bottom: 2px solid #ccc"; >Item</th>
-                        <th style="text-align: right; padding: 8px; border-bottom: 2px solid #ccc">Valor Unitário</th>
+                    <tr style="background: #eb7100; color: #fbf7f4;">
+                        <th style="text-align: left; padding: 0.25rem 1rem">Quantidade</th>
+                        <th style="text-align: left; padding: 0.25rem 1rem"; >Descrição</th>
+                        <th style="text-align: right; padding: 0.25rem 1rem">Preço por Unidade</th>
+                        <th style="text-align: right; padding: 0.25rem 1rem">Valor</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in carrinho %}
                     <tr>
-                        <td style="padding: 8px; border-bottom: 1px solid #ccc;">{{ item.quantidade }}</td>
-                        <td style="padding: 8px; border-bottom: 1px solid #ccc;">{{ item.nome }}</td>
-                        <td style="text-align: right; padding: 8px; border-bottom: 1px solid #ccc;">R$ {{ item.preco }}</td>
+                        <td style="padding: 0 1rem">{{ item.quantidade }}</td>
+                        <td style="padding: 0 1rem">{{ item.nome }}</td>
+                        <td style="text-align: right; padding: 0.25rem 1rem">R$ {{ item.preco }}</td>
+                        <td style="text-align: right; padding: 0.25rem 1rem">R$ {{ (item.preco * item.quantidade)|number_format(2, ',', '.') }}</td>
                     </tr>
                     {% endfor %}
                     <!-- Linha do Frete -->
-                    <tr>
+                    <tr style="border-top: 1px solid #eb7100">
                         <td></td>
-                        <td style="padding: 8px; text-align: left; font-weight: bold; border-top: 2px solid #ccc;">Frete:</td>
-                        <td style="text-align: right; padding: 8px; font-weight: bold; border-top: 2px solid #ccc;">R$ {{ frete|number_format(2, ',', '.')  }}</td>
+                        <td></td>
+                        <td style="  text-align: right; padding: 0.25rem 1rem">Frete:</td>
+                        <td style="text-align: right;  padding: 0.25rem 1rem">R$ {{ frete|number_format(2, ',', '.')  }}</td>
                     </tr>
                     <!-- Linha do Valor Total -->
-                    <tr>
+                    <tr >
                         <td></td>
-                        <td style="padding: 8px; text-align: left; font-weight: bold;">Total:</td>
-                        <td style="text-align: right; padding: 8px; font-weight: bold; ">R$ {{ valor|number_format(2, ',', '.')  }}</td>
+                        <td></td>
+                        <td style="  text-align: right; font-weight: bold; padding: 0.25rem 1rem">Total:</td>
+                        <td style="text-align: right;   font-weight: bold; padding: 0.25rem 1rem">R$ {{ valor|number_format(2, ',', '.')  }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -78,12 +68,10 @@
             <p >Valor Pago: R$ {{ valor|number_format(2, ',', '.') }}</p>
             <p>Valor Restante: R$ 0,00</p>
 
-            <hr style="margin: 1rem 0" />
+            <div style="width: 100%; heiht: 1px; background: #eb7100; margin: 1rem 0"></div>
 
             <p>NOME DO FUNCIONÁRIO: Gilson Angelo Mangia</p>
             <p>Impresso em {{ data }} {{ hora }}</p>
         </div>
-
-        <hr style="margin: 1rem 0" />
     </body>
 </html>
