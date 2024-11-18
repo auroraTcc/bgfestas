@@ -194,8 +194,6 @@ $('input[name="datetimes"]').daterangepicker({
         format: 'DD/MM hh:mm A'
     }
 }).on('apply.daterangepicker', function(ev, picker) {
-
-    console.log(picker.startDate)
     let startDate = new Date(picker.startDate.format('MM/DD/YYYY')).toISOString().slice(0, 10)
     let endDate = new Date(picker.endDate.format('MM/DD/YYYY')).toISOString().slice(0, 10)
     let startTime = picker.startDate.format('HH:mm');

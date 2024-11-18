@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Recibo</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 2rem;
+                line-height: 1.5;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div style="margin-bottom: 1rem">
+            <h2 style="float: right;">Recibo</h2>
+            <h1 style="color: #eb7100;">{{ empresa.nome }}</h1>
+        </div>
+        
+        <div>
+            <p>Recebemos de: {{ nome }}</p>
+            <p>CPF: {{ cpf }}</p>
+            <p>A importância de: R$ {{ valor|number_format(2, ',', '.') }}</p>
+        </div>
+
+
+        <div>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #eb7100; color: #fbf7f4;">
+                        <th style="text-align: left; padding: 0.25rem 1rem">Quantidade</th>
+                        <th style="text-align: left; padding: 0.25rem 1rem"; >Descrição</th>
+                        <th style="text-align: right; padding: 0.25rem 1rem">Preço por Unidade</th>
+                        <th style="text-align: right; padding: 0.25rem 1rem">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carrinho %}
+                    <tr>
+                        <td style="padding: 0 1rem">{{ item.quantidade }}</td>
+                        <td style="padding: 0 1rem">{{ item.nome }}</td>
+                        <td style="text-align: right; padding: 0.25rem 1rem">R$ {{ item.preco }}</td>
+                        <td style="text-align: right; padding: 0.25rem 1rem">R$ {{ (item.preco * item.quantidade)|number_format(2, ',', '.') }}</td>
+                    </tr>
+                    {% endfor %}
+                    <!-- Linha do Frete -->
+                    <tr style="border-top: 1px solid #eb7100">
+                        <td></td>
+                        <td></td>
+                        <td style="  text-align: right; padding: 0.25rem 1rem">Frete:</td>
+                        <td style="text-align: right;  padding: 0.25rem 1rem">R$ {{ frete|number_format(2, ',', '.')  }}</td>
+                    </tr>
+                    <!-- Linha do Valor Total -->
+                    <tr >
+                        <td></td>
+                        <td></td>
+                        <td style="  text-align: right; font-weight: bold; padding: 0.25rem 1rem">Total:</td>
+                        <td style="text-align: right;   font-weight: bold; padding: 0.25rem 1rem">R$ {{ valor|number_format(2, ',', '.')  }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p >Valor Pago: R$ {{ valor|number_format(2, ',', '.') }}</p>
+            <p>Valor Restante: R$ 0,00</p>
+        </div>
+
+        <div style="width: 100%; heiht: 1px; background: #eb7100; margin: 1rem 0"></div>
+
+        <div>
+            <p>Nome do Funcionário: Gilson Angelo Mangia</p>
+            <p>Impresso em: {{ data }} {{ hora }}</p>
+            <p style="float: right;">{{empresa.telefone}}</p>
+            <p>{{empresa.endereco}}</p>
+        </div>
+    </body>
+</html>

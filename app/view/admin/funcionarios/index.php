@@ -121,7 +121,18 @@
                                             <span>Funcionários</span>
                                         </a>
                                     </li>
-                                   
+                                    <li>
+                                        <a href="../../../../app/view/admin/tarefas/finalizadas">
+                                            <i class="fa-regular fa-square-check"></i>
+                                            <span>Tarefas Finalizadas</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../../../../app/view/admin/clientes">
+                                            <i class="fa-regular fa-address-card"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         <?php
@@ -347,8 +358,6 @@
                     data: dados,
                     success: function (response) {
                         if (response.success) {
-                            console.log("Funcionário inserido com sucesso!");
-
                             mostrarFuncionarios(response.funcionarios)
 
                             $('#exampleModal').modal('hide');

@@ -1,13 +1,5 @@
 $(".cpf").mask("000.000.000-00");
 
-$(".pedido").each(function () {
-    $(this).on("click", function () {
-        window.location = `https://bgfestas.ifhost.gru.br/app/view/admin/tarefas/detalhes?id=${$(
-            this
-        ).data("id")}`;
-    });
-});
-
 $("#logOutBtn").on("click", function () {
     $.ajax({
         url: "/app/controllers/processDesconectar.php",
