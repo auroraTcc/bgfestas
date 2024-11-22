@@ -182,10 +182,15 @@
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
+                            
+
                             <tbody>
                                 <?php
                                     $i = 1;
                                     $pedidos = getPedidosFinalizados($conn);
+
+                                    if (!$pedidos) return;
+
                                     foreach ($pedidos as $pedido) {
                                         $pedido['subtotal'] = 0;
                                         foreach($pedido['itensCarrinho'] as $item) { 
