@@ -175,6 +175,7 @@
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
                                 $formattedTime = $dateTime->format('H:i') . 'h';
+                                $cliente = getClienteByCpf($conn, $pedido["cpfCliente"]);
 
                                 ?>
                                     <a  style="text-decoration: none"
