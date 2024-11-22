@@ -180,7 +180,7 @@
                                     <a  style="text-decoration: none"
                                         class="card pedido d-flex" 
                                         data-type="<?=$pedido['stts']?>"
-                                        href="./tarefas/detalhes?id=<?=$pedido['idPedido']?>"
+                                        href="./detalhes?id=<?=$pedido['idPedido']?>"
                                     >
                                         <div class="card-header">
                                             <div>
