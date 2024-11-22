@@ -187,6 +187,7 @@
                                 $pedido['frete'] = 0;
                                 $pedido['total'] = 0;
 
+                                $cliente = getClienteByCpf($conn, $pedido["cpfCliente"]);
                                 ?>
 
                     <h3><?=$pedido['nomeCliente']?></h3>
@@ -196,6 +197,9 @@
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
                             <i class="fa-solid fa-map-pin"></i><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
+                        </p>
+                        <p class="d-flex align-items-center gap-2 mb-0">
+                        <i class="fa-solid fa-phone"></i><?=$cliente["telefone"]?>
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
                             <i class="fa-solid fa-circle-user"></i>
