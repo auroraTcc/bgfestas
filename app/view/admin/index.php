@@ -117,6 +117,18 @@
                                             <span>Funcionários</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="../../../app/view/admin/tarefas/finalizadas">
+                                            <i class="fa-regular fa-square-check"></i>
+                                            <span>Tarefas Finalizadas</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../../../app/view/admin/clientes">
+                                            <i class="fa-regular fa-address-card"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         <?php
@@ -188,11 +200,17 @@
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
                                 $formattedTime = $dateTime->format('H:i') . 'h';
+                                $cliente = getClienteByCpf($conn, $pedido["cpfCliente"]);
+
 
                                 
                                 ?>
                                 
-                                <div role="button" class="card pedido" data-type="<?=$pedido['stts']?>" data-id="<?=$pedido['idPedido']?>">
+                                <a  style="text-decoration: none"
+                                    class="card pedido d-flex" 
+                                    data-type="<?=$pedido['stts']?>"
+                                    href="./tarefas/detalhes?id=<?=$pedido['idPedido']?>"
+                                >
                                     <div class="card-header">
                                         <div>
                                             <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
@@ -227,11 +245,14 @@
                                             </h5>
                                         </div>
 
-                                        <a href="#" class="text-body-bg">
+                                        <div    class="whatsapp-button bg-primary d-flex align-items-center justify-content-center rounded-pill text-bg-secondary"
+                                                style="height: 2.5rem; width: 2.5rem;" 
+                                                data-telefone="<?=$cliente['telefone']?>"
+                                        >
                                             <i class="fa-solid fa-comments"></i>
-                                        </a>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 
                                 <?php
                             }
@@ -249,5 +270,21 @@
                 </a>
             </section>
         </main>
+
+        <script>
+            const whatsappButtons = document.querySelectorAll('.whatsapp-button');
+
+            whatsappButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault()
+                    e.stopPropagation(); 
+                    const phone = button.getAttribute('data-telefone');
+                    if (phone) {
+                        const whatsappLink = `https://api.whatsapp.com/send?phone=${phone}&text=Olá! Sou da BGFESTAS. Recentemente você fez um pedido conosco e gostaria de falar contigo.`;
+                        window.open(whatsappLink, '_blank'); 
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

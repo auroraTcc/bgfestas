@@ -4,14 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Fazer Pedido</title>
-
         <link
             rel="stylesheet"
             href="../../../public/assets/css/fazerpedido.css"
         />
         <link
             rel="stylesheet"
-            href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+            href="../../../public/assets/css/bootstrap.css"
         />
         <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
@@ -40,11 +39,17 @@
             type="text/css"
             href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
         />
+
+        <style>
+            #confirmation-popup {
+                flex: 1 1 0;
+            }
+        </style>
     </head>
 
     <body>
         <div class="geral">
-            <div class="esquerda">
+            <div class="esquerda" id="container-form">
                 <div id="carrossel">
                     <form
                         id="slides-container"
@@ -255,6 +260,7 @@
                                         <select
                                             id="ateCincoJogos"
                                             name="ateCincoJogos"
+                                            required
                                         >
                                             <option value="0">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
@@ -286,6 +292,7 @@
                                         <select
                                             id="ateCincoMesas"
                                             name="ateCincoMesas"
+                                            required
                                         >
                                             <option value="0">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
@@ -318,6 +325,7 @@
                                             id="ateCincoCadeiras"
                                             name=""
                                             name="ateCincoCadeiras"
+                                            required
                                         >
                                             <option value="0">Qtd: 0</option>
                                             <option value="1">Qtd: 1</option>
@@ -447,6 +455,14 @@
                                         Insira seu Telefone.
                                     </div>
                                 </div>
+
+                                <div>
+                                    <p
+                                        id="errorMessaeParagraph"
+                                        class="text-danger d-none"
+                                    ></p>
+                                </div>
+
                                 <button class="btn-prosseguir" type="submit">
                                     Finalizar
                                 </button>
@@ -455,12 +471,29 @@
                     </form>
                 </div>
             </div>
+
+            <div
+                id="confirmation-popup"
+                style="display: none"
+                class="card h-full align-items-center justify-content-center"
+            >
+                <h1 class="text-center">
+                    PEDIDO FEITO <span class="text-primary">COM SUCESSO!</span>
+                </h1>
+                <p class="text-center w-75">
+                    Entraremos em contato no telefone fornecido para quaisquer
+                    atualizações em seu pedido!
+                </p>
+            </div>
+
             <div class="direita">
                 <span></span>
             </div>
         </div>
 
         <script>
+            const errorMessaeParagraph = $("#errorMessaeParagraph");
+
             $("form#slides-container").on("submit", function (e) {
                 e.preventDefault();
 
@@ -469,7 +502,23 @@
                     type: "POST",
                     dataType: "json",
                     data: $(this).serialize(),
-                    //TODO: TRATAR OS DADOS AQUI DPS
+                    success: function (response) {
+                        if (response.success) {
+                            $("#container-form").hide();
+                            $("#confirmation-popup").css("display", "flex");
+                        } else {
+                            errorMessaeParagraph.show();
+                            errorMessaeParagraph.text(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                        console.log(xhr);
+                        console.log(xhr.responseText);
+
+                        errorMessaeParagraph.show();
+                        errorMessaeParagraph.text("Houve um erro: " + error);
+                    },
                 });
             });
         </script>

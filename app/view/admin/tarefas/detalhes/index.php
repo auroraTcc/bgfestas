@@ -134,6 +134,18 @@
                                             <span>Funcionários</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="../../../../../app/view/admin/tarefas/finalizadas">
+                                            <i class="fa-regular fa-square-check"></i>
+                                            <span>Tarefas Finalizadas</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../../../../../app/view/admin/clientes">
+                                            <i class="fa-regular fa-address-card"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         <?php

@@ -1,13 +1,3 @@
-$primary: #eb7100;
-$secondary: #5e67de;
-$body-color: #160c04;
-$secondary-color: #3b3837;
-$tertiary-color: #7f7977;
-$body-bg: #fbf7f4;
-$secondary-bg: #fbf7f4;
-
-@import "../../../node_modules/bootstrap/scss/bootstrap";
-
 $types: (
     "entrega": $primary,
     "retirada": $secondary,
