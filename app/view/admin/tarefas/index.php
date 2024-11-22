@@ -219,7 +219,7 @@
 
                                             <div    class="whatsapp-button bg-primary d-flex align-items-center justify-content-center rounded-pill text-bg-secondary"
                                                     style="height: 2.5rem; width: 2.5rem;" 
-                                                    data-telefone="<?=$cliente['telefone']?>"
+                                                    data-telefone="+55<?=$cliente['telefone']?>"
                                             >
                                                 <i class="fa-solid fa-comments"></i>
                                             </div>
