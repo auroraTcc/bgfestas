@@ -1,10 +1,12 @@
 <?php
-
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 $servername = "localhost";
-$username = "root";
-$password = "";
-$databasename = "bgfestas";
+$username = "ifhostgru_bgfestas";
+$password = "ifspgru@2024";
+$databasename = "ifhostgru_bgfestas";
 
 //criação da conexão
 $conn = new mysqli($servername, $username, $password, $databasename);

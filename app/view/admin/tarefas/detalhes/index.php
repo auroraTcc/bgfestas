@@ -5,7 +5,7 @@
 
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); 
+        header("Location: /app/view/admin/login"); 
     }
 
     $abbreviations = [
@@ -187,6 +187,7 @@
                                 $pedido['frete'] = 0;
                                 $pedido['total'] = 0;
 
+                                $cliente = getClienteByCpf($conn, $pedido["cpfCliente"]);
                                 ?>
 
                     <h3><?=$pedido['nomeCliente']?></h3>
@@ -196,6 +197,9 @@
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
                             <i class="fa-solid fa-map-pin"></i><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
+                        </p>
+                        <p class="d-flex align-items-center gap-2 mb-0">
+                        <i class="fa-solid fa-phone"></i><?=$cliente["telefone"]?>
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
                             <i class="fa-solid fa-circle-user"></i>
@@ -358,7 +362,7 @@
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "/bgfestas/app/view/admin";
+                            window.location.href = "/app/view/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }
@@ -380,7 +384,7 @@
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "/bgfestas/app/view/admin";
+                            window.location.href = "/app/view/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }

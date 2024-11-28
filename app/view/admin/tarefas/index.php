@@ -2,7 +2,7 @@
     require "../../../config/isLogged.php";
 
     if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); 
+        header("Location: /app/view/admin/login"); 
     }
 
     $abbreviations = [
@@ -175,12 +175,13 @@
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
                                 $formattedTime = $dateTime->format('H:i') . 'h';
+                                $cliente = getClienteByCpf($conn, $pedido["cpfCliente"]);
 
                                 ?>
                                     <a  style="text-decoration: none"
                                         class="card pedido d-flex" 
                                         data-type="<?=$pedido['stts']?>"
-                                        href="./tarefas/detalhes?id=<?=$pedido['idPedido']?>"
+                                        href="./detalhes?id=<?=$pedido['idPedido']?>"
                                     >
                                         <div class="card-header">
                                             <div>
@@ -218,7 +219,7 @@
 
                                             <div    class="whatsapp-button bg-primary d-flex align-items-center justify-content-center rounded-pill text-bg-secondary"
                                                     style="height: 2.5rem; width: 2.5rem;" 
-                                                    data-telefone="<?=$cliente['telefone']?>"
+                                                    data-telefone="+55<?=$cliente['telefone']?>"
                                             >
                                                 <i class="fa-solid fa-comments"></i>
                                             </div>

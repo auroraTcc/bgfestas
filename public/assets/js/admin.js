@@ -2,13 +2,13 @@ $(".cpf").mask("000.000.000-00");
 
 $("#logOutBtn").on("click", function () {
     $.ajax({
-        url: "/bgfestas/app/controllers/processDesconectar.php",
+        url: "/app/controllers/processDesconectar.php",
         type: "POST",
         dataType: "json",
         success: function (response) {
             if (response.success) {
                 console.log("Usuário desconectado com sucesso!");
-                window.location.href = "/bgfestas/app/view/admin";
+                window.location.href = "/app/view/admin";
             } else {
                 console.log("Erro ao desconectar.");
             }
