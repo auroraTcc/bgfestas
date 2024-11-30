@@ -19,8 +19,9 @@
             $this->telefone = $data['telefone'];
             $this->nomeCliente = $data['nomeCliente'];
             $this->nomeFuncionario = $data['nomeFuncionario'];
-            $this->itensCarrinho = $data['itensCarrinho'];
+            $this->itensCarrinho = $data['itensCarrinho'] ?? [];
             $this->stts = $data['stts'];
+            $this->cpfResponsavel = $data['cpfResponsavel'];
         }
         private $conn;
         private $idPedido;         
@@ -39,6 +40,7 @@
         private $stts;
         private $nomeCliente;
         private $nomeFuncionario;
+        private $cpfResponsavel;
         private $itensCarrinho;
 
         public function getCep() { return $this->cep; }
@@ -85,6 +87,9 @@
 
         public function getNomeFuncionario() { return $this->nomeFuncionario; }
         public function setNomeFuncionario($nomeFuncionario) { $this->nomeFuncionario = $nomeFuncionario; }
+
+        public function getCpfResponsavel() { return $this->nomeFuncionario; }
+        public function setCpfResponsavel($cpfResponsavel) { $this->cpfResponsavel = $cpfResponsavel; }
 
         public function getItensCarrinho() { return $this->itensCarrinho; }
         public function setItensCarrinho($itensCarrinho) { $this->itensCarrinho = $itensCarrinho; }

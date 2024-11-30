@@ -1,9 +1,4 @@
 <?php
-    require "../config/conexao.php";
-    require "../models/funcionario.php";
-    require "../actions/funcionario.php";
-
-
     header('Content-Type: application/json');
 
     if (!$conn) {
@@ -33,16 +28,18 @@
         $funcionario->setNome($nome);
         $funcionario->setEmail($email);
 
-        $selectedFunc = getFuncionarioByCpf($conn, $cpf);
+        $func = new Funcionario($conn);
+
+        $selectedFunc = $func->getFuncionarioByCpf($cpf);
 
         if ($selectedFunc) {
-            atualizarCadastroFunc($conn, $nome, $email, $cpf);
+            $func->atualizarCadastroFunc($nome, $email, $cpf);
         } else {
             $funcionario->inserirFuncionario($cpf, $nome, $email, $senhahash, $cargo);
         }
 
         
-        $allFuncs = getAllFuncs($conn);
+        $allFuncs = $func->getAllFuncs();
         $response = ["success" => true, "message" => "Funcionário inserido com sucesso", "funcionarios" => $allFuncs];
         echo json_encode($response);
         

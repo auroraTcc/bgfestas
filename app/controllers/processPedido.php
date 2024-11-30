@@ -1,10 +1,4 @@
 <?php
-require "../config/conexao.php";
-require "../models/pedido.php";
-require "../models/cliente.php";
-require "../models/carrinho.php";
-require_once "../actions/pedido.php";
-
 header('Content-Type: application/json'); 
 
 if (!$conn) {
@@ -63,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($qtdMesas > 0) { $carrinho->inserirCarrinho("mesa", $qtdMesas, $cpfCliente, $dataDeEntrega); }
     if ($qtdCadeiras > 0) { $carrinho->inserirCarrinho("cadeira", $qtdCadeiras, $cpfCliente, $dataDeEntrega); }
 
-    atualizarPreco($conn, $cpfCliente, $dataDeEntrega, $qtdJogos, $qtdCadeiras, $qtdMesas);
+    $pedido->atualizarPreco($cpfCliente, $dataDeEntrega, $qtdJogos, $qtdCadeiras, $qtdMesas);
 
     echo json_encode(["success" => true, "message" => ""]);
 

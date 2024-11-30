@@ -1,7 +1,4 @@
 <?php
-    require "../config/conexao.php";
-    require "../actions/funcionario.php";
-
     header('Content-Type: application/json');
 
     if (!$conn) {
@@ -19,8 +16,10 @@
             exit;
         }
 
-        if (deleteFunc($conn, $cpf)) {
-            $allFuncs = getAllFuncs($conn);
+        $func = new Funcionario($conn);
+
+        if ($func->deleteFunc( $cpf)) {
+            $allFuncs = $func->getAllFuncs();
             $response = ["success" => true, "message" => "Funcionário inserido com sucesso", "funcionarios" => $allFuncs];
             echo json_encode($response);
         } else {

@@ -1,7 +1,4 @@
 <?php
-    require_once "../config/conexao.php";
-    require "../actions/funcionario.php";
-
     header('Content-Type: application/json');
 
     if (!$conn) {
@@ -17,7 +14,9 @@
             echo json_encode(["success" => false, "message" => "O campo CPF é obrigatório"]);
             exit;
         }
+
+        $func= new Funcionario($conn);
     
-        $result = resetSenhaPadrao($conn, $cpf);
+        $result = $func->resetSenhaPadrao($cpf);
         echo json_encode($result);
     }

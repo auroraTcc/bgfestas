@@ -223,7 +223,7 @@
             }
 
             $.ajax({
-                url: "controllers/processGetAllFuncs",
+                url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processGetAllFuncs",
                 type: "POST",
                 dataType: "json",
                 success: function (response) {
@@ -251,7 +251,7 @@
             
 
                 $.ajax({
-                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processInserirFunc",
+                    url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processInserirFunc",
                     type: "POST",
                     dataType: "json",
                     data: dados,
@@ -276,7 +276,7 @@
                 const cpf = $(this).data("cpf");
 
                 $.ajax({
-                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processDeleteFunc",
+                    url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processDeleteFunc",
                     type: "POST",
                     dataType: "json",
                     data: { cpf: cpf },

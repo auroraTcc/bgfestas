@@ -1,7 +1,4 @@
 <?php
-    require "../config/conexao.php";
-    require "../actions/pedido.php";
-
     header('Content-Type: application/json');
     
     if (!$conn) {
@@ -11,10 +8,12 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $clientes = getAllClientes($conn);
+        $client = new Cliente($conn);
+        $clientes = $client->getAllClientes();
 
-        foreach ($clientes as &$cliente) { 
-            $cliente['bairros'] = getBairroByCpfCliente($conn, $cliente['cpf']);
+        foreach ($clientes as $cliente) { 
+            $order = new Pedido($conn);
+            $cliente['bairros'] = $order->getBairroByCpfCliente($cliente['cpf']);
         }
 
         $response = ["success" => true, "message" => "", "clientes" => $clientes];

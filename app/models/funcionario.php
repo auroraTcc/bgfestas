@@ -4,6 +4,13 @@
             $this->conn = $conn;
         }            
 
+        public function populate($data) {
+            $this->cpf = $data["cpf"];
+            $this->nome = $data["nome"];
+            $this->email = $data["email"];
+            $this->cargo = $data["cargo"];
+        }
+
         private $conn;
         private $cpf;
         private $nome;

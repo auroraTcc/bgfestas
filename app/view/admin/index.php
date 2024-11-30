@@ -94,10 +94,10 @@
                                 >
                                     <div class="card-header">
                                         <div>
-                                            <h4 class="card-title"><?=$order->getNomeCliente()?></h4> <!-- Usando o getter -->
+                                            <h4 class="card-title"><?=$order->getNomeCliente()?></h4> 
                                             <p><?=$formattedDate?> <?=$formattedTime?></p>
                                         </div>
-                                        <span><?=$order->getStts()?></span> <!-- Usando o getter para o status -->
+                                        <span><?=$order->getStts()?></span>
                                     </div>
 
                                     <div class="card-body">
@@ -105,10 +105,10 @@
                                             <?=$order->getEndereco()?>, <?=$order->getNumero()?><?php if($order->getComplemento()) { echo ", ". $order->getComplemento(); } ?> - <?=$order->getBairro()?> - <?=$order->getCidade()?>
                                         </p>
                                         <div>
-                                            <?php foreach($order->getItensCarrinho() as $item) { ?> <!-- Usando o getter para os itens -->
+                                            <?php foreach($order->getItensCarrinho() as $item) { ?>
                                                 <div class="itemCount">
                                                     <img
-                                                        src="/public/assets/imgs/<?=$item["nome"]?>.svg"
+                                                        src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/<?=$item["nome"]?>.svg"
                                                         onload="SVGInject(this)"
                                                     />
                                                     <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
@@ -122,7 +122,7 @@
                                             <i class="fa-solid fa-circle-user"></i>
                                             <h5>
                                                 Responsável:
-                                                <span><?=$order->getNomeFuncionario()?></span> <!-- Usando o getter -->
+                                                <span><?=$order->getNomeFuncionario()?></span> 
                                             </h5>
                                         </div>
 

@@ -1,7 +1,4 @@
 <?php
-    require_once "../config/conexao.php";
-    require_once "../actions/funcionario.php";
-
     header('Content-Type: application/json');
 
     if (!$conn) {

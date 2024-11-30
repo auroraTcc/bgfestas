@@ -1,7 +1,4 @@
 <?php
-    require_once "../config/conexao.php";
-    require "../actions/pedido.php";
-
     header('Content-Type: application/json');
 
     $response = [];
@@ -19,8 +16,10 @@
             echo json_encode(["success" => false, "message" => "Campos obrigatórios faltando"]);
             exit;
         }
+
+        $order = new Pedido($conn);
         
-        if (atualizarSttsPedido($conn, $pedido)) {
+        if ($order->atualizarSttsPedido($pedido)) {
             echo json_encode(["success" => true, "message" => "Atualização realizada com sucesso"]);
         } else {
             echo json_encode(["success" => false, "message" => "Problemas ao atualizar o status do pedido"]);

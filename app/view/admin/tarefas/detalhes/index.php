@@ -15,8 +15,15 @@
     $idPedido = $_GET['id'];
     $pedido = new Pedido($conn);
 
-    $resultados =  $pedido->getPedidoById( $idPedido);
-    
+    $resultado =  $pedido->getPedidoById( $idPedido);
+
+    if (empty($resultado)) {
+        header("Location: " . ($isLocal ? "/bgfestas/404" : "/404"));
+        return;
+    }
+
+    $resultado= $resultado[0];
+    $pedido->populate($resultado);
 ?>
 
 <!DOCTYPE html>
@@ -50,13 +57,14 @@
         </style>
     </head>
     <body>
-
+    
         <?php
             include_once "$rootPath/app/components/header.php";
         ?>
+        
 
         <?php
-            if ($resultados[0]["stts"] === "finalizado") {
+            if ($pedido->getStts() === "finalizado") {
                 
                 ?>
                     <main class="container h-100 d-flex align-items-center justify-content-center">
@@ -66,36 +74,43 @@
             }
         ?>
 
+        <?php 
+            if (!isset($abbreviations[$pedido->getStts()])) {
+                throw new Exception("Status inválido");
+            }
+        ?>
 
-        <main class="container" data-type=<?=$resultados[0]["stts"]?>>
+        
+
+        <main class="container" data-type=<?=$pedido->getStts()?>>
             <section
                 class="d-flex flex-column-reverse gap-3 flex-md-row justify-content-between align-md-items-center align-items-start"
             >
                 <div>
                     <?php
-                        
-                        if ($resultados) {
-                            foreach ($resultados as $pedido) {
-
-                                echo "<script>const pedido = " . json_encode($pedido) . ";</script>";
-
-                                $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
+                       
+                       echo "<script>const pedido = " . json_encode($resultado) . ";</script>";
+                            $dataHora = $resultado["data{$abbreviations[$resultado['stts']]}"] . ' ' . $resultado["hora{$abbreviations[$resultado['stts']]}"];
+                            try {
                                 $dateTime = new DateTime($dataHora);
-                                $formattedDate = $dateFormatter->format($dateTime);
-                                $formattedTime = $dateTime->format('H:i') . 'h';
-                                $pedido['subtotal'] = 0;
-                                $pedido['frete'] = 0;
-                                $pedido['total'] = 0;
+                            } catch (Exception $e) {
+                                echo "Erro ao processar a data: " . $e->getMessage();
+                                return;
+                            }
+                            $formattedDate = $dateFormatter->format($dateTime);
+                            $formattedTime = $dateTime->format('H:i') . 'h';
+                            $subtotal = 0;
+                            $frete = 0;
+                            $total = 0;
+                    ?>
 
-                                ?>
-
-                    <h3><?=$pedido['nomeCliente']?></h3>
+                    <h3><?=$pedido->getNomeCliente()?></h3>
                     <div class="d-flex flex-column gap-2">
                         <p class="d-flex align-items-center gap-2 mb-0">
                             <i class="fa-regular fa-calendar"></i><?=$formattedDate?> <?=$formattedTime?>
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
-                            <i class="fa-solid fa-map-pin"></i><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
+                            <i class="fa-solid fa-map-pin"></i><?=$pedido->getEndereco()?>, <?=$pedido->getNumero()?> <?php if($pedido->getComplemento()) {echo ", ". $pedido->getComplemento(); } ?> - <?=$pedido->getBairro()?> - <?=$pedido->getCidade()?>
                         </p>
                         <p class="d-flex align-items-center gap-2 mb-0">
                             <i class="fa-solid fa-circle-user"></i>
@@ -115,19 +130,20 @@
 
                                             if ($resultados) {
                                                 foreach ($resultados as $funcionario) {
+                                                $func->populate($funcionario);
                                             ?>
-                                            <option value="<?=$funcionario['cpf']?>" <?php
-                                                if ($pedido["cpfResponsavel"] === $funcionario["cpf"]) {
+                                            <option value="<?=$func->getCPF()?>" <?php
+                                                if ($pedido->getCpfResponsavel() === $func->getCPF()) {
                                                     echo "selected";
                                                 }
-                                            ?>> <?=$funcionario['nome'];?></option><?php
+                                            ?>> <?=$func->getNome();?></option><?php
                                                 };
                                             }?>
                                             
                                         </select>
                                     <?php
                                 } else {
-                                    $funcionario = $func->getNomeFuncionarioByCpf($pedido["cpfResponsavel"]);
+                                    $funcionario = $func->getNomeFuncionarioByCpf($pedido->getCpfResponsavel());
 
                                     echo $funcionario;
                                 }
@@ -139,7 +155,7 @@
                     <span
                         class="badge bg-main text-bg-main rounded-pill fs-6 fw-normal lh-base ps-4 pe-4"
                     >
-                        <?=$pedido['stts']?>
+                        <?=$pedido->getStts()?>
                     </span>
                     <button id="deleteBtn" class="btn"><i class="fa-solid fa-trash"></i> Deletar Pedido</button>
                 </div>
@@ -151,16 +167,16 @@
                 </div>
                 <div class="p-3 d-flex flex-column gap-3">
                     <?php
-                    foreach($pedido['itensCarrinho'] as $item) { 
-                        $pedido['subtotal'] = $pedido['subtotal'] + $item['preco'] * $item['quantidade'];
-                        ?>
+                    foreach($pedido->getItensCarrinho() as $item) { 
+                        $subtotal += $item['preco'] * $item['quantidade'];
+                    ?>
                     <div
                         class="d-flex justify-content-between align-items-center"
                     >
                         <div class="item-titles align-items-center">
                             <div class="d-flex justify-content-center">
                                 <img
-                                    src="/public/assets/imgs/<?=$item['nome']?>.svg"
+                                    src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/<?=$item["nome"]?>.svg"
                                     onload="SVGInject(this)"
                                     class="text-main"
                                     height="2rem"
@@ -184,17 +200,12 @@
                     <h4>Pagamento</h4>
                 </div>
                 <?php
-                    // Definindo o valor do frete
-                    if ($pedido['subtotal'] < 50.00) {
-                        $pedido['frete'] = 50.00 - $pedido['subtotal'];
-                    } else {
-                        $pedido['frete'] = 0;
-                    }
+                    $frete = $subtotal >= 50 ? 0 : 50 - $subtotal;
 
-                    $subtotalFormatted = number_format($pedido['subtotal'], 2, ',', '.');
-                    $freteFormatted = number_format($pedido['frete'], 2, ',', '.');
+                    $subtotalFormatted = number_format($subtotal, 2, ',', '.');
+                    $freteFormatted = number_format($frete, 2, ',', '.');
 
-                    $total = $pedido['subtotal'] + $pedido['frete'];
+                    $total = $subtotal + $frete;
                     $totalFormatted = number_format($total, 2, ',', '.');
                 
                 ?>
@@ -221,7 +232,7 @@
             >
                 <p class="mb-0">
                     <?php
-                        if ($pedido["stts"] === "entrega") {
+                        if ($pedido->getStts() === "entrega") {
                             echo "Receba o pagamento antes de prosseguir com a entrega";
                         } else {
                             echo "Verifique a condição dos itens antes de prosseguir com a retirada";
@@ -231,18 +242,13 @@
                 </p>
                 <button id="confirmBtn" class="btn btn-main ms-auto">
                     <?php
-                        if ($pedido["stts"] === "entrega") {
+                        if ($pedido->getStts() === "entrega") {
                             echo "Confirmar Pagamento";
                         } else {
                             echo "Confirmar retirada";
                         }
                     ?>
                 </button>
-
-                <?php
-                      }}
-                ?>
-
             </section>
         </main>
 
@@ -252,7 +258,7 @@
 
                 if (confirm("Tem certeza de que deseja excluir este pedido?")) {
                     $.ajax({
-                    url: "/controllers/processDeletePedido",
+                    url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processDeletePedido",
                     type: "POST",
                     dataType: "json",
                     data: { pedido: idPedido },
@@ -274,19 +280,19 @@
                 const idPedido = pedido.idPedido;
 
                 $.ajax({
-                    url: "/controllers/processAtualizarStatusDoPedido",
+                    url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processAtualizarStatusDoPedido",
                     type: "POST",
                     dataType: "json",
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "/admin";
+                            window.location.href = "<?=$isLocal ? "/bgfestas" : ""?>/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.log("Erro ao processar a solicitação:", error);
+                        console.log("Erro ao processar a solicitação:", xhr);
                     },
                 });
             });
@@ -296,7 +302,7 @@
                 const idPedido = pedido.idPedido;
 
                 $.ajax({
-                    url: "/controllers/processAlterarFuncResponsavel",
+                    url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processAlterarFuncResponsavel",
                     type: "POST",
                     dataType: "json",
                     data: { cpf: cpf, pedido: idPedido },

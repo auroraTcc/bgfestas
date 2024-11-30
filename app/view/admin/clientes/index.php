@@ -200,7 +200,7 @@
             })
 
             $.ajax({
-                url: "/controllers/processGetAllClients",
+                url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processGetAllClients",
                 type: "POST",
                 dataType: "json",
                 success: function (response) {
@@ -219,7 +219,7 @@
 
             
             $.ajax({
-                url: "/controllers/processGetAllBairros",
+                url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processGetAllBairros",
                 type: "POST",
                 dataType: "json",
                 success: function (response) {

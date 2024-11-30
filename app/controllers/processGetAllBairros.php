@@ -1,7 +1,4 @@
 <?php
-    require "../config/conexao.php";
-    require "../actions/pedido.php";
-
     header('Content-Type: application/json');
     
     if (!$conn) {
@@ -11,7 +8,8 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $allBairros = getAllBairros($conn);
+        $order = new Pedido($conn);
+        $allBairros = $order->getAllBairros();
         $response = ["success" => true, "message" => "", "bairros" => $allBairros];
         echo json_encode($response);
     }
