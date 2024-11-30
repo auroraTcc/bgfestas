@@ -1,24 +1,5 @@
 $(".cpf").mask("000.000.000-00");
 
-$("#logOutBtn").on("click", function () {
-    $.ajax({
-        url: "/app/controllers/processDesconectar.php",
-        type: "POST",
-        dataType: "json",
-        success: function (response) {
-            if (response.success) {
-                console.log("Usuário desconectado com sucesso!");
-                window.location.href = "/app/view/admin";
-            } else {
-                console.log("Erro ao desconectar.");
-            }
-        },
-        error: function () {
-            console.log("Erro na requisição Ajax:");
-        },
-    });
-});
-
 function validarCPF(value) {
     let cpf = value.replace(/[^\d]+/g, "");
 
