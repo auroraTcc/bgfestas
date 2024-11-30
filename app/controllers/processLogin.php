@@ -1,7 +1,4 @@
 <?php
-    require_once "../config/conexao.php";
-    require "../actions/funcionario.php";
-
     header('Content-Type: application/json');
 
     if (!$conn) {
@@ -13,10 +10,10 @@
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         $cpf = $_POST['cpf'];
         $senha = $_POST['senha'];
-        $response = verificarUsuario($conn, $cpf, $senha);
+        $func = new Funcionario($conn);
+        $response = $func->verificarUsuario($cpf, $senha);
     
         if ($response["success"] || $response["funcionario"] !== ""){
-            session_start();
             $_SESSION['funcionario'] = $response["funcionario"];
 
             echo json_encode($response);

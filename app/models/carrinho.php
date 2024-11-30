@@ -1,7 +1,4 @@
 <?php
-require "../config/conexao.php";
-require "../actions/pedido.php";
-
 class Carrinho{
     function __construct($conn)
     {
@@ -39,10 +36,32 @@ class Carrinho{
         $this->quantidade = $quantidade;
     }
 
+    function getItensByIdpedido($idPedido){
+        $query = "SELECT * from carrinho WHERE idPedido = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $idPedido);
+
+        $stmt->execute();
+
+        $resultados = $stmt->get_result();
+        $carrinho = [];
+        if(mysqli_num_rows($resultados)) {
+            while ($item = $resultados->fetch_assoc()) {  
+                $prod = new produto($this->conn);
+
+                $item['nome'] = $prod->getProdtNameByProdtId( $item['idProdt']);
+                $item['preco'] = $prod->getPrecoByProdt($item['nome']);
+                $carrinho[] = $item;
+            }
+            return $carrinho;
+        }
+    }
     public function inserirCarrinho($produto, $quantidade, $cpfCliente, $dataDeEntrega){
         //consulta id pedido
         $idProdt = 0;
-        $idPedido = getIdPedidoByCpfAndDate($this->conn, $cpfCliente, $dataDeEntrega);
+
+        $pedido = new Pedido($this->conn);
+        $idPedido = $pedido->getIdPedidoByCpfAndDate($cpfCliente, $dataDeEntrega);
 
         //consulta id prodt
         $query = "SELECT idProdt from produto WHERE nome = ?";

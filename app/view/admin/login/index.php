@@ -1,11 +1,5 @@
 <?php
-    require "../../../config/isLogged.php";
-
-    if ($isLogged) {
-        header("Location: /app/view/admin");
-    }
-
-    $isPasswordReset = isset($_GET["resetarSenha"])
+    $isPasswordReset = isset($_GET["resetarSenha"]);
 ?>
 
 <!DOCTYPE html>
@@ -14,21 +8,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login</title>
-        <link rel="stylesheet" href="../../../../public/assets/css/admin.css" />
-        <script src="../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/css/admin.css" />
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
             crossorigin="anonymous"
         ></script>
-        <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/jquery/dist/jquery.min.js"></script>
         <link
             rel="shortcut icon"
-            href="../../../../public/assets/imgs/favicon.ico"
+            href="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
-        <script src="../../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-        <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
-        <script src="../../../../public/assets/js/admin.js" defer></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/js/admin.js" defer></script>
         <style>
             html,
             body {
@@ -290,7 +284,7 @@
                 e.preventDefault();
 
                 $.ajax({
-                    url: "../../../controllers/processLogin.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : ""?>controllers/processLogin",
                     type: "POST",
                     dataType: "json",
                     data: $(this).serialize(),
@@ -304,14 +298,14 @@
                                     "translateX(-100%)"
                                 );
                             } else {
-                                window.location.href = "/app/view/admin"; 
+                                window.location.href = "/" + response.redirect;
                             }
                         } else {
                             $("#loginErrorMessage").text(response.message);
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error("Erro na requisição Ajax:", error);
+                        console.error("Erro na requisição Ajax:", xhr.responseText);
                     },
                 });
             });
@@ -331,7 +325,7 @@
                 }
 
                 $.ajax({
-                    url: "../../../controllers/processAlterarSenha.php",
+                    url: "/app/controllers/processAlterarSenha.php",
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -367,7 +361,7 @@
             
 
                 $.ajax({
-                    url: "../../../controllers/processForgotPassword.php",
+                    url: "/app/controllers/processForgotPassword.php",
                     type: "POST",
                     data: $(this).serialize(),
                     success: function (response) {

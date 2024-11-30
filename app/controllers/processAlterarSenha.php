@@ -1,7 +1,4 @@
 <?php
-    require_once "../config/conexao.php";
-    require "../actions/funcionario.php";
-
     header('Content-Type: application/json');
 
     $response = "";
@@ -34,6 +31,8 @@
             exit;
         }
 
-        $response = alterarSenha($conn, $cpf, $senhahash);
+        $func = new Funcionario($conn);
+
+        $response = $func->alterarSenha( $cpf, $senhahash);
         echo json_encode($response);
     }

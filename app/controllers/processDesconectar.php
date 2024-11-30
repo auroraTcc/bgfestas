@@ -1,8 +1,6 @@
 <?php
 header('Content-Type: application/json');
 
-session_start();
-
 $response = ['success' => false];
 function desconectar() {
     if(isset($_SESSION["funcionario"])) {

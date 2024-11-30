@@ -11,14 +11,15 @@
     }
 
     if($_SERVER['REQUEST_METHOD']=="POST"){
-        $idFunc = getCpfFuncionarioByNome($conn, $nome);
+        $func = new Funcionario($conn);
+        $idFunc = $func->getCpfFuncionarioByNome($nome);
         $nome = $_POST["nome"];
         $email = $_POST["email"];
         $cargo = $_POST["cargo"];
 
-        $allFuncs = getAllFuncs($conn);
+        $allFuncs = $func->getAllFuncs();
 
-        atualizarCadastroFunc($conn, $idFunc, $nome, $email, $cargo);
+        $func->atualizarCadastroFunc($idFunc, $nome, $email);
         $response = ["success" => true, "message" => "", "funcionarios" => $allFuncs];
         echo json_encode($response);
     }

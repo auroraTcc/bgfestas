@@ -1,8 +1,4 @@
 <?php
-    require "../config/conexao.php";
-    require "../models/funcionario.php";
-    require "../actions/funcionario.php";
-
     header('Content-Type: application/json');
     
     if (!$conn) {
@@ -12,7 +8,8 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $allFuncs = getAllFuncs($conn);
+        $func = new Funcionario($conn);
+        $allFuncs = $func->getAllFuncs();
         $response = ["success" => true, "message" => "", "funcionarios" => $allFuncs];
         echo json_encode($response);
     }

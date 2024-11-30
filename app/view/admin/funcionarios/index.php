@@ -1,13 +1,3 @@
-<?php
-    require_once "../../../../app/config/conexao.php";
-    require_once "../../../../app/actions/funcionario.php";
-    require "../../../config/isLogged.php";
-
-    if (!$isLogged) {
-        header("Location: /app/view/admin/login");
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -16,22 +6,22 @@
         <title>Funcionários</title>
         <link
             rel="stylesheet"
-            href="../../../../public/assets/css/admin.css"
+            href="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/css/admin.css"
         />
-        <script src="../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
             crossorigin="anonymous"
         ></script>
-        <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/jquery/dist/jquery.min.js"></script>
         <link
             rel="shortcut icon"
-            href="../../../../public/assets/imgs/favicon.ico"
+            href="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
-        <script src="../../../../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-        <script src="../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
-        <script src="../../../../public/assets/js/admin.js" defer></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/js/admin.js" defer></script>
 
         <style>
             input:read-only {
@@ -47,100 +37,9 @@
         </style>
     </head>
     <body>
-        <header class="border-bottom border-primary">
-            <div class="container">
-                <button
-                    class="btn"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#navbar"
-                    aria-controls="navbar"
-                >
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-circle-user fs-5"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2 w-100">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                Sair
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
-
-        <div
-            class="offcanvas offcanvas-start"
-            tabindex="-1"
-            id="navbar"
-            aria-labelledby="navbarLabel"
-        >
-            <div class="offcanvas-header">
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <nav class="offcanvas-body">
-                <div>
-                    <h6>Geral</h6>
-                    <ul>
-                        <li>
-                            <a href="../../../../app/view/admin">
-                                <i class="fa-solid fa-chart-gantt"></i>
-                                <span>Painel de Controle</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../../../../app/view/admin/tarefas">
-                                <i class="fa-regular fa-folder-open"></i>
-                                <span>Tarefas</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php
-                    if ($_SESSION['funcionario']['cargo'] === "Gerente"
-                            ||
-                        $_SESSION['funcionario']['cargo'] === "Administrador") {
-                        ?>
-                            <div>
-                                <h6>Admin</h6>
-                                <ul>
-                                    <li>
-                                        <a href="../../../../app/view/admin/funcionarios">
-                                            <i class="fa-regular fa-id-badge"></i>
-                                            <span>Funcionários</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../../app/view/admin/tarefas/finalizadas">
-                                            <i class="fa-regular fa-square-check"></i>
-                                            <span>Tarefas Finalizadas</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../../app/view/admin/clientes">
-                                            <i class="fa-regular fa-address-card"></i>
-                                            <span>Clientes</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        <?php
-                    }
-                ?>
-                
-            </nav>
-        </div>
+        <?php
+            include_once "$rootPath/app/components/header.php";
+        ?>
 
         <div
             class="modal fade"
@@ -324,7 +223,7 @@
             }
 
             $.ajax({
-                url: "../../../../app/controllers/processGetAllFuncs.php",
+                url: "controllers/processGetAllFuncs",
                 type: "POST",
                 dataType: "json",
                 success: function (response) {
@@ -352,7 +251,7 @@
             
 
                 $.ajax({
-                    url: "../../../../app/controllers/processInserirFunc.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processInserirFunc",
                     type: "POST",
                     dataType: "json",
                     data: dados,
@@ -377,7 +276,7 @@
                 const cpf = $(this).data("cpf");
 
                 $.ajax({
-                    url: "../../../../app/controllers/processDeleteFunc.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processDeleteFunc",
                     type: "POST",
                     dataType: "json",
                     data: { cpf: cpf },

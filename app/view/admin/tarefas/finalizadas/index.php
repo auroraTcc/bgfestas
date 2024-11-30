@@ -1,13 +1,4 @@
 <?php
-
-    require "../../../../config/isLogged.php";
-    require_once "../../../../config/conexao.php";
-
-
-    if (!$isLogged) {
-        header("Location: /bgfestas/app/view/admin/login"); 
-    }
-
     $abbreviations = [
         "entrega" => "Entg",
         "retirada" => "Ret"
@@ -21,10 +12,6 @@
         IntlDateFormatter::NONE 
     );
     $dateFormatter->setPattern('dd MMM');
-
-
-    require_once "../../../../../app/config/conexao.php";
-    require_once "../../../../../app/actions/pedido.php"; 
 ?>
 
 <!DOCTYPE html>
@@ -35,20 +22,20 @@
         <title>Tarefas finalizadas</title>
         <link
             rel="stylesheet"
-            href="../../../../../public/assets/css/admin.css"
+            href="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/css/admin.css"
         />
-        <script src="../../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/4c0a49f720.js"
             crossorigin="anonymous"
         ></script>
-        <script src="../../../../../node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link
             rel="shortcut icon"
-            href="/public/assets/imgs/favicon.ico"
+            href="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/favicon.ico"
             type="image/x-icon"
         />
-        <script src="../../../../../node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
+        <script src="<?=$isLocal ? "/bgfestas" : ""?>/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"></script>
         <style>
             .item-titles {
                 display: grid;
@@ -58,100 +45,9 @@
         </style>
     </head>
     <body>
-        <header class="border-bottom border-primary">
-            <div class="container">
-                <button
-                    class="btn"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#navbar"
-                    aria-controls="navbar"
-                >
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-circle-user fs-5"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <button id="logOutBtn" class="btn d-flex align-items-center gap-2 w-100">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                Sair
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
-
-        <div
-            class="offcanvas offcanvas-start"
-            tabindex="-1"
-            id="navbar"
-            aria-labelledby="navbarLabel"
-        >
-            <div class="offcanvas-header">
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <nav class="offcanvas-body">
-                <div>
-                    <h6>Geral</h6>
-                    <ul>
-                        <li>
-                            <a href="../../../../../app/view/admin">
-                                <i class="fa-solid fa-chart-gantt"></i>
-                                <span>Painel de Controle</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../../../../../app/view/admin/tarefas">
-                                <i class="fa-regular fa-folder-open"></i>
-                                <span>Tarefas</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php
-                    if ($_SESSION['funcionario']['cargo'] === "Gerente"
-                            ||
-                        $_SESSION['funcionario']['cargo'] === "Administrador") {
-                        ?>
-                            <div>
-                                <h6>Admin</h6>
-                                <ul>
-                                    <li>
-                                        <a href="../../../../../app/view/admin/funcionarios">
-                                            <i class="fa-regular fa-id-badge"></i>
-                                            <span>Funcionários</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../../../app/view/admin/tarefas/finalizadas">
-                                            <i class="fa-regular fa-square-check"></i>
-                                            <span>Tarefas Finalizadas</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../../../app/view/admin/clientes">
-                                            <i class="fa-regular fa-address-card"></i>
-                                            <span>Clientes</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        <?php
-                    }
-                ?>
-                
-            </nav>
-        </div>
+        <?php
+            include_once "$rootPath/app/components/header.php";
+        ?>
 
         <main>
             <section class="container">
@@ -169,6 +65,22 @@
                    
                 </div>
 
+                <?php
+                    $order = new Pedido($conn);
+                    $pedidos = $order->getPedidosFinalizados();
+
+                    if (!$pedidos) {
+                        ?>
+                            <div class="container">
+                                <h3>Ainda Não Há Nenhum Pedido Finalizado</h3>
+                            </div>
+                        
+                        <?php
+                        return;
+                    }
+                ?>
+                
+
                 <div>
                     <div class="table-responsive">
                         <table class="table">
@@ -182,15 +94,9 @@
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
-                            
-
                             <tbody>
                                 <?php
                                     $i = 1;
-                                    $pedidos = getPedidosFinalizados($conn);
-
-                                    if (!$pedidos) return;
-
                                     foreach ($pedidos as $pedido) {
                                         $pedido['subtotal'] = 0;
                                         foreach($pedido['itensCarrinho'] as $item) { 
@@ -218,7 +124,7 @@
                                             <td>R$ <?=$totalFormatted?></td>
                                             <td>
                                                 <a  style="text-decoration: none;"
-                                                    href="../../../../controllers/processGerarRecibo.php?id=<?=$pedido['idPedido']?>"
+                                                    href="<?=$isLocal ? "/bgfestas" : ""?>/recibo/<?=$pedido['idPedido']?>"
                                                     target="_blank"
                                                     class="badge bg-primary text-bg-secondary rounded-pill"
                                                 >gerar recibo</a>

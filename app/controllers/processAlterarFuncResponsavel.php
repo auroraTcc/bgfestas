@@ -1,7 +1,4 @@
 <?php
-    require_once "../config/conexao.php";
-    require "../actions/pedido.php";
-
     header('Content-Type: application/json');
 
     $response = "";
@@ -21,7 +18,9 @@
             exit;
         }
 
-        if (setFunc($conn, $cpf, $pedido)) {
+        $order = new Pedido($conn);
+
+        if ($order->setFunc($cpf, $pedido)) {
             echo json_encode(["success" => true, "message" => "Atualização realizada com sucesso"]);
         } else {
             echo json_encode(["success" => false, "message" => "Problemas ao alterar o responsável."]);
