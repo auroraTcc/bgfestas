@@ -62,72 +62,87 @@
                 <section class="container" id="proximasTarefas">
                     <div id="tarefasContainer">
                     <?php 
+                        $resultados;
                         $order = new Pedido($conn);
+                        $client = new Cliente($conn);
 
-                        $resultados = $order->getAllPedidos();
+                        if ($user->getCargo() === "Gerente" || $user->getCargo() === "Administrador") {
+                            $resultados = $order->getAllPedidos();
+                        } else {
+                            $resultados =  $order->getPedidosByCpfFunc($user->getCPF());
+                        }
 
                         if ($resultados) {
                             foreach ($resultados as $pedido) {
-
-                                if($pedido["stts"] === "finalizado") {
+                                
+                                $order = new Pedido($conn);
+                                $order->populate($pedido);
+                                
+                                if($order->getStts() === "finalizado") {
                                     continue;
                                 }
 
-                                $dataHora = $pedido["data{$abbreviations[$pedido['stts']]}"] . ' ' . $pedido["hora{$abbreviations[$pedido['stts']]}"];
+                                $dataHora = $pedido["data" . $abbreviations[$pedido['stts']]] . ' ' . $pedido["hora" . $abbreviations[$pedido['stts']]];
                                 $dateTime = new DateTime($dataHora);
                                 $formattedDate = $dateFormatter->format($dateTime);
                                 $formattedTime = $dateTime->format('H:i') . 'h';
-
+                                $cliente = $client->getClienteByCpf($pedido["cpfCliente"]);
+                                
                                 ?>
-                                    <a  style="text-decoration: none"
-                                        class="card pedido d-flex" 
-                                        data-type="<?=$pedido['stts']?>"
-                                        href="/admin/tarefas/<?=$pedido['idPedido']?>"
-                                    >
-                                        <div class="card-header">
-                                            <div>
-                                                <h4 class="card-title"><?=$pedido['nomeCliente']?></h4>
-                                                <p><?=$formattedDate?> <?=$formattedTime?></p>
-                                            </div>
-                                            <span><?=$pedido['stts']?></span>
+                                
+                                <a  style="text-decoration: none"
+                                    class="card pedido d-flex" 
+                                    data-type="<?=$order->getStts()?>"
+                                    href="<?=$isLocal ? "/bgfestas" : ""?>/admin/tarefas/<?=$order->getIdPedido()?>"
+                                >
+                                    <div class="card-header">
+                                        <div>
+                                            <h4 class="card-title"><?=$order->getNomeCliente()?></h4> 
+                                            <p><?=$formattedDate?> <?=$formattedTime?></p>
+                                        </div>
+                                        <span><?=$order->getStts()?></span>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <?=$order->getEndereco()?>, <?=$order->getNumero()?><?php if($order->getComplemento()) { echo ", ". $order->getComplemento(); } ?> - <?=$order->getBairro()?> - <?=$order->getCidade()?>
+                                        </p>
+                                        <div>
+                                            <?php foreach($order->getItensCarrinho() as $item) { ?>
+                                                <div class="itemCount">
+                                                    <img
+                                                        src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/<?=$item["nome"]?>.svg"
+                                                        onload="SVGInject(this)"
+                                                    />
+                                                    <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <div>
+                                            <i class="fa-solid fa-circle-user"></i>
+                                            <h5>
+                                                Responsável:
+                                                <span><?=$order->getNomeFuncionario()?></span> 
+                                            </h5>
                                         </div>
 
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                <?=$pedido['endereco']?>, <?=$pedido['numero']?><?php if($pedido['complemento']) { echo ", ". $pedido['complemento']; } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?>
-                                            </p>
-                                            <div>
-                                                <?php foreach($pedido['itensCarrinho'] as $item) { ?>
-                                                    <div class="itemCount">
-                                                        <img
-                                                            src="/public/assets/imgs/<?=$item["nome"]?>.svg"
-                                                            onload="SVGInject(this)"
-                                                        />
-                                                        <p><?=$item["quantidade"]?> <?=$item["nome"]?>(s)</p>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
+                                        <div class="whatsapp-button bg-primary d-flex align-items-center justify-content-center rounded-pill text-bg-secondary"
+                                            style="height: 2.5rem; width: 2.5rem;" 
+                                            data-telefone="<?=$cliente['telefone']?>"
+                                        >
+                                            <i class="fa-solid fa-comments"></i>
                                         </div>
+                                    </div>
+                                </a>
 
-                                        <div class="card-footer">
-                                            <div>
-                                                <i class="fa-solid fa-circle-user"></i>
-                                                <h5>
-                                                    Responsável:
-                                                    <span><?=$pedido['nomeFuncionario']?></span>
-                                                </h5>
-                                            </div>
-
-                                            <div    class="whatsapp-button bg-primary d-flex align-items-center justify-content-center rounded-pill text-bg-secondary"
-                                                    style="height: 2.5rem; width: 2.5rem;" 
-                                                    data-telefone="<?=$cliente['telefone']?>"
-                                            >
-                                                <i class="fa-solid fa-comments"></i>
-                                            </div>
-                                        </div>
-                                    </a>
+                                
                                 <?php
                             }
+                        } else {
+                            echo "<h4>Ainda não há pedidos</h4>";
                         }
                     ?>
                     </div>

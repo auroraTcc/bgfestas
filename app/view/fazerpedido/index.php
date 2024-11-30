@@ -244,7 +244,7 @@
                                         <label for="jogos">
                                             <span>
                                                 <img
-                                                    src="/public/assets/imgs/jogo.svg"
+                                                    src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/jogo.svg"
                                                     alt=""
                                                     onload="SVGInject(this)"
                                                 />
@@ -276,7 +276,7 @@
                                         <label for="mesas">
                                             <span>
                                                 <img
-                                                    src="/public/assets/imgs/mesa.svg"
+                                                    src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/mesa.svg"
                                                     alt=""
                                                     onload="SVGInject(this)"
                                                 />
@@ -308,7 +308,7 @@
                                         <label for="cadeiras"
                                             ><span>
                                                 <img
-                                                    src="/public/assets/imgs/cadeira.svg"
+                                                    src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/cadeira.svg"
                                                     alt=""
                                                     onload="SVGInject(this)"
                                                 />
@@ -492,7 +492,7 @@
                 e.preventDefault();
 
                 $.ajax({
-                    url: "controllers/processPedido",
+                    url: "<?=$isLocal ? "/bgfestas" : ""?>/controllers/processPedido",
                     type: "POST",
                     dataType: "json",
                     data: $(this).serialize(),
