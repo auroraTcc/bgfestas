@@ -4,7 +4,7 @@
     error_reporting(E_ALL);
     session_start();
     $rootPath = __DIR__;
-    $isLocal = str_contains($rootPath, "bgfestas");
+    $isLocal = strpos($_SERVER['HTTP_HOST'], 'localhost') !== false;
 
     require_once "$rootPath/app/config/conexao.php";
 
