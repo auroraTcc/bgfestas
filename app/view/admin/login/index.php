@@ -284,7 +284,7 @@
                 e.preventDefault();
 
                 $.ajax({
-                    url: "<?=$isLocal ? "/bgfestas/" : ""?>controllers/processLogin",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processLogin",
                     type: "POST",
                     dataType: "json",
                     data: $(this).serialize(),
@@ -325,7 +325,7 @@
                 }
 
                 $.ajax({
-                    url: "/app/controllers/processAlterarSenha.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>/controllers/processAlterarSenha.php",
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -361,7 +361,7 @@
             
 
                 $.ajax({
-                    url: "/app/controllers/processForgotPassword.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processForgotPassword.php",
                     type: "POST",
                     data: $(this).serialize(),
                     success: function (response) {
