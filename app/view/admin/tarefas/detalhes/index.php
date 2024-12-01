@@ -11,19 +11,6 @@
         IntlDateFormatter::NONE 
     );
     $dateFormatter->setPattern('dd MMM');
-
-    $idPedido = $_GET['id'];
-    $pedido = new Pedido($conn);
-
-    $resultado =  $pedido->getPedidoById( $idPedido);
-
-    if (empty($resultado)) {
-        header("Location: " . ($isLocal ? "/bgfestas/404" : "/404"));
-        return;
-    }
-
-    $resultado= $resultado[0];
-    $pedido->populate($resultado);
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +47,24 @@
     
         <?php
             include_once "$rootPath/app/components/header.php";
+        ?>
+
+        <?php 
+            $idPedido = $_GET['id'];
+            $pedido = new Pedido($conn);
+        
+            $resultado =  $pedido->getPedidoById( $idPedido);
+
+            if (!$resultado) {
+                ?>
+                    <main class="container h-100 d-flex align-items-center justify-content-center">
+                        <h2>Pedido não encontrado</h2>
+                    </main>
+                <?php return;
+            }
+        
+            $resultado= $resultado[0];
+            $pedido->populate($resultado);
         ?>
         
 
@@ -168,7 +173,9 @@
                 <div class="p-3 d-flex flex-column gap-3">
                     <?php
                     foreach($pedido->getItensCarrinho() as $item) { 
-                        $subtotal += $item['preco'] * $item['quantidade'];
+                        $produto = new Carrinho($conn);
+                        $produto->populate($item);
+                        $subtotal += $produto->getPreco() * $produto->getQuantidade();
                     ?>
                     <div
                         class="d-flex justify-content-between align-items-center"
@@ -176,18 +183,18 @@
                         <div class="item-titles align-items-center">
                             <div class="d-flex justify-content-center">
                                 <img
-                                    src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/<?=$item["nome"]?>.svg"
+                                    src="<?=$isLocal ? "/bgfestas" : ""?>/public/assets/imgs/<?=$produto->getNome()?>.svg"
                                     onload="SVGInject(this)"
                                     class="text-main"
                                     height="2rem"
                                     fill="currentColor"
                                 />
                             </div>
-                            <h5 class="text-secondary-color"><?=$item["nome"]?></h5>
+                            <h5 class="text-secondary-color"><?=$produto->getNome()?></h5>
                         </div>
                         <div class="d-flex gap-1 align-items-center">
-                            <p class="mb-0"><?=$item["quantidade"]?> x <?=number_format($item["preco"], 2, ',', '.') ?> =</p>
-                            <p class="fw-bold mb-0">R$ <?=number_format($item["quantidade"] * $item["preco"], 2, ',', '.') ?></p> 
+                            <p class="mb-0"><?=$produto->getQuantidade()?> x <?=number_format($produto->getPreco(), 2, ',', '.') ?> =</p>
+                            <p class="fw-bold mb-0">R$ <?=number_format($produto->getQuantidade() * $produto->getPreco(), 2, ',', '.') ?></p> 
                         </div>
                     </div>
                     <?php 

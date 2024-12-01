@@ -3,6 +3,13 @@
         function __construct($conn) {
             $this->conn = $conn;
         }
+        public function populate($data) {
+            $this->idProdt = $data['idProdt'];
+            $this->nome = $data['nome'];
+            $this->qtdDisp = $data['qtdDisp'];
+            $this->qtdTotal = $data['qtdTotal'];
+            $this->preco = $data['preco'];
+        }
         private $conn;
         private $idProdt;
         private $nome;

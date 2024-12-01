@@ -97,34 +97,39 @@
                             <tbody>
                                 <?php
                                     $i = 1;
-                                    foreach ($pedidos as $pedido) {
-                                        $pedido['subtotal'] = 0;
-                                        foreach($pedido['itensCarrinho'] as $item) { 
-                                            $pedido['subtotal'] = $pedido['subtotal'] + $item['preco'] * $item['quantidade'];
+                                    foreach ($pedidos as $order) {
+                                        $pedido = new Pedido($conn);
+                                        $pedido->populate($order);
+
+                                        $subtotal = 0;
+                                        $frete = 0;
+                                        $total = 0;
+                                       
+                                        foreach($pedido->getItensCarrinho() as $item) { 
+                                            $produto = new Carrinho($conn);
+                                            $produto->populate($item);
+                                            $subtotal += $produto->getPreco() * $produto->getQuantidade();
                                         }
+
+                                        $frete = $subtotal >= 50 ? 0 : 50 - $subtotal;
+                                        $total = $subtotal + $frete;
                                         
-                                        if ($pedido['subtotal'] < 50.00) {
-                                            $pedido['frete'] = 50.00 - $pedido['subtotal'];
-                                        } else {
-                                            $pedido['frete'] = 0;
-                                        }
-                                        $total = $pedido['subtotal'] + $pedido['frete'];
                                         $totalFormatted = number_format($total, 2, ',', '.');
-                                        $dataRetOriginal = $pedido["dataRet"];
+                                        $dataRetOriginal = $pedido->getDataRetirada();
                                         $dataRetFormatada = (new DateTime($dataRetOriginal))->format('d/m/Y');
                                 
                                 ?>
                                         <tr>
                                             <th scope="row"><?=$i?></th>
-                                            <td><?=$pedido["nomeCliente"]?></td>
+                                            <td><?=$pedido->getNomeCliente()?></td>
                                             <td><?=$dataRetFormatada?></td>
-                                            <td><?=$pedido['endereco']?>, <?=$pedido['numero']?> <?php if($pedido['complemento']) {
-                                                        echo ", ". $pedido['complemento'];
-                                                    } ?> - <?=$pedido['bairro']?> - <?=$pedido['cidade']?></td>
+                                            <td><?=$pedido->getEndereco()?>, <?=$pedido->getNumero()?> <?php if($pedido->getComplemento()) {
+                                                        echo ", ". $pedido->getComplemento();
+                                                    } ?> - <?=$pedido->getBairro()?> - <?=$pedido->getCidade()?></td>
                                             <td>R$ <?=$totalFormatted?></td>
                                             <td>
                                                 <a  style="text-decoration: none;"
-                                                    href="<?=$isLocal ? "/bgfestas" : ""?>/recibo/<?=$pedido['idPedido']?>"
+                                                    href="<?=$isLocal ? "/bgfestas" : ""?>/recibo/<?=$pedido->getIdPedido()?>"
                                                     target="_blank"
                                                     class="badge bg-primary text-bg-secondary rounded-pill"
                                                 >gerar recibo</a>

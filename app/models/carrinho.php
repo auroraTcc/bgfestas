@@ -1,14 +1,32 @@
 <?php
 class Carrinho{
-    function __construct($conn)
-    {
+    function __construct($conn){
         $this->conn = $conn;
     }
+
+    public function populate($data) {
+        $this->idItem = $data['idItem'] ?? "";
+        $this->idPedido = $data['idPedido'];
+        $this->idProdt = $data['idProdt'];
+        $this->quantidade = $data['quantidade'];
+        $this->nome = $data['nome'] ?? "";
+        $this->preco = $data['preco'] ?? "";
+    }
+    
     private $conn;
+    private $idItem;
     private $idPedido;
     private $idProdt;
     private $quantidade;
+    private $nome;
+    private $preco;
 
+    public function getIdItem() {
+        return $this->idItem;
+    }
+    public function setIdItem($idItem) {
+        $this->idItem = $idItem;
+    }
     public function getIdPedido()
     {
         return $this->idPedido;
@@ -35,6 +53,21 @@ class Carrinho{
     {
         $this->quantidade = $quantidade;
     }
+    public function getNome()
+    {
+        return $this->nome;
+    }
+    public function setNome($nome) {
+        $this->nome = $nome;
+    }
+    public function getPreco()
+    {
+        return $this->preco;
+    }
+    public function setPreco($preco) {
+        $this->preco = $preco;
+    }
+    
 
     function getItensByIdpedido($idPedido){
         $query = "SELECT * from carrinho WHERE idPedido = ?";
