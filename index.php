@@ -69,7 +69,7 @@
         $routes = $newRoutes; 
     }
 
-    print_r($routes, $requestUri);
+   
     
     spl_autoload_register(
         function ($class) use ($rootPath) { 
@@ -95,6 +95,11 @@
     );
     $requestUri = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
 
+    echo "<pre>";
+    print_r($routes);
+    echo "</br>";
+    echo $requestUri;
+    
     if (preg_match($isLocal ? "/^bgfestas\/admin\/tarefas\/(\d+)$/" : '/^admin\/tarefas\/(\d+)$/', $requestUri, $matches)) {
         adminRouteVerification($requestUri, $isLocal, $routes, $conn);
         $_GET['id'] = $matches[1];
