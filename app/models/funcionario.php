@@ -146,7 +146,8 @@
                 $funcionario = $result->fetch_assoc();
         
                 if (password_verify($senha, $funcionario['senha'])) {
-                    $redirectUrl = $_SESSION["goTo"] ?? "/admin";
+                    $redirectUrl = $_SESSION["goTo"] === "" || $_SESSION["goTo"] === "/admin/login"
+                    ? "/admin" : $_SESSION["goTo"];
                     unset($_SESSION["goTo"]);
                     return ["success" => true, "message" => "Login Realizado com sucesso", "funcionario" => $funcionario, "redirect" => $redirectUrl];
                     
