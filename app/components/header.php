@@ -101,7 +101,7 @@ aria-labelledby="navbarLabel"
             success: function (response) {
                 if (response.success) {
                     console.log("Usuário desconectado com sucesso!");
-                    window.location.href = "/bgfestas/admin/login";
+                    window.location.href = "<?=$isLocal ? "/bgfestas/" : "/"?>bgfestas/admin/login";
                 } else {
                     console.log("Erro ao desconectar.");
                 }
