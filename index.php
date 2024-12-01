@@ -37,6 +37,8 @@
         "404" => "$rootPath/app/view/errors/404.html"
     ];
 
+    
+
     function adminRouteVerification($requestUri, $isLocal, $routes, $conn) {
         $isLogged = isset($_SESSION["funcionario"]);
     
@@ -66,6 +68,8 @@
         }
         $routes = $newRoutes; 
     }
+
+    print_r($routes, $requestUri);
     
     spl_autoload_register(
         function ($class) use ($rootPath) { 
