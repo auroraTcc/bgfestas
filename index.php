@@ -94,13 +94,6 @@
         }
     );
     $requestUri = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
-
-    echo $isLocal;
-    echo "</br>";
-    echo "<pre>";
-    print_r($routes);
-    echo "</br>";
-    echo $requestUri;
     
     if (preg_match($isLocal ? "/^bgfestas\/admin\/tarefas\/(\d+)$/" : '/^admin\/tarefas\/(\d+)$/', $requestUri, $matches)) {
         adminRouteVerification($requestUri, $isLocal, $routes, $conn);
