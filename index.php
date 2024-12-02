@@ -31,7 +31,7 @@
         "controllers/processGetAllFuncs" => "$rootPath/app/controllers/processGetAllFuncs.php",
         "controllers/processInserirFunc" => "$rootPath/app/controllers/processInserirFunc.php",
         
-        "404" => "$rootPath/app/view/errors/404.html"
+        "404" => "$rootPath/app/view/errors/404.php"
     ];
 
     
