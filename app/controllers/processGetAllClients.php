@@ -7,13 +7,15 @@
         exit;
     }
 
+    
+
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $client = new Cliente($conn);
         $clientes = $client->getAllClientes();
 
-        foreach ($clientes as $cliente) { 
+        foreach ($clientes as $index => $cliente) {
             $order = new Pedido($conn);
-            $cliente['bairros'] = $order->getBairroByCpfCliente($cliente['cpf']);
+            $clientes[$index]['bairros'] = $order->getBairroByCpfCliente($cliente['cpf']);
         }
 
         $response = ["success" => true, "message" => "", "clientes" => $clientes];

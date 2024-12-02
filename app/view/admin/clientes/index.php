@@ -205,6 +205,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.success) {
+                        console.log(response.clientes);
                         insertClients(response.clientes)
                         allClients = response.clientes
                     } else {
