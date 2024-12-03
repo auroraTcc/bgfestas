@@ -325,7 +325,7 @@
                 }
 
                 $.ajax({
-                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>/controllers/processAlterarSenha.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processAlterarSenha.php",
                     type: "POST",
                     dataType: "json",
                     data: {

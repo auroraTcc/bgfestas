@@ -41,6 +41,19 @@
             include_once "$rootPath/app/components/header.php";
         ?>
 
+        <?php
+            if (!$user->getCargo() !== "Gerente"
+            ||
+            !$user->getCargo() !== "Administrador") {
+                
+                ?>
+                    <main class="container h-100 d-flex align-items-center justify-content-center">
+                        <h2>Você não tem permissão para acessar essa página.</h2>
+                    </main>
+                <?php return;
+            }
+        ?>
+
         <div
             class="modal fade"
             id="exampleModal"
