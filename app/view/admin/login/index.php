@@ -335,7 +335,7 @@
                     },
                     success: function (response) {
                         $("#UpdatePasswordErrorMessage").text(response.message);
-                        console.log(+ response.redirect)
+                        // console.log("/" + response.redirect)
                         window.location.href = "/" + response.redirect;
                     },
                     error: function (xhr, status, error) {
