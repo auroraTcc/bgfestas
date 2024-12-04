@@ -325,7 +325,7 @@
                 }
 
                 $.ajax({
-                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processAlterarSenha.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processAlterarSenha",
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -335,7 +335,8 @@
                     },
                     success: function (response) {
                         $("#UpdatePasswordErrorMessage").text(response.message);
-                        window.location.href = "/app/view/admin"; 
+                        console.log(+ response.redirect)
+                        window.location.href = "/" + response.redirect;
                     },
                     error: function (xhr, status, error) {
                         console.error(
@@ -365,7 +366,9 @@
                     type: "POST",
                     data: $(this).serialize(),
                     success: function (response) {
+                        console.log($("form#ResetPassword").serialize());
                         if(response.success) {
+                            
                             $("#resetPasswordSuccessMessage").text(response.message).removeClass("d-none").addClass("d-block");
                         } else {
                             $("#resetPasswordErrorMessage").text(response.message).removeClass("d-none").addClass("d-block");

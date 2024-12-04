@@ -8,7 +8,7 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $cpf = preg_replace('/\D/', '', $_POST["userCPF"]); // Limpa o CPF do usuário
+        $cpf =  $_POST["userCPF"];
     
         if (empty($cpf)) {
             echo json_encode(["success" => false, "message" => "O campo CPF é obrigatório"]);

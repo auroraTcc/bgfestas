@@ -11,7 +11,7 @@
         $cpf = $_POST['cpf'];
         $senha = $_POST['senha'];
         $func = new Funcionario($conn);
-        $response = $func->verificarUsuario($cpf, $senha);
+        $response = $func->verificarUsuario($cpf, $senha, $isLocal);
     
         if ($response["success"] || $response["funcionario"] !== ""){
             $_SESSION['funcionario'] = $response["funcionario"];
