@@ -361,7 +361,7 @@
             
 
                 $.ajax({
-                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processForgotPassword.php",
+                    url: "<?=$isLocal ? "/bgfestas/" : "/"?>controllers/processForgotPassword",
                     type: "POST",
                     data: $(this).serialize(),
                     success: function (response) {
