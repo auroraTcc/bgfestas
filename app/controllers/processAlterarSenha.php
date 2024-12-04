@@ -33,6 +33,6 @@
 
         $func = new Funcionario($conn);
 
-        $response = $func->alterarSenha( $cpf, $senhahash);
+        $response = $func->alterarSenha( $cpf, $senhahash, $isLocal);
         echo json_encode($response);
     }

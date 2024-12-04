@@ -135,7 +135,7 @@
             }
         }
     
-        public function verificarUsuario($cpf, $senha){
+        public function verificarUsuario($cpf, $senha, $isLocal){
             $query = "SELECT * FROM funcionario WHERE cpf = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("s", $cpf);
@@ -146,8 +146,11 @@
                 $funcionario = $result->fetch_assoc();
         
                 if (password_verify($senha, $funcionario['senha'])) {
-                    $redirectUrl = $_SESSION["goTo"] === "" || $_SESSION["goTo"] === "/admin/login"
-                    ? "/admin" : $_SESSION["goTo"];
+                    if (!isset($_SESSION["goTo"]) || $_SESSION["goTo"] === "" || $_SESSION["goTo"] === "/admin/login") {
+                        $redirectUrl = $isLocal ? "bgfestas/admin" : "/admin";
+                    } else {
+                        $redirectUrl = $_SESSION["goTo"];
+                    }
                     unset($_SESSION["goTo"]);
                     return ["success" => true, "message" => "Login Realizado com sucesso", "funcionario" => $funcionario, "redirect" => $redirectUrl];
                     
@@ -163,14 +166,22 @@
             return ["success" => false, "message" => "Usuário não encontrado", "funcionario" => ""];
         }
     
-        public function alterarSenha($cpf, $senha) {
+        public function alterarSenha($cpf, $senha, $isLocal) {
             $query = "UPDATE funcionario SET senha = ?, primAcess = false WHERE cpf = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("ss", $senha, $cpf);
             $stmt->execute();
+
+
             
             if ($stmt->affected_rows > 0) {
-                return ["success" => true, "message" => "Senha alterada com sucesso"];
+                if (!isset($_SESSION["goTo"]) || $_SESSION["goTo"] === "" || $_SESSION["goTo"] === "/admin/login") {
+                    $redirectUrl = $isLocal ? "bgfestas/admin" : "/admin";
+                } else {
+                    $redirectUrl = $_SESSION["goTo"];
+                }
+                unset($_SESSION["goTo"]);
+                return ["success" => true, "message" => "Senha alterada com sucesso", "redirect" => $redirectUrl];
             } else {
                 return ["success" => false, "message" => "Nenhuma alteração feita. Verifique se o CPF está correto."];
             }
@@ -189,13 +200,12 @@
             }
         }
         public function resetSenhaPadrao($cpfFunc) {
-            
             $cpfNumbers = preg_replace('/\D/', '', $cpfFunc);
             $senhaPadrao = "PrimeiroAcesso$cpfNumbers";
             $senhaHash = password_hash($senhaPadrao, PASSWORD_DEFAULT);
     
             $checkQuery  = "SELECT * FROM funcionario WHERE cpf = ?";
-            $checkStmt = $this->conn->prepare($checkQuery );
+            $checkStmt = $this->conn->prepare($checkQuery);
             $checkStmt->bind_param("s", $cpfFunc);
             $checkStmt->execute();
             $checkStmt->store_result();
