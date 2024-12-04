@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
 $servername = "localhost";
-=======
-$servername = "144.217.39.54";
->>>>>>> main
 $username = "ifhostgru_bgfestas";
 $password = "ifspgru@2024";
 $databasename = "ifhostgru_bgfestas";
