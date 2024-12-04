@@ -147,7 +147,7 @@
         
                 if (password_verify($senha, $funcionario['senha'])) {
                     if (!isset($_SESSION["goTo"]) || $_SESSION["goTo"] === "" || $_SESSION["goTo"] === "/admin/login") {
-                        $redirectUrl = $isLocal ? "bgfestas/admin" : "/admin";
+                        $redirectUrl = $isLocal ? "bgfestas/admin" : "admin";
                     } else {
                         $redirectUrl = $_SESSION["goTo"];
                     }
@@ -176,7 +176,7 @@
             
             if ($stmt->affected_rows > 0) {
                 if (!isset($_SESSION["goTo"]) || $_SESSION["goTo"] === "" || $_SESSION["goTo"] === "/admin/login") {
-                    $redirectUrl = $isLocal ? "bgfestas/admin" : "/admin";
+                    $redirectUrl = $isLocal ? "bgfestas/admin" : "admin";
                 } else {
                     $redirectUrl = $_SESSION["goTo"];
                 }
