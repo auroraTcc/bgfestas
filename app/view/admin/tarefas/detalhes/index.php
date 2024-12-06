@@ -271,7 +271,7 @@
                     data: { pedido: idPedido },
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "/bgfestas/app/view/admin";
+                            window.location.href = "<?=$isLocal ? "/bgfestas" : ""?>/admin";
                         } else {
                             console.log("Falha ao alterar as coisas:", response.message);
                         }
