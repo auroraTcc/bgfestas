@@ -150,11 +150,10 @@
                                                     class="badge bg-primary text-bg-secondary rounded-pill"
                                                 >gerar recibo</a>
                                                 <a  href="https://api.whatsapp.com/send?phone=55<?=$pedido->getTelefone()?>&text=Olá%20<?=$pedido->getNomeCliente()?>!%20Sou%20o%20Gilson,%20gerente%20da%20BGFESTAS.%20Recentemente%20você%20fez%20um%20pedido%20conosco%20e%20gostaria%20de%20falar%20contigo."
-                                                    class="badge bg-primary text-bg-secondary rounded-pill d-flex align-items-center gap-1"
+                                                    class="badge bg-primary text-bg-secondary rounded-pill"
                                                     style="width: fit-content; text-decoration: none"
                                                     target="_blank"
                                                 >
-                                                    <i class="fa-solid fa-comments" aria-hidden="true"></i>
                                                     Enviar Mensagem
                                                 </a>
                                             </td>
