@@ -17,7 +17,8 @@
         $order = new Pedido($conn);
 
         if ($order->excluirPedido($pedido)) {
-            echo json_encode(["success" => true, "message" => "Atualização realizada com sucesso"]);
+            $redirectUrl = $isLocal ? "bgfestas/admin" : "admin";
+            echo json_encode(["success" => true, "message" => "Atualização realizada com sucesso", "redirect" => $redirectUrl]);
         } else {
             echo json_encode(["success" => false, "message" => "Problemas ao alterar o responsável."]);
         }
