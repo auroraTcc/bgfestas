@@ -164,7 +164,7 @@
                     e.stopPropagation(); 
                     const phone = button.getAttribute('data-telefone');
                     if (phone) {
-                        const whatsappLink = `https://api.whatsapp.com/send?phone=${phone}&text=Olá! Sou da BGFESTAS. Recentemente você fez um pedido conosco e gostaria de falar contigo.`;
+                        const whatsappLink = `https://api.whatsapp.com/send?phone=+55${phone}&text=Olá! Sou da BGFESTAS. Recentemente você fez um pedido conosco e gostaria de falar contigo.`;
                         window.open(whatsappLink, '_blank'); 
                     }
                 });
